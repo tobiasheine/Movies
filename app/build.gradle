@@ -12,11 +12,22 @@ android {
         versionName "1.0"
     }
     buildTypes {
+
+        applicationVariants.all { variant ->
+            variant.buildConfigField "String", "API_KEY", "\"" + getApiKey() + "\""
+        }
+
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+}
+
+def getApiKey() {
+    def Properties props = new Properties()
+    props.load(new FileInputStream(new File('secrets.properties')))
+    return props['API_KEY']
 }
 
 dependencies {
