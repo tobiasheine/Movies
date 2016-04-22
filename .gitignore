@@ -31,3 +31,6 @@ local.properties
 
 # OSX
 *.DS_Store
+
+# Secrets
+secrets.properties
