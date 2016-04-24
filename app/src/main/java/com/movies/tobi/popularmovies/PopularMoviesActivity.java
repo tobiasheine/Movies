@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -19,6 +20,7 @@ import rx.Subscriber;
 
 public class PopularMoviesActivity extends AppCompatActivity {
 
+    private static final String TAG = PopularMoviesActivity.class.getSimpleName();
     private static final int POSTER_COL_COUNT = 3;
 
     @Bind(R.id.popularMovies_recycler)
@@ -43,7 +45,7 @@ public class PopularMoviesActivity extends AppCompatActivity {
 
             @Override
             public void onError(Throwable e) {
-
+                Log.e(TAG, "Error loading movie posters", e);
             }
 
             @Override
