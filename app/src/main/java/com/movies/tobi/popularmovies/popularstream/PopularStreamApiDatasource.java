@@ -31,11 +31,11 @@ public class PopularStreamApiDatasource {
 
     public Observable<List<ApiMoviePoster>> getPopularPosters() {
         return backend.popularStream(BuildConfig.API_KEY)
-                .map(tApioMoviePosters());
+                .map(tApiMoviePosters());
     }
 
     @NonNull
-    private Func1<ApiPopularMoviesResponse, List<ApiMoviePoster>> tApioMoviePosters() {
+    private Func1<ApiPopularMoviesResponse, List<ApiMoviePoster>> tApiMoviePosters() {
         return new Func1<ApiPopularMoviesResponse, List<ApiMoviePoster>>() {
             @Override
             public List<ApiMoviePoster> call(ApiPopularMoviesResponse apiPopularMoviesResponse) {
