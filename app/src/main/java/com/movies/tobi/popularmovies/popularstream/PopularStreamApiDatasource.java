@@ -1,6 +1,7 @@
 package com.movies.tobi.popularmovies.popularstream;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.VisibleForTesting;
 
 import com.movies.tobi.popularmovies.BuildConfig;
 import com.movies.tobi.popularmovies.backend.Backend;
@@ -17,6 +18,7 @@ public class PopularStreamApiDatasource {
 
     private final Backend backend;
 
+    @VisibleForTesting
     PopularStreamApiDatasource(Backend backend) {
         this.backend = backend;
     }
