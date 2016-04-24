@@ -1,4 +1,4 @@
-package com.movies.tobi.popularmovies;
+package com.movies.tobi.popularmovies.popularstream;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.movies.tobi.popularmovies.popularstream.MoviePoster;
+import com.movies.tobi.popularmovies.R;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.movies.tobi.popularmovies;
+package com.movies.tobi.popularmovies.popularstream;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,9 +8,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.movies.tobi.popularmovies.popularstream.MoviePoster;
-import com.movies.tobi.popularmovies.popularstream.PopularStreamApiDatasource;
-import com.movies.tobi.popularmovies.popularstream.PopularStreamRepository;
+import com.movies.tobi.popularmovies.R;
 
 import java.util.List;
 
