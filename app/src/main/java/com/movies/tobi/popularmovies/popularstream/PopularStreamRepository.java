@@ -13,6 +13,8 @@ import rx.schedulers.Schedulers;
 
 public class PopularStreamRepository {
 
+    private static final String IMAGE_BASE_URL = "http://image.tmdb.org/t/p/w500/";
+
     private final PopularStreamApiDatasource popularStreamApiDatasource;
     private final Scheduler scheduler;
 
@@ -49,7 +51,8 @@ public class PopularStreamRepository {
     }
 
     private MoviePoster toMoviePoster(ApiMoviePoster apiMoviePoster) {
-        return new MoviePoster(apiMoviePoster.movieId, apiMoviePoster.posterPath);
+        String imageUrl = IMAGE_BASE_URL + apiMoviePoster.posterPath.substring(1, apiMoviePoster.posterPath.length());
+        return new MoviePoster(apiMoviePoster.movieId, imageUrl);
     }
 
 }

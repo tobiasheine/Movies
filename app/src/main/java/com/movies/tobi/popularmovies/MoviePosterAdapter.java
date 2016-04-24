@@ -4,8 +4,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.movies.tobi.popularmovies.popularstream.MoviePoster;
 
 import java.util.List;
@@ -30,7 +31,15 @@ public class MoviePosterAdapter extends RecyclerView.Adapter<MoviePosterAdapter.
     @Override
     public void onBindViewHolder(MoviePosterViewHolder holder, int position) {
         MoviePoster moviePoster = moviePosters.get(position);
-        holder.posterUrl.setText(moviePoster.getPosterPath());
+
+        ImageView posterImage = holder.posterImage;
+        Glide
+                .with(posterImage.getContext())
+                .load(moviePoster.getPosterPath())
+                .centerCrop()
+                .crossFade()
+                .into(posterImage);
+
     }
 
     @Override
@@ -40,8 +49,8 @@ public class MoviePosterAdapter extends RecyclerView.Adapter<MoviePosterAdapter.
 
     public static class MoviePosterViewHolder extends RecyclerView.ViewHolder {
 
-        @Bind(R.id.posterUrl)
-        TextView posterUrl;
+        @Bind(R.id.posterImage)
+        ImageView posterImage;
 
         public MoviePosterViewHolder(View itemView) {
             super(itemView);
