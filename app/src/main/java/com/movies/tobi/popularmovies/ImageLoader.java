@@ -1,4 +1,4 @@
-package com.movies.tobi.popularmovies.popularstream;
+package com.movies.tobi.popularmovies;
 
 import android.net.Uri;
 import android.widget.ImageView;

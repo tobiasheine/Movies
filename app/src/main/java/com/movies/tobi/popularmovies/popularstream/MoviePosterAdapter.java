@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.movies.tobi.popularmovies.ImageLoader;
 import com.movies.tobi.popularmovies.R;
 
 import java.util.List;
