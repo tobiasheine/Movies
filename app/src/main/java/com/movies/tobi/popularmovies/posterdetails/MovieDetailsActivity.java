@@ -3,8 +3,17 @@ package com.movies.tobi.popularmovies.posterdetails;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.movies.tobi.popularmovies.ImageLoader;
+import com.movies.tobi.popularmovies.R;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 public class MovieDetailsActivity extends Activity implements MovieDetailsMVP.View {
 
@@ -17,18 +26,33 @@ public class MovieDetailsActivity extends Activity implements MovieDetailsMVP.Vi
         return intent;
     }
 
+    @Bind(R.id.movieTitle)
+    TextView movieTitle;
+
+    @Bind(R.id.posterImage)
+    ImageView moviePoster;
+
+    @Bind(R.id.movieOverview)
+    TextView movieOverview;
+
     private MovieDetailsPresenter presenter;
+    private ImageLoader imageLoader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_movie_details);
+        ButterKnife.bind(this);
 
+        imageLoader = new ImageLoader();
         presenter = new MovieDetailsPresenter(this, getMovieId());
     }
 
     @Override
     public void display(MovieDetailsMVP.Model model) {
-        Toast.makeText(this, model.getOverview(), Toast.LENGTH_LONG).show();
+        movieTitle.setText(model.getOriginalTitle());
+        movieOverview.setText(model.getOverview());
+        imageLoader.loadWebImageInto(Uri.parse(model.getPosterPath()), moviePoster);
     }
 
     @Override
