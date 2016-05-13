@@ -10,7 +10,6 @@ public class ImageLoader {
         Glide
                 .with(imageView.getContext())
                 .load(imageUrl)
-                .centerCrop()
                 .crossFade()
                 .into(imageView);
     }
