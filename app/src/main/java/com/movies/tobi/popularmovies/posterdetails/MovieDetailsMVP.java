@@ -17,7 +17,6 @@ public interface MovieDetailsMVP {
         void startPresenting();
 
         void stopPresenting();
-
     }
 
     interface View {

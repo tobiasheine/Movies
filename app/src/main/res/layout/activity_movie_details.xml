@@ -5,7 +5,7 @@
 
   <LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <TextView
@@ -13,12 +13,12 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:textStyle="bold"
-      android:textSize="20sp"
+      android:textSize="@dimen/movieDetails_titleTextSize"
       android:gravity="center"/>
 
     <ImageView
       android:id="@+id/posterImage"
-      android:layout_width="200dp"
+      android:layout_width="@dimen/movieDetails_posterWidth"
       android:layout_gravity="center"
       android:layout_height="wrap_content" />
 
@@ -26,7 +26,7 @@
       android:id="@+id/movieOverview"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_margin="5dp"/>
+      android:layout_margin="@dimen/movieDetails_overviewMargin"/>
 
   </LinearLayout>
 

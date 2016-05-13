@@ -40,41 +40,13 @@ public class MovieDetails implements MovieDetailsMVP.Model {
         return posterPath;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        MovieDetails that = (MovieDetails) o;
-
-        return movieId == that.movieId
-                && posterPath != null ? posterPath.equals(that.posterPath) : that.posterPath == null
-                && originalTitle != null ? originalTitle.equals(that.originalTitle) : that.originalTitle == null
-                && overview != null ? overview.equals(that.overview) : that.overview == null
-                && release_date != null ? release_date.equals(that.release_date) : that.release_date == null;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = (int) (movieId ^ (movieId >>> 32));
-        result = 31 * result + (posterPath != null ? posterPath.hashCode() : 0);
-        result = 31 * result + (originalTitle != null ? originalTitle.hashCode() : 0);
-        result = 31 * result + (overview != null ? overview.hashCode() : 0);
-        result = 31 * result + (release_date != null ? release_date.hashCode() : 0);
-        return result;
-    }
-
     public static class MovieDetailsBuilder {
+
         private long movieId;
         private String posterPath;
         private String originalTitle;
         private String overview;
         private String releaseDate;
-
         public MovieDetailsBuilder setMovieId(long movieId) {
             this.movieId = movieId;
             return this;
@@ -103,5 +75,34 @@ public class MovieDetails implements MovieDetailsMVP.Model {
         public MovieDetails createMovieDetails() {
             return new MovieDetails(movieId, posterPath, originalTitle, overview, releaseDate);
         }
+
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        MovieDetails that = (MovieDetails) o;
+
+        return movieId == that.movieId
+                && posterPath != null ? posterPath.equals(that.posterPath) : that.posterPath == null
+                && originalTitle != null ? originalTitle.equals(that.originalTitle) : that.originalTitle == null
+                && overview != null ? overview.equals(that.overview) : that.overview == null
+                && release_date != null ? release_date.equals(that.release_date) : that.release_date == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (int) (movieId ^ (movieId >>> 32));
+        result = 31 * result + (posterPath != null ? posterPath.hashCode() : 0);
+        result = 31 * result + (originalTitle != null ? originalTitle.hashCode() : 0);
+        result = 31 * result + (overview != null ? overview.hashCode() : 0);
+        result = 31 * result + (release_date != null ? release_date.hashCode() : 0);
+        return result;
     }
 }

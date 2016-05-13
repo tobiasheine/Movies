@@ -4,11 +4,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
 
 import com.movies.tobi.popularmovies.Converter;
-import com.movies.tobi.popularmovies.backend.Backend;
 
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
 import rx.Observable;
 import rx.Scheduler;
 import rx.android.schedulers.AndroidSchedulers;
@@ -35,11 +31,7 @@ public class MovieDetailsRepository {
 
     public MovieDetailsRepository() {
         this(
-                new MovieDetailsApiDatasource(new Retrofit.Builder()
-                                                      .baseUrl(Backend.SERVICE_ENDPOINT)
-                                                      .addConverterFactory(GsonConverterFactory.create())
-                                                      .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                                                      .build().create(Backend.class)),
+                new MovieDetailsApiDatasource(),
                 new ApiMovieDetailsConverter(),
                 Schedulers.io(),
                 AndroidSchedulers.mainThread()
