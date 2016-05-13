@@ -7,27 +7,46 @@ import com.movies.tobi.popularmovies.Converter;
 
 import java.util.List;
 
+import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnit;
+import org.mockito.junit.MockitoRule;
 
 import rx.Observable;
 import rx.observers.TestSubscriber;
 import rx.schedulers.Schedulers;
 
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class PopularStreamRepositoryTest {
 
-    private PopularStreamApiDatasource apiDataSource = mock(PopularStreamApiDatasource.class);
-    private Converter<ApiMoviePoster, MoviePoster> posterConverter = mock(Converter.class);
-
-    private final PopularStreamRepository streamRepository = new PopularStreamRepository(apiDataSource, Schedulers.immediate(), Schedulers.immediate(),
-                                                                                         posterConverter
-    );
     public static final long FIRST_MOVIE_ID = 1L;
     public static final long SECOND_MOVIE_ID = 2L;
     public static final String FIRST_POSTER_PATH = "first path";
     public static final String SECOND_POSTER_PATH = "second path";
+
+    @Rule
+    public MockitoRule rule = MockitoJUnit.rule();
+
+    @Mock
+    private PopularStreamApiDatasource apiDataSource;
+
+    @Mock
+    private Converter<ApiMoviePoster, MoviePoster> posterConverter;
+
+    private PopularStreamRepository streamRepository;
+
+    @Before
+    public void setUp() throws Exception {
+        streamRepository = new PopularStreamRepository(
+                apiDataSource,
+                Schedulers.immediate(),
+                Schedulers.immediate(),
+                posterConverter
+        );
+    }
 
     @Test
     public void shouldReturnMoviePosters() throws Exception {

@@ -4,11 +4,11 @@ import com.google.gson.annotations.SerializedName;
 
 public class ApiMoviePoster {
 
-    @SerializedName("poster_path")
-    String posterPath;
-
     @SerializedName("id")
     long movieId;
+
+    @SerializedName("poster_path")
+    String posterPath;
 
     @Override
     public boolean equals(Object o) {

@@ -1,5 +1,6 @@
 package com.movies.tobi.popularmovies.popularstream;
 
+import com.movies.tobi.popularmovies.BuildConfig;
 import com.movies.tobi.popularmovies.backend.Backend;
 
 import java.util.List;
@@ -15,7 +16,6 @@ import rx.Observable;
 import rx.observers.TestSubscriber;
 
 import static java.util.Arrays.asList;
-import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.when;
 
 public class PopularStreamApiDatasourceTest {
@@ -61,7 +61,7 @@ public class PopularStreamApiDatasourceTest {
         ApiPopularMoviesResponse apiResponse = new ApiPopularMoviesResponse();
         apiResponse.results = posters;
 
-        when(backend.popularStream(anyString())).thenReturn(Observable.just(apiResponse));
+        when(backend.popularStream(BuildConfig.API_KEY)).thenReturn(Observable.just(apiResponse));
     }
 }
 
