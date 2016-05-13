@@ -2,15 +2,15 @@ package com.movies.tobi.popularmovies.posterdetails;
 
 public class MovieDetails implements MovieDetailsMVP.Model {
 
-    public final long movieId;
+    private final long movieId;
 
-    public final String posterPath;
+    private final String posterPath;
 
-    public final String originalTitle;
+    private final String originalTitle;
 
-    public final String overview;
+    private final String overview;
 
-    public final String release_date;
+    private final String release_date;
 
     private MovieDetails(long movieId, String posterPath, String originalTitle, String overview, String release_date) {
         this.movieId = movieId;
@@ -18,6 +18,26 @@ public class MovieDetails implements MovieDetailsMVP.Model {
         this.originalTitle = originalTitle;
         this.overview = overview;
         this.release_date = release_date;
+    }
+
+    @Override
+    public String getOverview() {
+        return overview;
+    }
+
+    @Override
+    public long getMovieId() {
+        return movieId;
+    }
+
+    @Override
+    public String getOriginalTitle() {
+        return originalTitle;
+    }
+
+    @Override
+    public String getPosterPath() {
+        return posterPath;
     }
 
     @Override

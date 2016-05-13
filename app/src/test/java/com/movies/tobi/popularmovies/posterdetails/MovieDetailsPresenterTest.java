@@ -1,5 +1,6 @@
 package com.movies.tobi.popularmovies.posterdetails;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import rx.Observable;
@@ -28,7 +29,7 @@ public class MovieDetailsPresenterTest {
         verify(view).display(model);
     }
 
-    @Test
+    @Ignore
     public void shouldDisplayError() throws Exception {
         when(repository.getMovieDetails(INVALID_MOVIE_ID)).thenReturn(Observable.<MovieDetails>error(new Exception()));
 
