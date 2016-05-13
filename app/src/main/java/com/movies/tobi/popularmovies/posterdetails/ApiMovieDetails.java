@@ -17,5 +17,5 @@ public class ApiMovieDetails {
     String overview;
 
     @SerializedName("release_date")
-    String release_date;
+    String releaseDate;
 }
