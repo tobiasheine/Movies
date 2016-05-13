@@ -2,6 +2,8 @@ package com.movies.tobi.popularmovies.popularstream;
 
 import android.support.annotation.NonNull;
 
+import com.movies.tobi.popularmovies.Converter;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,25 +15,28 @@ import rx.schedulers.Schedulers;
 
 public class PopularStreamRepository {
 
-    private static final String IMAGE_BASE_URL = "http://image.tmdb.org/t/p/w500/";
-
     private final PopularStreamApiDatasource popularStreamApiDatasource;
-    private final Scheduler scheduler;
+    private final Scheduler subscribeScheduler;
+    private final Scheduler observeScheduler;
+    private final Converter<ApiMoviePoster, MoviePoster> posterConverter;
 
-    PopularStreamRepository(PopularStreamApiDatasource popularStreamApiDatasource, Scheduler scheduler) {
+    PopularStreamRepository(PopularStreamApiDatasource popularStreamApiDatasource, Scheduler subscribeScheduler, Scheduler observeScheduler,
+                            Converter<ApiMoviePoster, MoviePoster> posterConverter) {
         this.popularStreamApiDatasource = popularStreamApiDatasource;
-        this.scheduler = scheduler;
+        this.subscribeScheduler = subscribeScheduler;
+        this.observeScheduler = observeScheduler;
+        this.posterConverter = posterConverter;
     }
 
     public PopularStreamRepository(PopularStreamApiDatasource popularStreamApiDatasource) {
-        this(popularStreamApiDatasource, Schedulers.io());
+        this(popularStreamApiDatasource, Schedulers.io(), AndroidSchedulers.mainThread(), new ApiMoviePosterConverter());
     }
 
     public Observable<List<MoviePoster>> getPopularPosters() {
         return popularStreamApiDatasource.getPopularPosters()
                 .map(toMoviePosters())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(scheduler);
+                .observeOn(observeScheduler)
+                .subscribeOn(subscribeScheduler);
     }
 
     @NonNull
@@ -51,8 +56,7 @@ public class PopularStreamRepository {
     }
 
     private MoviePoster toMoviePoster(ApiMoviePoster apiMoviePoster) {
-        String imageUrl = IMAGE_BASE_URL + apiMoviePoster.posterPath.substring(1, apiMoviePoster.posterPath.length());
-        return new MoviePoster(apiMoviePoster.movieId, imageUrl);
+        return posterConverter.convert(apiMoviePoster);
     }
 
 }
