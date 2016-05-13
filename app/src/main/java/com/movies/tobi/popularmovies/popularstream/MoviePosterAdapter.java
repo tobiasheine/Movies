@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.movies.tobi.popularmovies.ImageLoader;
+import com.movies.tobi.popularmovies.Navigator;
 import com.movies.tobi.popularmovies.R;
 
 import java.util.List;
@@ -20,15 +21,17 @@ public class MoviePosterAdapter extends RecyclerView.Adapter<MoviePosterAdapter.
 
     private final List<MoviePoster> moviePosters;
     private final ImageLoader imageLoader;
+    private final Navigator navigator;
 
     @VisibleForTesting
-    MoviePosterAdapter(List<MoviePoster> moviePosters, ImageLoader imageLoader) {
+    MoviePosterAdapter(List<MoviePoster> moviePosters, ImageLoader imageLoader, Navigator navigator) {
         this.moviePosters = moviePosters;
         this.imageLoader = imageLoader;
+        this.navigator = navigator;
     }
 
-    public MoviePosterAdapter(List<MoviePoster> moviePosters) {
-        this(moviePosters, new ImageLoader());
+    public MoviePosterAdapter(List<MoviePoster> moviePosters, Navigator navigator) {
+        this(moviePosters, new ImageLoader(), navigator);
     }
 
     @Override
@@ -39,9 +42,15 @@ public class MoviePosterAdapter extends RecyclerView.Adapter<MoviePosterAdapter.
 
     @Override
     public void onBindViewHolder(MoviePosterViewHolder holder, int position) {
-        MoviePoster moviePoster = moviePosters.get(position);
+        final MoviePoster moviePoster = moviePosters.get(position);
         String posterPath = moviePoster.getPosterPath();
         imageLoader.loadWebImageInto(Uri.parse(posterPath), holder.posterImage);
+        holder.posterImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigator.toMovieDetails(moviePoster.getMovieId());
+            }
+        });
     }
 
     @Override

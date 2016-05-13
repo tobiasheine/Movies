@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.movies.tobi.popularmovies.Navigator;
 import com.movies.tobi.popularmovies.R;
 
 import java.util.List;
@@ -24,8 +25,6 @@ public class PopularMoviesActivity extends AppCompatActivity {
     @Bind(R.id.popularMovies_recycler)
     RecyclerView popularMoviesRecycler;
 
-    private PopularStreamRepository popularStreamRepository = new PopularStreamRepository(new PopularStreamApiDatasource());
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,7 +34,9 @@ public class PopularMoviesActivity extends AppCompatActivity {
         popularMoviesRecycler.setLayoutManager(new GridLayoutManager(this, POSTER_COL_COUNT));
         popularMoviesRecycler.setHasFixedSize(true);
 
-        popularStreamRepository.getPopularPosters().subscribe(new Subscriber<List<MoviePoster>>() {
+        final Navigator navigator = new Navigator(this);
+
+        new PopularStreamRepository(new PopularStreamApiDatasource()).getPopularPosters().subscribe(new Subscriber<List<MoviePoster>>() {
             @Override
             public void onCompleted() {
 
@@ -48,7 +49,7 @@ public class PopularMoviesActivity extends AppCompatActivity {
 
             @Override
             public void onNext(List<MoviePoster> moviePosters) {
-                popularMoviesRecycler.setAdapter(new MoviePosterAdapter(moviePosters));
+                popularMoviesRecycler.setAdapter(new MoviePosterAdapter(moviePosters, navigator));
             }
         });
 

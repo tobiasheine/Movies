@@ -1,6 +1,7 @@
 package com.movies.tobi.popularmovies.posterdetails;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
@@ -9,7 +10,7 @@ public class MovieDetailsActivity extends Activity implements MovieDetailsMVP.Vi
 
     private static final String EXTRA_MOVIE_ID = "extra_movie_id";
 
-    public static Intent createIntentFor(long movieId, Activity activity) {
+    public static Intent createIntentFor(long movieId, Context activity) {
         Intent intent = new Intent(activity, MovieDetailsActivity.class);
         intent.putExtra(EXTRA_MOVIE_ID, movieId);
 

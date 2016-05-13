@@ -15,6 +15,6 @@ public interface Backend {
     @GET("/3/movie/popular")
     Observable<ApiPopularMoviesResponse> popularStream(@Query("api_key") String apiKey);
 
-    @GET("/3/movie")
+    @GET("/3/movie/{id}")
     Observable<ApiMovieDetails> movieDetails(@Path("id") long movieId, @Query("api_key") String apiKey);
 }
