@@ -15,5 +15,7 @@ public interface MovieDetailsMVP {
 
     interface View {
         void display(Model model);
+
+        void showError();
     }
 }
