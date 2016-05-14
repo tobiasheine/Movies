@@ -1,10 +1,13 @@
 package com.movies.tobi.popularmovies.posterdetails;
 
 import android.content.Intent;
+import android.support.test.InstrumentationRegistry;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
-import org.junit.Rule;
+import com.movies.tobi.popularmovies.EspressoDependencies;
+import com.movies.tobi.popularmovies.MovieApplication;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -16,11 +19,11 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 @RunWith(AndroidJUnit4.class)
 public class MovieDetailsActivityTest {
 
-    @Rule
     public ActivityTestRule<MovieDetailsActivity> rule = new ActivityTestRule<MovieDetailsActivity>(MovieDetailsActivity.class) {
         @Override
         protected void beforeActivityLaunched() {
-            //TODO: replace backend with mocked backend
+            MovieApplication movieApplication = (MovieApplication) InstrumentationRegistry.getTargetContext().getApplicationContext();
+            movieApplication.setDependencies(new EspressoDependencies());
         }
     };
 
