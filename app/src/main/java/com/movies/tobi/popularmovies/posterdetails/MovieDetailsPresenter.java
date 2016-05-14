@@ -1,39 +1,37 @@
 package com.movies.tobi.popularmovies.posterdetails;
 
 import android.support.annotation.NonNull;
-import android.support.annotation.VisibleForTesting;
+import android.support.annotation.Nullable;
 
 import rx.Subscriber;
 
 public class MovieDetailsPresenter implements MovieDetailsMVP.Presenter {
 
     private final MovieDetailsRepository repository;
-    private final MovieDetailsMVP.View view;
-    private final long movieId;
 
-    private final Subscriber<MovieDetails> subscriber;
+    @Nullable
+    private MovieDetailsMVP.View view;
 
-    @VisibleForTesting
-    MovieDetailsPresenter(MovieDetailsRepository repository, MovieDetailsMVP.View view, long movieId) {
+    @Nullable
+    private Subscriber<MovieDetails> subscriber;
+
+    public MovieDetailsPresenter(MovieDetailsRepository repository) {
         this.repository = repository;
-        this.view = view;
-        this.movieId = movieId;
-
-        subscriber = createSubscriber();
-    }
-
-    public MovieDetailsPresenter(MovieDetailsMVP.View view, long movieId) {
-        this(new MovieDetailsRepository(), view, movieId);
     }
 
     @Override
-    public void startPresenting() {
+    public void startPresenting(MovieDetailsMVP.View movieDetailsView, long movieId) {
+        this.view = movieDetailsView;
+        subscriber = createSubscriber();
         repository.getMovieDetails(movieId).subscribe(subscriber);
     }
 
     @Override
     public void stopPresenting() {
-        subscriber.unsubscribe();
+        if (subscriber != null) {
+            subscriber.unsubscribe();
+        }
+        view = null;
     }
 
     @NonNull
@@ -46,12 +44,16 @@ public class MovieDetailsPresenter implements MovieDetailsMVP.Presenter {
 
             @Override
             public void onError(Throwable e) {
-                MovieDetailsPresenter.this.view.showError();
+                if (MovieDetailsPresenter.this.view != null) {
+                    MovieDetailsPresenter.this.view.showError();
+                }
             }
 
             @Override
             public void onNext(MovieDetails movieDetails) {
-                MovieDetailsPresenter.this.view.display(movieDetails);
+                if (MovieDetailsPresenter.this.view != null) {
+                    MovieDetailsPresenter.this.view.display(movieDetails);
+                }
             }
         };
     }

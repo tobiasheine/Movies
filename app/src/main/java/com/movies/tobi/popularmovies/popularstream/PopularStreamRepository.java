@@ -9,9 +9,7 @@ import java.util.List;
 
 import rx.Observable;
 import rx.Scheduler;
-import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Func1;
-import rx.schedulers.Schedulers;
 
 public class PopularStreamRepository {
 
@@ -20,16 +18,12 @@ public class PopularStreamRepository {
     private final Scheduler observeScheduler;
     private final Converter<ApiMoviePoster, MoviePoster> posterConverter;
 
-    PopularStreamRepository(PopularStreamApiDatasource popularStreamApiDatasource, Scheduler subscribeScheduler, Scheduler observeScheduler,
+    public PopularStreamRepository(PopularStreamApiDatasource popularStreamApiDatasource, Scheduler subscribeScheduler, Scheduler observeScheduler,
                             Converter<ApiMoviePoster, MoviePoster> posterConverter) {
         this.popularStreamApiDatasource = popularStreamApiDatasource;
         this.subscribeScheduler = subscribeScheduler;
         this.observeScheduler = observeScheduler;
         this.posterConverter = posterConverter;
-    }
-
-    public PopularStreamRepository(PopularStreamApiDatasource popularStreamApiDatasource) {
-        this(popularStreamApiDatasource, Schedulers.io(), AndroidSchedulers.mainThread(), new ApiMoviePosterConverter());
     }
 
     public Observable<List<MoviePoster>> getPopularPosters() {

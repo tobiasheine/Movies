@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.movies.tobi.popularmovies.ImageLoader;
+import com.movies.tobi.popularmovies.MovieApplication;
 import com.movies.tobi.popularmovies.R;
 
 import butterknife.Bind;
@@ -54,7 +55,9 @@ public class MovieDetailsActivity extends Activity implements MovieDetailsMVP.Vi
         ButterKnife.bind(this);
 
         imageLoader = new ImageLoader();
-        presenter = new MovieDetailsPresenter(this, getMovieId());
+
+        MovieApplication movieApplication = (MovieApplication) getApplicationContext();
+        presenter = movieApplication.movieDetailsPresenter();
     }
 
     @Override
@@ -67,7 +70,7 @@ public class MovieDetailsActivity extends Activity implements MovieDetailsMVP.Vi
     @Override
     protected void onStart() {
         super.onStart();
-        presenter.startPresenting();
+        presenter.startPresenting(this, getMovieId());
     }
 
     @Override

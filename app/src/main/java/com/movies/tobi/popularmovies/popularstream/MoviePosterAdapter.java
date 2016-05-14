@@ -23,15 +23,10 @@ public class MoviePosterAdapter extends RecyclerView.Adapter<MoviePosterAdapter.
     private final ImageLoader imageLoader;
     private final Navigator navigator;
 
-    @VisibleForTesting
-    MoviePosterAdapter(List<MoviePoster> moviePosters, ImageLoader imageLoader, Navigator navigator) {
+    public MoviePosterAdapter(List<MoviePoster> moviePosters, ImageLoader imageLoader, Navigator navigator) {
         this.moviePosters = moviePosters;
         this.imageLoader = imageLoader;
         this.navigator = navigator;
-    }
-
-    public MoviePosterAdapter(List<MoviePoster> moviePosters, Navigator navigator) {
-        this(moviePosters, new ImageLoader(), navigator);
     }
 
     @Override

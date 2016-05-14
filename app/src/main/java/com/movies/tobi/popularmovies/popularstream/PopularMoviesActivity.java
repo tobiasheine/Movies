@@ -6,6 +6,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
+import com.movies.tobi.popularmovies.MovieApplication;
 import com.movies.tobi.popularmovies.Navigator;
 import com.movies.tobi.popularmovies.R;
 
@@ -33,8 +34,8 @@ public class PopularMoviesActivity extends AppCompatActivity {
         popularMoviesRecycler.setHasFixedSize(true);
 
         final Navigator navigator = new Navigator(this);
-
-        new PopularStreamRepository(new PopularStreamApiDatasource()).getPopularPosters().subscribe(new Subscriber<List<MoviePoster>>() {
+        final MovieApplication movieApplication = (MovieApplication) getApplicationContext();
+        movieApplication.streamRepository().getPopularPosters().subscribe(new Subscriber<List<MoviePoster>>() {
             @Override
             public void onCompleted() {
 
@@ -47,7 +48,7 @@ public class PopularMoviesActivity extends AppCompatActivity {
 
             @Override
             public void onNext(List<MoviePoster> moviePosters) {
-                popularMoviesRecycler.setAdapter(new MoviePosterAdapter(moviePosters, navigator));
+                popularMoviesRecycler.setAdapter(new MoviePosterAdapter(moviePosters, movieApplication.imageLoader(), navigator));
             }
         });
 

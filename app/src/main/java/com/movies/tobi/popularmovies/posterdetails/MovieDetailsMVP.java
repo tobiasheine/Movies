@@ -14,7 +14,7 @@ public interface MovieDetailsMVP {
     }
 
     interface Presenter {
-        void startPresenting();
+        void startPresenting(View movieDetailsView, long movieId);
 
         void stopPresenting();
     }
