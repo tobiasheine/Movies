@@ -1,5 +1,6 @@
 package com.movies.tobi.popularmovies.posterdetails;
 
+import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
 
@@ -33,7 +34,8 @@ public class MovieDetailsRepository {
         this(
                 new MovieDetailsApiDatasource(),
                 new ApiMovieDetailsConverter(),
-                Schedulers.io(),
+                //TODO: replace with Schedulers.io() in production
+                Schedulers.from(AsyncTask.THREAD_POOL_EXECUTOR),
                 AndroidSchedulers.mainThread()
         );
     }
