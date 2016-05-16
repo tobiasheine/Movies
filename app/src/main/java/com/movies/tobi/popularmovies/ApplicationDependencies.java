@@ -24,8 +24,6 @@ public class ApplicationDependencies implements Dependencies {
 
     private ImageLoader imageLoader;
     private Backend backend;
-    private Scheduler subscribeScheduler;
-    private Scheduler observeScheduler;
     private PopularStreamRepository streamRepository;
     private MovieDetailsPresenter movieDetailsPresenter;
 
@@ -80,14 +78,6 @@ public class ApplicationDependencies implements Dependencies {
         return AndroidSchedulers.mainThread();
     }
 
-    private Backend backend() {
-        if (backend == null) {
-            backend = createBackend();
-        }
-
-        return backend;
-    }
-
     protected Backend createBackend() {
         return new Retrofit.Builder()
                 .baseUrl(Backend.SERVICE_ENDPOINT)
@@ -99,8 +89,8 @@ public class ApplicationDependencies implements Dependencies {
     private PopularStreamRepository createStreamRepository() {
         return new PopularStreamRepository(
                 createStreamApiDataSource(),
-                subscribeScheduler(),
-                observeScheduler(),
+                createSubscribeScheduler(),
+                createObserveScheduler(),
                 createPosterConverter()
         );
     }
@@ -121,19 +111,12 @@ public class ApplicationDependencies implements Dependencies {
         return new MovieDetailsApiDatasource(backend());
     }
 
-    private Scheduler observeScheduler() {
-        if (observeScheduler == null) {
-            observeScheduler = createObserveScheduler();
+    private Backend backend() {
+        if (backend == null) {
+            backend = createBackend();
         }
 
-        return observeScheduler;
+        return backend;
     }
 
-    private Scheduler subscribeScheduler() {
-        if (subscribeScheduler == null) {
-            subscribeScheduler = createSubscribeScheduler();
-        }
-
-        return subscribeScheduler;
-    }
 }
