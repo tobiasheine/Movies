@@ -5,17 +5,17 @@ import com.google.gson.annotations.SerializedName;
 public class ApiMovieDetails {
 
     @SerializedName("id")
-    long movieId;
+    public long movieId;
 
     @SerializedName("poster_path")
-    String posterPath;
+    public String posterPath;
 
     @SerializedName("original_title")
-    String originalTitle;
+    public String originalTitle;
 
     @SerializedName("overview")
-    String overview;
+    public String overview;
 
     @SerializedName("release_date")
-    String releaseDate;
+    public String releaseDate;
 }

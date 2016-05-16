@@ -42,6 +42,7 @@ public class MovieDetailsActivityTest {
         rule.launchActivity(intent);
 
         onView(withText(movieTitle)).check(matches(isDisplayed()));
+        onView(withText(movieDescription)).check(matches(isDisplayed()));
     }
 
     private void givenBackendReturnsMovieDetails(long movieId, String movieTitle, String movieOverview, String posterPath) {
