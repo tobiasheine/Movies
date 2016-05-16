@@ -24,9 +24,12 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 @RunWith(AndroidJUnit4.class)
 public class PopularMoviesActivityTest {
 
-    private FakeBackend backend = new FakeBackend();
+    private static final long MOVIE_ID = 293660L;
+    private static final String POSTER_PATH = "/deadpool.jpg";
+    private static final String MOVIE_TITLE = "Deadpool";
+    private static final String MOVIE_DESCRIPTION = "Awesome movie";
 
-    public ActivityTestRule<PopularMoviesActivity> rule = new ActivityTestRule<PopularMoviesActivity>(PopularMoviesActivity.class) {
+    private final ActivityTestRule<PopularMoviesActivity> rule = new ActivityTestRule<PopularMoviesActivity>(PopularMoviesActivity.class) {
         @Override
         protected void beforeActivityLaunched() {
             MovieApplication movieApplication = (MovieApplication) InstrumentationRegistry.getTargetContext().getApplicationContext();
@@ -34,28 +37,25 @@ public class PopularMoviesActivityTest {
         }
     };
 
+    private final FakeBackend backend = new FakeBackend();
+
     @Test
     public void shouldNavigateToMovieDetails() throws Exception {
-        long movieId = 293660L;
-        String posterPath = "/deadpool.jpg";
-        String movieTitle = "Deadpool";
-        String movieDescription = "Awesome movie";
-        givenAddedStreamToBackend(movieId, posterPath);
-        givenBackendReturnsMovieDetails(movieId, movieTitle, movieDescription, posterPath);
+        givenBackendReturnsPopularStreamWith(MOVIE_ID, POSTER_PATH);
+        givenBackendReturnsMovieDetails(MOVIE_ID, MOVIE_TITLE, MOVIE_DESCRIPTION, POSTER_PATH);
         rule.launchActivity(null);
 
         onView(withId(R.id.popularMovies_recycler))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
 
-        onView(withText(movieTitle)).check(matches(isDisplayed()));
-        onView(withText(movieDescription)).check(matches(isDisplayed()));
+        onView(withText(MOVIE_TITLE)).check(matches(isDisplayed()));
+        onView(withText(MOVIE_DESCRIPTION)).check(matches(isDisplayed()));
     }
 
-    private void givenAddedStreamToBackend(long movieId, String posterPath) {
+    private void givenBackendReturnsPopularStreamWith(long movieId, String posterPath) {
         ApiMoviePoster poster = new ApiMoviePoster();
         poster.movieId = movieId;
         poster.posterPath = posterPath;
-
         backend.addToPopularStream(poster);
     }
 
