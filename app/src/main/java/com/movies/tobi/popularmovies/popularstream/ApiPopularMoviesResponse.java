@@ -6,9 +6,6 @@ import java.util.List;
 
 public class ApiPopularMoviesResponse {
 
-    @SerializedName("page")
-    long page;
-
     @SerializedName("results")
     List<ApiMoviePoster> results;
 }
