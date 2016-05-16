@@ -3,6 +3,9 @@ package com.movies.tobi.popularmovies;
 import android.os.AsyncTask;
 
 import com.movies.tobi.popularmovies.backend.Backend;
+import com.movies.tobi.popularmovies.popularstream.ApiMoviePoster;
+import com.movies.tobi.popularmovies.popularstream.ApiMoviePosterAssetConverter;
+import com.movies.tobi.popularmovies.popularstream.MoviePoster;
 import com.movies.tobi.popularmovies.posterdetails.ApiMovieDetails;
 import com.movies.tobi.popularmovies.posterdetails.ApiMovieDetailsAssetConverter;
 import com.movies.tobi.popularmovies.posterdetails.MovieDetails;
@@ -17,6 +20,11 @@ public class EspressoDependencies extends ApplicationDependencies {
     @Override
     protected Converter<ApiMovieDetails, MovieDetails> createMovieDetailsConverter() {
         return new ApiMovieDetailsAssetConverter();
+    }
+
+    @Override
+    protected Converter<ApiMoviePoster, MoviePoster> createPosterConverter() {
+        return new ApiMoviePosterAssetConverter();
     }
 
     public EspressoDependencies(Backend backend) {
