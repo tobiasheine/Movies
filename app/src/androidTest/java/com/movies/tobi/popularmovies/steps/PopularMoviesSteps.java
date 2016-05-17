@@ -1,4 +1,4 @@
-package com.movies.tobi.popularmovies.test.steps;
+package com.movies.tobi.popularmovies.steps;
 
 import android.util.Log;
 
