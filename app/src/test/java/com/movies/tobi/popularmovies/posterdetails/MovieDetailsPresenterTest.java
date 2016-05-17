@@ -24,7 +24,7 @@ public class MovieDetailsPresenterTest {
         MovieDetails model = mock(MovieDetails.class);
         when(repository.getMovieDetails(VALID_MOVIE_ID)).thenReturn(Observable.just(model));
 
-        presenter.startPresenting(this, getMovieId());
+        presenter.startPresenting(view, VALID_MOVIE_ID);
 
         verify(view).display(model);
     }
@@ -33,7 +33,7 @@ public class MovieDetailsPresenterTest {
     public void shouldDisplayError() throws Exception {
         when(repository.getMovieDetails(INVALID_MOVIE_ID)).thenReturn(Observable.<MovieDetails>error(new Exception()));
 
-        presenter.startPresenting(this, getMovieId());
+        presenter.startPresenting(view, VALID_MOVIE_ID);
 
         verify(view).showError();
     }
