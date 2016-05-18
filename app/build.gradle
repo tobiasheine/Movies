@@ -11,13 +11,17 @@ android {
         versionCode 1
         versionName "1.0"
         testApplicationId "com.movies.tobi.popularmovies.steps"
-//        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        testInstrumentationRunner "com.movies.tobi.popularmovies.utils.Instrumentation"
+        testInstrumentationRunner getInstrumentation()
     }
     buildTypes {
 
         applicationVariants.all { variant ->
             variant.buildConfigField "String", "API_KEY", "\"" + getApiKey() + "\""
+            variant.buildConfigField "String", "TEST_TAGS", "\"${getTestTags()}\""
+        }
+
+        debug {
+            buildConfigField "String", "TEST_TAGS", "\"${getTestTags()}\""
         }
 
         release {
@@ -35,6 +39,14 @@ def getApiKey() {
     def Properties props = new Properties()
     props.load(new FileInputStream(new File('secrets.properties')))
     return props['API_KEY']
+}
+
+def getTestTags() {
+    return project.hasProperty('tags') ? project.getProperties().get("tags") : ""
+}
+
+def getInstrumentation() {
+    return project.hasProperty("tags") ? 'com.movies.tobi.popularmovies.utils.Instrumentation' : 'android.support.test.runner.AndroidJUnitRunner'
 }
 
 dependencies {
@@ -56,7 +68,6 @@ dependencies {
     testCompile 'org.mockito:mockito-core:1.10.19'
     testCompile 'com.google.guava:guava:18.0'
 
-
     // Espresso and Cucumber
     androidTestCompile 'com.android.support:support-annotations:23.4.0'
     androidTestCompile 'com.android.support.test:runner:0.5'
@@ -71,3 +82,5 @@ dependencies {
         exclude module: 'recyclerview-v7'
     }
 }
+
+
