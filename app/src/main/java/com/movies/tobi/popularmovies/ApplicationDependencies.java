@@ -79,6 +79,7 @@ public class ApplicationDependencies implements Dependencies {
     }
 
     protected Backend createBackend() {
+
         return new Retrofit.Builder()
                 .baseUrl(Backend.SERVICE_ENDPOINT)
                 .addConverterFactory(GsonConverterFactory.create())

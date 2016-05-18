@@ -1,6 +1,7 @@
 package com.movies.tobi.popularmovies;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.movies.tobi.popularmovies.backend.Backend;
 import com.movies.tobi.popularmovies.backend.FakeBackend;
@@ -38,6 +39,7 @@ public class EspressoDependencies extends ApplicationDependencies {
 
     @Override
     protected Backend createBackend() {
+        Log.d("cucumber", "create backend");
         return backend;
     }
 
