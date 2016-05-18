@@ -3,8 +3,9 @@ Feature: Popular movies
   Scenario: Select a poster and show movie details
 
     Given the following remote movie posters exist
-      | movieId | posterPath   |
-      | 1       | deadpool.jpg |
+      | movieId | posterPath    |
+      | 293660  | /deadpool.jpg |
+
 
     When I start the application
 

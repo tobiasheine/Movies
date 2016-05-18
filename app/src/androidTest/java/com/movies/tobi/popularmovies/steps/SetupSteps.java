@@ -11,6 +11,8 @@ import com.movies.tobi.popularmovies.popularstream.PopularMoviesActivity;
 import com.movies.tobi.popularmovies.posterdetails.ApiMovieDetails;
 import com.movies.tobi.popularmovies.utils.ActivityFinisher;
 
+import java.util.Map;
+
 import cucumber.api.DataTable;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
@@ -46,8 +48,19 @@ public class SetupSteps {
         final String MOVIE_TITLE = "Deadpool";
         final String MOVIE_DESCRIPTION = "Awesome movie";
 
-        givenBackendReturnsPopularStreamWith(MOVIE_ID, POSTER_PATH);
+        extractPostersFromDataTable(dataTable);
+
         givenBackendReturnsMovieDetails(MOVIE_ID, MOVIE_TITLE, MOVIE_DESCRIPTION, POSTER_PATH);
+    }
+
+    private void extractPostersFromDataTable(DataTable dataTable) {
+        for (final Map<String, String> row : dataTable.asMaps(String.class, String.class)) {
+            Long movieId = Long.valueOf(row.get("movieId"));
+            String posterPath = row.get("posterPath");
+
+            givenBackendReturnsPopularStreamWith(movieId, posterPath);
+
+        }
     }
 
     private void givenBackendReturnsPopularStreamWith(long movieId, String posterPath) {
