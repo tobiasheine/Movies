@@ -43,14 +43,24 @@ public class SetupSteps {
 
     @Given("^the following remote movie posters exist$")
     public void the_following_remote_movie_poster_exist(final DataTable dataTable) {
-        final long MOVIE_ID = 293660L;
-        final String POSTER_PATH = "/deadpool.jpg";
-        final String MOVIE_TITLE = "Deadpool";
-        final String MOVIE_DESCRIPTION = "Awesome movie";
-
         extractPostersFromDataTable(dataTable);
+    }
 
-        givenBackendReturnsMovieDetails(MOVIE_ID, MOVIE_TITLE, MOVIE_DESCRIPTION, POSTER_PATH);
+    @Given("^the following remote movie details exist$")
+    public void the_following_remote_movie_details_exist(final DataTable dataTable) {
+        extractMovieDetailsFromDataTable(dataTable);
+    }
+
+    private void extractMovieDetailsFromDataTable(DataTable dataTable) {
+        for (final Map<String, String> row : dataTable.asMaps(String.class, String.class)) {
+
+            Long movieId = Long.valueOf(row.get("movieId"));
+            String posterPath = row.get("posterPath");
+            String title = row.get("title");
+            String description = row.get("description");
+
+            givenBackendReturnsMovieDetails(movieId, title, description, posterPath);
+        }
     }
 
     private void extractPostersFromDataTable(DataTable dataTable) {

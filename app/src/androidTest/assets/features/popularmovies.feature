@@ -6,6 +6,10 @@ Feature: Popular movies
       | movieId | posterPath    |
       | 293660  | /deadpool.jpg |
 
+    And the following remote movie details exist
+      | movieId | posterPath    | title    | description   |
+      | 293660  | /deadpool.jpg | Deadpool | awesome movie |
+
 
     When I start the application
 
