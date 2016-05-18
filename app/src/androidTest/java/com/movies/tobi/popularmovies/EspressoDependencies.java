@@ -23,10 +23,6 @@ public class EspressoDependencies extends ApplicationDependencies {
         this.backend = backend;
     }
 
-    public EspressoDependencies() {
-        this(new FakeBackend());
-    }
-
     @Override
     protected Converter<ApiMovieDetails, MovieDetails> createMovieDetailsConverter() {
         return new ApiMovieDetailsAssetConverter();
@@ -47,9 +43,5 @@ public class EspressoDependencies extends ApplicationDependencies {
     protected Scheduler createSubscribeScheduler() {
         // IdlingResource is not needed since espresso waits for AsyncTask.THREAD_POOL_EXECUTOR
         return Schedulers.from(AsyncTask.THREAD_POOL_EXECUTOR);
-    }
-
-    public FakeBackend getFakeBackend() {
-        return backend;
     }
 }
