@@ -25,7 +25,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 public class PopularMoviesActivityTest {
 
     private static final long MOVIE_ID = 293660L;
-    private static final String POSTER_PATH = "/deadpool.jpg";
+    private static final String POSTER_PATH = "deadpool.jpg";
     private static final String MOVIE_TITLE = "Deadpool";
     private static final String MOVIE_DESCRIPTION = "Awesome movie";
 

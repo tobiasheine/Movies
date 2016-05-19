@@ -8,7 +8,7 @@ public class ApiMovieDetailsAssetConverter implements Converter<ApiMovieDetails,
 
     @Override
     public MovieDetails convert(ApiMovieDetails input) {
-        String imageUrl = ASSET_PATH + input.posterPath.substring(1, input.posterPath.length());
+        String imageUrl = ASSET_PATH + input.posterPath.substring(0, input.posterPath.length());
 
         return new MovieDetails.MovieDetailsBuilder().
                 setMovieId(input.movieId).

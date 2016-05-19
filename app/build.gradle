@@ -10,13 +10,18 @@ android {
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
-
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testApplicationId "com.movies.tobi.popularmovies.steps"
+        testInstrumentationRunner getInstrumentation()
     }
     buildTypes {
 
         applicationVariants.all { variant ->
             variant.buildConfigField "String", "API_KEY", "\"" + getApiKey() + "\""
+            variant.buildConfigField "String", "TEST_TAGS", "\"${getTestTags()}\""
+        }
+
+        debug {
+            buildConfigField "String", "TEST_TAGS", "\"${getTestTags()}\""
         }
 
         release {
@@ -34,6 +39,14 @@ def getApiKey() {
     def Properties props = new Properties()
     props.load(new FileInputStream(new File('secrets.properties')))
     return props['API_KEY']
+}
+
+def getTestTags() {
+    return project.hasProperty('tags') ? project.getProperties().get("tags") : ""
+}
+
+def getInstrumentation() {
+    return project.hasProperty("tags") ? 'com.movies.tobi.popularmovies.utils.Instrumentation' : 'android.support.test.runner.AndroidJUnitRunner'
 }
 
 dependencies {
@@ -54,12 +67,20 @@ dependencies {
     testCompile 'junit:junit:4.12'
     testCompile 'org.mockito:mockito-core:1.10.19'
     testCompile 'com.google.guava:guava:18.0'
+
+    // Espresso and Cucumber
     androidTestCompile 'com.android.support:support-annotations:23.4.0'
-    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
-    androidTestCompile('com.android.support.test.espresso:espresso-contrib:2.0') {
-        exclude group: 'com.android.support', module: 'appcompat'
-        exclude group: 'com.android.support', module: 'support-v4'
+    androidTestCompile 'com.android.support.test:runner:0.5'
+    androidTestCompile 'com.android.support.test:rules:0.4.1'
+    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.1'
+    androidTestCompile 'org.hamcrest:hamcrest-library:1.3'
+    androidTestCompile 'info.cukes:cucumber-android:1.2.0@jar'
+    androidTestCompile 'info.cukes:cucumber-picocontainer:1.2.0'
+    androidTestCompile('com.android.support.test.espresso:espresso-contrib:2.2.1') {
+        exclude module: 'support-annotations'
+        exclude module: 'support-v4'
         exclude module: 'recyclerview-v7'
     }
-    androidTestCompile 'com.android.support.test:runner:0.5'
 }
+
+
