@@ -7,7 +7,7 @@ import com.movies.tobi.popularmovies.BuildConfig;
 
 import cucumber.api.android.CucumberInstrumentationCore;
 
-public class Instrumentation extends AndroidJUnitRunner {
+public class CucumberInstrumentation extends AndroidJUnitRunner {
 
     private static final String CUCUMBER_TAGS_KEY = "tags";
 

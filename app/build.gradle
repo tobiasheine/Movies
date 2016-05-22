@@ -17,7 +17,6 @@ android {
 
         applicationVariants.all { variant ->
             variant.buildConfigField "String", "API_KEY", "\"" + getApiKey() + "\""
-            variant.buildConfigField "String", "TEST_TAGS", "\"${getTestTags()}\""
         }
 
         debug {
@@ -46,7 +45,7 @@ def getTestTags() {
 }
 
 def getInstrumentation() {
-    return project.hasProperty("tags") ? 'com.movies.tobi.popularmovies.utils.Instrumentation' : 'android.support.test.runner.AndroidJUnitRunner'
+    return project.hasProperty("cucumber") ? 'com.movies.tobi.popularmovies.utils.CucumberInstrumentation' : 'android.support.test.runner.AndroidJUnitRunner'
 }
 
 dependencies {
