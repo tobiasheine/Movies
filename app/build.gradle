@@ -17,11 +17,12 @@ android {
 
         applicationVariants.all { variant ->
             variant.buildConfigField "String", "API_KEY", "\"" + getApiKey() + "\""
-            variant.buildConfigField "String", "TEST_TAGS", "\"${getTestTags()}\""
         }
 
         debug {
             buildConfigField "String", "TEST_TAGS", "\"${getTestTags()}\""
+            buildConfigField "String", "TEST_FEATURE", "\"${getTestFeature()}\""
+            buildConfigField "String", "TEST_SCENARIO", "\"${getTestScenario()}\""
         }
 
         release {
@@ -45,8 +46,16 @@ def getTestTags() {
     return project.hasProperty('tags') ? project.getProperties().get("tags") : ""
 }
 
+def getTestFeature() {
+    return project.hasProperty('feature') ? project.getProperties().get("feature") : ""
+}
+
+def getTestScenario() {
+    return project.hasProperty('scenario') ? project.getProperties().get("scenario") : ""
+}
+
 def getInstrumentation() {
-    return project.hasProperty("tags") ? 'com.movies.tobi.popularmovies.utils.Instrumentation' : 'android.support.test.runner.AndroidJUnitRunner'
+    return project.hasProperty("cucumber") ? 'com.movies.tobi.popularmovies.utils.CucumberInstrumentation' : 'android.support.test.runner.AndroidJUnitRunner'
 }
 
 dependencies {
@@ -82,5 +91,3 @@ dependencies {
         exclude module: 'recyclerview-v7'
     }
 }
-
-
