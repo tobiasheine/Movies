@@ -21,6 +21,8 @@ android {
 
         debug {
             buildConfigField "String", "TEST_TAGS", "\"${getTestTags()}\""
+            buildConfigField "String", "TEST_FEATURE", "\"${getTestFeature()}\""
+            buildConfigField "String", "TEST_SCENARIO", "\"${getTestScenario()}\""
         }
 
         release {
@@ -42,6 +44,14 @@ def getApiKey() {
 
 def getTestTags() {
     return project.hasProperty('tags') ? project.getProperties().get("tags") : ""
+}
+
+def getTestFeature() {
+    return project.hasProperty('feature') ? project.getProperties().get("feature") : ""
+}
+
+def getTestScenario() {
+    return project.hasProperty('scenario') ? project.getProperties().get("scenario") : ""
 }
 
 def getInstrumentation() {
@@ -81,5 +91,3 @@ dependencies {
         exclude module: 'recyclerview-v7'
     }
 }
-
-
