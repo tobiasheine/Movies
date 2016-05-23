@@ -8,7 +8,7 @@ import android.util.Log;
 
 import com.tobi.movies.MovieApplication;
 import com.tobi.movies.Navigator;
-import com.movies.tobi.popularmovies.R;
+import com.tobi.movies.R;
 
 import java.util.List;
 

@@ -10,7 +10,7 @@ import android.widget.ImageView;
 
 import com.tobi.movies.ImageLoader;
 import com.tobi.movies.Navigator;
-import com.movies.tobi.popularmovies.R;
+import com.tobi.movies.R;
 
 import java.util.List;
 

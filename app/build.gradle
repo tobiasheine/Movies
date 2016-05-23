@@ -5,7 +5,7 @@ android {
     buildToolsVersion "24.0.0 rc2"
 
     defaultConfig {
-        applicationId "com.movies.tobi.popularmovies"
+        applicationId "com.tobi.movies"
         minSdkVersion 19
         targetSdkVersion 23
         versionCode 1

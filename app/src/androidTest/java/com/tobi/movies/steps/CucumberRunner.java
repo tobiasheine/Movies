@@ -1,7 +1,5 @@
 package com.tobi.movies.steps;
 
-import com.movies.tobi.popularmovies.BuildConfig;
-
 import cucumber.api.CucumberOptions;
 
 @CucumberOptions(

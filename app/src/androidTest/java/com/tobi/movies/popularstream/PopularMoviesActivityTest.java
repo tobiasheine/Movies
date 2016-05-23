@@ -7,7 +7,7 @@ import android.support.test.runner.AndroidJUnit4;
 
 import com.tobi.movies.EspressoDependencies;
 import com.tobi.movies.MovieApplication;
-import com.movies.tobi.popularmovies.R;
+import com.tobi.movies.R;
 import com.tobi.movies.backend.ConfigurableBackend;
 import com.tobi.movies.posterdetails.ApiMovieDetails;
 

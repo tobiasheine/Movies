@@ -1,6 +1,6 @@
 package com.tobi.movies.posterdetails;
 
-import com.movies.tobi.popularmovies.BuildConfig;
+import com.tobi.movies.BuildConfig;
 import com.tobi.movies.backend.Backend;
 
 import rx.Observable;

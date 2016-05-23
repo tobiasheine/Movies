@@ -1,5 +1,7 @@
 package com.tobi.movies.steps;
 
+import com.tobi.movies.R;
+
 import java.util.Map;
 
 import cucumber.api.DataTable;
@@ -23,7 +25,7 @@ public class MovieDetailsSteps {
         String movieTitle = row.get("movieTitle");
         String movieDetails = row.get("movieDetails");
 
-        onView(allOf(withId(com.movies.tobi.popularmovies.R.id.movieTitle), withText(movieTitle))).check(matches(isDisplayed()));
-        onView(allOf(withId(com.movies.tobi.popularmovies.R.id.movieOverview), withText(movieDetails))).check(matches(isDisplayed()));
+        onView(allOf(withId(R.id.movieTitle), withText(movieTitle))).check(matches(isDisplayed()));
+        onView(allOf(withId(R.id.movieOverview), withText(movieDetails))).check(matches(isDisplayed()));
     }
 }

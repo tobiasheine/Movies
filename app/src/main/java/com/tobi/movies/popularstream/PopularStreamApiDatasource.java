@@ -2,7 +2,7 @@ package com.tobi.movies.popularstream;
 
 import android.support.annotation.NonNull;
 
-import com.movies.tobi.popularmovies.BuildConfig;
+import com.tobi.movies.BuildConfig;
 import com.tobi.movies.backend.Backend;
 
 import java.util.List;

@@ -2,7 +2,7 @@ package com.tobi.movies.steps;
 
 import android.support.test.espresso.contrib.RecyclerViewActions;
 
-import com.movies.tobi.popularmovies.R;
+import com.tobi.movies.R;
 import com.tobi.movies.matchers.PosterMatcher;
 
 import java.util.Map;

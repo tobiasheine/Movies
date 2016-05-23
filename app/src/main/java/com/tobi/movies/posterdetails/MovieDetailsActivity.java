@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 import com.tobi.movies.ImageLoader;
 import com.tobi.movies.MovieApplication;
-import com.movies.tobi.popularmovies.R;
+import com.tobi.movies.R;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;

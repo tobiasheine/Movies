@@ -3,7 +3,7 @@ package com.tobi.movies.utils;
 import android.os.Bundle;
 import android.support.test.runner.AndroidJUnitRunner;
 
-import com.movies.tobi.popularmovies.BuildConfig;
+import com.tobi.movies.BuildConfig;
 
 import cucumber.api.android.CucumberInstrumentationCore;
 
