@@ -8,7 +8,7 @@ import android.support.test.runner.AndroidJUnit4;
 import com.movies.tobi.popularmovies.EspressoDependencies;
 import com.movies.tobi.popularmovies.MovieApplication;
 import com.movies.tobi.popularmovies.R;
-import com.movies.tobi.popularmovies.backend.FakeBackend;
+import com.movies.tobi.popularmovies.backend.ConfigurableBackend;
 import com.movies.tobi.popularmovies.posterdetails.ApiMovieDetails;
 
 import org.junit.Test;
@@ -37,7 +37,7 @@ public class PopularMoviesActivityTest {
         }
     };
 
-    private final FakeBackend backend = new FakeBackend();
+    private final ConfigurableBackend backend = new ConfigurableBackend();
 
     @Test
     public void shouldNavigateToMovieDetails() throws Exception {

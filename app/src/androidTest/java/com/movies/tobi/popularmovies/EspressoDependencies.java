@@ -3,7 +3,7 @@ package com.movies.tobi.popularmovies;
 import android.os.AsyncTask;
 
 import com.movies.tobi.popularmovies.backend.Backend;
-import com.movies.tobi.popularmovies.backend.FakeBackend;
+import com.movies.tobi.popularmovies.backend.ConfigurableBackend;
 import com.movies.tobi.popularmovies.popularstream.ApiMoviePoster;
 import com.movies.tobi.popularmovies.popularstream.ApiMoviePosterAssetConverter;
 import com.movies.tobi.popularmovies.popularstream.MoviePoster;
@@ -16,9 +16,9 @@ import rx.schedulers.Schedulers;
 
 public class EspressoDependencies extends ApplicationDependencies {
 
-    private final FakeBackend backend;
+    private final ConfigurableBackend backend;
 
-    public EspressoDependencies(FakeBackend backend) {
+    public EspressoDependencies(ConfigurableBackend backend) {
         this.backend = backend;
     }
 
