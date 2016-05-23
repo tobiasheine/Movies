@@ -10,7 +10,7 @@ android {
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
-        testApplicationId "com.movies.tobi.popularmovies.steps"
+        testApplicationId "com.tobi.movies.steps"
         testInstrumentationRunner getInstrumentation()
     }
     buildTypes {
@@ -55,7 +55,7 @@ def getTestScenario() {
 }
 
 def getInstrumentation() {
-    return project.hasProperty("cucumber") ? 'com.movies.tobi.popularmovies.utils.CucumberInstrumentation' : 'android.support.test.runner.AndroidJUnitRunner'
+    return project.hasProperty("cucumber") ? 'com.tobi.movies.utils.CucumberInstrumentation' : 'android.support.test.runner.AndroidJUnitRunner'
 }
 
 dependencies {
