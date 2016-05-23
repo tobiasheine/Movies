@@ -5,7 +5,7 @@ import android.support.test.rule.ActivityTestRule;
 
 import com.movies.tobi.popularmovies.EspressoDependencies;
 import com.movies.tobi.popularmovies.MovieApplication;
-import com.movies.tobi.popularmovies.backend.FakeBackend;
+import com.movies.tobi.popularmovies.backend.ConfigurableBackend;
 import com.movies.tobi.popularmovies.popularstream.ApiMoviePoster;
 import com.movies.tobi.popularmovies.popularstream.PopularMoviesActivity;
 import com.movies.tobi.popularmovies.posterdetails.ApiMovieDetails;
@@ -20,7 +20,7 @@ import cucumber.api.java.en.Given;
 
 public class SetupSteps {
 
-    private final FakeBackend backend = new FakeBackend();
+    private final ConfigurableBackend backend = new ConfigurableBackend();
 
     private final ActivityTestRule<PopularMoviesActivity> mActivityRule = new ActivityTestRule<>(
             PopularMoviesActivity.class);

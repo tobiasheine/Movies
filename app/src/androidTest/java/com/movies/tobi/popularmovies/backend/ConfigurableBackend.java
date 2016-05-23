@@ -15,7 +15,7 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 import rx.Observable;
 
-public class FakeBackend implements Backend {
+public class ConfigurableBackend implements Backend {
 
     private final Map<Long, ApiMovieDetails> movieDetails = new HashMap<>();
     private final List<ApiMoviePoster> popularStream = Lists.newArrayList();

@@ -7,7 +7,7 @@ import android.support.test.runner.AndroidJUnit4;
 
 import com.movies.tobi.popularmovies.EspressoDependencies;
 import com.movies.tobi.popularmovies.MovieApplication;
-import com.movies.tobi.popularmovies.backend.FakeBackend;
+import com.movies.tobi.popularmovies.backend.ConfigurableBackend;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,7 +20,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 @RunWith(AndroidJUnit4.class)
 public class MovieDetailsActivityTest {
 
-    private FakeBackend backend = new FakeBackend();
+    private ConfigurableBackend backend = new ConfigurableBackend();
 
     public ActivityTestRule<MovieDetailsActivity> rule = new ActivityTestRule<MovieDetailsActivity>(MovieDetailsActivity.class) {
         @Override
