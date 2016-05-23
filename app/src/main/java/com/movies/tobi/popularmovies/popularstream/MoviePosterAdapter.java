@@ -53,6 +53,11 @@ public class MoviePosterAdapter extends RecyclerView.Adapter<MoviePosterAdapter.
         return moviePosters.size();
     }
 
+    @VisibleForTesting
+    public MoviePoster getItemAt(int position) {
+        return moviePosters.get(position);
+    }
+
     public static class MoviePosterViewHolder extends RecyclerView.ViewHolder {
 
         @Bind(R.id.posterImage)
