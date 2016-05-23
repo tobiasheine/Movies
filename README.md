@@ -14,6 +14,6 @@ API_KEY=YOUR_SECRET_KEY
 ### Run all tests
 `./gradlew connectedCheck -Pcucumber`  
 ### Run tests by tag
-`./gradlew connectedCheck -Pcucumber  -Ptags="@foo"`  
+`./gradlew connectedCheck -Pcucumber -Ptags="@smoke"`  
 ### Run tests by scenario name
-`./gradlew connectedCheck -Pname="Foo"`
+`./gradlew connectedCheck -Pcucumber -Pscenario="Show movie details for poster"`

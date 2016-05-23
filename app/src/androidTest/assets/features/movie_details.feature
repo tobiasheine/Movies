@@ -1,6 +1,6 @@
 Feature: Popular movies
 
-  Scenario: Show Movie Details for selected Poster
+  Scenario: Show movie details for poster
     Given the following remote movie posters exist
       | movieId | posterPath   |
       | 293660  | deadpool.jpg |
