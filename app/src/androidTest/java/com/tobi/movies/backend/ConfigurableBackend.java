@@ -20,12 +20,12 @@ public class ConfigurableBackend implements Backend {
     private final Map<Long, ApiMovieDetails> movieDetails = new HashMap<>();
     private final List<ApiMoviePoster> popularStream = Lists.newArrayList();
 
-    public void addMovieDetails(long movieId, ApiMovieDetails apiMovieDetails) {
-        movieDetails.put(movieId, apiMovieDetails);
+    public void addMovieDetails(ApiMovieDetails apiMovieDetails) {
+        movieDetails.put(apiMovieDetails.movieId, apiMovieDetails);
     }
 
-    public void addToPopularStream(ApiMoviePoster... movieDetails) {
-        popularStream.addAll(Lists.newArrayList(movieDetails));
+    public void addToPopularStream(ApiMoviePoster movieDetails) {
+        popularStream.add(movieDetails);
     }
 
     @Override
