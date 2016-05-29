@@ -1,6 +1,5 @@
 package com.tobi.movies.posterdetails;
 
-import android.content.Intent;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
@@ -8,21 +7,22 @@ import android.support.test.runner.AndroidJUnit4;
 import com.tobi.movies.EspressoDependencies;
 import com.tobi.movies.MovieApplication;
 import com.tobi.movies.backend.ConfigurableBackend;
+import com.tobi.movies.utils.MovieRobot;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static android.support.test.espresso.matcher.ViewMatchers.withText;
-
 @RunWith(AndroidJUnit4.class)
 public class MovieDetailsActivityTest {
 
+    private static final long MOVIE_ID = 293660L;
+    private static final String MOVIE_TITLE = "Deadpool";
+    private static final String MOVIE_DESCRIPTION = "Such an awesome movie!";
+    private static final String POSTER_PATH = "deadpool.jpg";
+
     private ConfigurableBackend backend = new ConfigurableBackend();
 
-    public ActivityTestRule<MovieDetailsActivity> rule = new ActivityTestRule<MovieDetailsActivity>(MovieDetailsActivity.class) {
+    private ActivityTestRule<MovieDetailsActivity> rule = new ActivityTestRule<MovieDetailsActivity>(MovieDetailsActivity.class) {
         @Override
         protected void beforeActivityLaunched() {
             MovieApplication movieApplication = (MovieApplication) InstrumentationRegistry.getTargetContext().getApplicationContext();
@@ -32,25 +32,23 @@ public class MovieDetailsActivityTest {
 
     @Test
     public void shouldShowMovieTitle() throws Exception {
-        long movieId = 293660L;
-        String movieTitle = "Deadpool";
-        String movieDescription = "Such an awesome movie!";
-        String posterPath = "deadpool.jpg";
-        givenBackendReturnsMovieDetails(movieId, movieTitle, movieDescription, posterPath);
+        ApiMovieDetails apiMovieDetails = createApiMovieDetails(MOVIE_ID, MOVIE_TITLE, MOVIE_DESCRIPTION, POSTER_PATH);
 
-        Intent intent = MovieDetailsActivity.createTestIntentFor(movieId);
-        rule.launchActivity(intent);
-
-        onView(withText(movieTitle)).check(matches(isDisplayed()));
-        onView(withText(movieDescription)).check(matches(isDisplayed()));
+        MovieRobot
+                .createRobot(backend, rule)
+                .addRemoteMovieDetails(apiMovieDetails)
+                .launchDetailsScreen(MOVIE_ID)
+                .checkMovieTitleIsDisplayed(MOVIE_TITLE)
+                .checkMovieDescriptionIsDisplayed(MOVIE_DESCRIPTION);
     }
 
-    private void givenBackendReturnsMovieDetails(long movieId, String movieTitle, String movieOverview, String posterPath) {
+    private ApiMovieDetails createApiMovieDetails(long movieId, String movieTitle, String movieOverview, String posterPath) {
         ApiMovieDetails apiMovieDetails = new ApiMovieDetails();
         apiMovieDetails.originalTitle = movieTitle;
         apiMovieDetails.movieId = movieId;
         apiMovieDetails.overview = movieOverview;
         apiMovieDetails.posterPath = posterPath;
-        backend.addMovieDetails(apiMovieDetails);
+
+        return apiMovieDetails;
     }
 }
