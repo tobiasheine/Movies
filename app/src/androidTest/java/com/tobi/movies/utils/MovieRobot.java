@@ -3,14 +3,18 @@ package com.tobi.movies.utils;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.rule.ActivityTestRule;
 
+import com.tobi.movies.R;
 import com.tobi.movies.backend.ConfigurableBackend;
+import com.tobi.movies.matchers.PosterMatcher;
 import com.tobi.movies.popularstream.ApiMoviePoster;
+import com.tobi.movies.popularstream.PopularMoviesActivity;
 import com.tobi.movies.posterdetails.ApiMovieDetails;
 import com.tobi.movies.posterdetails.MovieDetailsActivity;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 
 public class MovieRobot {
@@ -42,6 +46,11 @@ public class MovieRobot {
         return this;
     }
 
+    public MovieRobot launchPopularMovies(ActivityTestRule<PopularMoviesActivity> rule) {
+        rule.launchActivity(null);
+        return this;
+    }
+
     public MovieRobot checkMovieTitleIsDisplayed(String movieTitle) {
         onView(withText(movieTitle)).check(matches(isDisplayed()));
         return this;
@@ -49,6 +58,13 @@ public class MovieRobot {
 
     public MovieRobot checkMovieDescriptionIsDisplayed(String movieDescription) {
         onView(withText(movieDescription)).check(matches(isDisplayed()));
+        return this;
+    }
+
+    public MovieRobot checkPosterWithPathIsDisplayedAtPosition(int position, String posterPath) {
+        onView(withId(R.id.popularMovies_recycler))
+                .check(matches(PosterMatcher.hasPosterAt(position, posterPath)));
+
         return this;
     }
 }
