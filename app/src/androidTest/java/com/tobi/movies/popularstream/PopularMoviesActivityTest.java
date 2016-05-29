@@ -1,13 +1,11 @@
 package com.tobi.movies.popularstream;
 
 import android.support.test.InstrumentationRegistry;
-import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.tobi.movies.EspressoDependencies;
 import com.tobi.movies.MovieApplication;
-import com.tobi.movies.R;
 import com.tobi.movies.backend.ConfigurableBackend;
 import com.tobi.movies.posterdetails.ApiMovieDetails;
 import com.tobi.movies.utils.MovieRobot;
@@ -15,11 +13,6 @@ import com.tobi.movies.utils.MovieRobot;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.matcher.ViewMatchers.*;
 
 @RunWith(AndroidJUnit4.class)
 public class PopularMoviesActivityTest {
@@ -40,32 +33,33 @@ public class PopularMoviesActivityTest {
     private final ConfigurableBackend backend = new ConfigurableBackend();
 
     private ApiMoviePoster apiMoviePoster;
+    private ApiMovieDetails movieDetails;
 
     @Before
     public void setUp() throws Exception {
         apiMoviePoster = createApiMoviePoster(MOVIE_ID, POSTER_PATH);
+        movieDetails = createMovieDetails(MOVIE_ID, MOVIE_TITLE, MOVIE_DESCRIPTION, POSTER_PATH);
     }
 
     @Test
     public void shouldShowPoster() throws Exception {
         MovieRobot
                 .createRobot(backend)
-                .withRemoteMoviePosters(apiMoviePoster)
+                .addRemoteMoviePoster(apiMoviePoster)
                 .launchPopularMovies(rule)
                 .checkPosterWithPathIsDisplayedAtPosition(0, POSTER_PATH);
     }
 
     @Test
     public void shouldNavigateToMovieDetails() throws Exception {
-        givenBackendReturnsPopularStreamWith(MOVIE_ID, POSTER_PATH);
-        givenBackendReturnsMovieDetails(MOVIE_ID, MOVIE_TITLE, MOVIE_DESCRIPTION, POSTER_PATH);
-        rule.launchActivity(null);
-
-        onView(withId(R.id.popularMovies_recycler))
-                .perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
-
-        onView(withText(MOVIE_TITLE)).check(matches(isDisplayed()));
-        onView(withText(MOVIE_DESCRIPTION)).check(matches(isDisplayed()));
+        MovieRobot
+                .createRobot(backend)
+                .addRemoteMoviePoster(apiMoviePoster)
+                .addRemoteMovieDetails(movieDetails)
+                .launchPopularMovies(rule)
+                .selectPosterAtPosition(0)
+                .checkMovieTitleIsDisplayed(MOVIE_TITLE)
+                .checkMovieDescriptionIsDisplayed(MOVIE_DESCRIPTION);
     }
 
     private ApiMoviePoster createApiMoviePoster(long movieId, String posterPath) {
@@ -82,13 +76,5 @@ public class PopularMoviesActivityTest {
         apiMovieDetails.overview = movieOverview;
         apiMovieDetails.posterPath = posterPath;
         return apiMovieDetails;
-    }
-
-    private void givenBackendReturnsPopularStreamWith(long movieId, String posterPath) {
-        backend.addToPopularStream(createApiMoviePoster(movieId, posterPath));
-    }
-
-    private void givenBackendReturnsMovieDetails(long movieId, String movieTitle, String movieOverview, String posterPath) {
-        backend.addMovieDetails(createMovieDetails(movieId, movieTitle, movieOverview, posterPath));
     }
 }
