@@ -1,16 +1,11 @@
 package com.tobi.movies.steps;
 
-import com.tobi.movies.R;
+import com.tobi.movies.utils.MovieRobot;
 
 import java.util.Map;
 
 import cucumber.api.DataTable;
 import cucumber.api.java.en.Then;
-
-import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.matcher.ViewMatchers.*;
-import static org.hamcrest.core.AllOf.allOf;
 
 public class MovieDetailsSteps {
 
@@ -25,7 +20,7 @@ public class MovieDetailsSteps {
         String movieTitle = row.get("movieTitle");
         String movieDetails = row.get("movieDetails");
 
-        onView(allOf(withId(R.id.movieTitle), withText(movieTitle))).check(matches(isDisplayed()));
-        onView(allOf(withId(R.id.movieOverview), withText(movieDetails))).check(matches(isDisplayed()));
+        MovieRobot.get().checkMovieTitleIsDisplayed(movieTitle);
+        MovieRobot.get().checkMovieDescriptionIsDisplayed(movieDetails);
     }
 }

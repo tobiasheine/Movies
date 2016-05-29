@@ -45,7 +45,7 @@ public class PopularMoviesActivityTest {
     public void shouldShowPoster() throws Exception {
         MovieRobot
                 .createRobot(backend)
-                .addRemoteMoviePoster(apiMoviePoster)
+                .addApiMoviePosterToRemoteDataSource(apiMoviePoster)
                 .launchPopularMovies(rule)
                 .checkPosterWithPathIsDisplayedAtPosition(0, POSTER_PATH);
     }
@@ -54,8 +54,8 @@ public class PopularMoviesActivityTest {
     public void shouldNavigateToMovieDetails() throws Exception {
         MovieRobot
                 .createRobot(backend)
-                .addRemoteMoviePoster(apiMoviePoster)
-                .addRemoteMovieDetails(movieDetails)
+                .addApiMoviePosterToRemoteDataSource(apiMoviePoster)
+                .addApiMovieDetailsToRemoteDataSource(movieDetails)
                 .launchPopularMovies(rule)
                 .selectPosterAtPosition(0)
                 .checkMovieTitleIsDisplayed(MOVIE_TITLE)
