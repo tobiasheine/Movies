@@ -10,6 +10,7 @@ import com.tobi.movies.popularstream.ApiMoviePoster;
 import com.tobi.movies.popularstream.PopularMoviesActivity;
 import com.tobi.movies.posterdetails.ApiMovieDetails;
 import com.tobi.movies.utils.ActivityFinisher;
+import com.tobi.movies.utils.MovieRobot;
 
 import java.util.Map;
 
@@ -20,20 +21,24 @@ import cucumber.api.java.en.Given;
 
 public class SetupSteps {
 
-    private final ConfigurableBackend backend = new ConfigurableBackend();
-
-    private final ActivityTestRule<PopularMoviesActivity> mActivityRule = new ActivityTestRule<>(
+    private final ActivityTestRule<PopularMoviesActivity> activityRule = new ActivityTestRule<>(
             PopularMoviesActivity.class);
+
+    private MovieRobot movieRobot;
 
     @Before
     public void setup() {
         MovieApplication movieApplication = (MovieApplication) InstrumentationRegistry.getTargetContext().getApplicationContext();
-        movieApplication.setDependencies(new EspressoDependencies(backend));
+        ConfigurableBackend configurableBackend = new ConfigurableBackend();
+        movieApplication.setDependencies(new EspressoDependencies(configurableBackend));
+
+        movieRobot = MovieRobot.createRobot(configurableBackend);
     }
 
     @After
     public void tearDown() {
         ActivityFinisher.finishOpenActivities(); // Required for testing App with multiple activities
+        MovieRobot.reset();
     }
 
     @Given("^I start the application$")
@@ -44,7 +49,7 @@ public class SetupSteps {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        mActivityRule.launchActivity(null);
+        movieRobot.launchPopularMovies(activityRule);
     }
 
     @Given("^the following remote movie posters exist$")
@@ -65,7 +70,7 @@ public class SetupSteps {
             String title = row.get("title");
             String description = row.get("description");
 
-            givenBackendReturnsMovieDetails(movieId, title, description, posterPath);
+            movieRobot.addRemoteMovieDetails(createMovieDetails(movieId, title, description, posterPath));
         }
     }
 
@@ -74,24 +79,23 @@ public class SetupSteps {
             Long movieId = Long.valueOf(row.get("movieId"));
             String posterPath = row.get("posterPath");
 
-            givenBackendReturnsPopularStreamWith(movieId, posterPath);
-
+            movieRobot.addRemoteMoviePoster(createApiMoviePoster(movieId, posterPath));
         }
     }
 
-    private void givenBackendReturnsPopularStreamWith(long movieId, String posterPath) {
+    private ApiMoviePoster createApiMoviePoster(long movieId, String posterPath) {
         ApiMoviePoster poster = new ApiMoviePoster();
         poster.movieId = movieId;
         poster.posterPath = posterPath;
-        backend.addToPopularStream(poster);
+        return poster;
     }
 
-    private void givenBackendReturnsMovieDetails(long movieId, String movieTitle, String movieOverview, String posterPath) {
+    private ApiMovieDetails createMovieDetails(long movieId, String movieTitle, String movieOverview, String posterPath) {
         ApiMovieDetails apiMovieDetails = new ApiMovieDetails();
         apiMovieDetails.originalTitle = movieTitle;
         apiMovieDetails.movieId = movieId;
         apiMovieDetails.overview = movieOverview;
         apiMovieDetails.posterPath = posterPath;
-        backend.addMovieDetails(apiMovieDetails);
+        return apiMovieDetails;
     }
 }
