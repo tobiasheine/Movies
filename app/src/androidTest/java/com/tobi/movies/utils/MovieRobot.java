@@ -16,15 +16,13 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 public class MovieRobot {
 
     private final ConfigurableBackend configurableBackend;
-    private final ActivityTestRule<?> rule;
 
-    public static MovieRobot createRobot(final ConfigurableBackend configurableBackend, ActivityTestRule<?> rule) {
-        return new MovieRobot(configurableBackend, rule);
+    public static MovieRobot createRobot(final ConfigurableBackend configurableBackend) {
+        return new MovieRobot(configurableBackend);
     }
 
-    protected MovieRobot(ConfigurableBackend configurableBackend, ActivityTestRule<?> rule) {
+    protected MovieRobot(ConfigurableBackend configurableBackend) {
         this.configurableBackend = configurableBackend;
-        this.rule = rule;
     }
 
     public MovieRobot withRemoteMoviePosters(ApiMoviePoster... moviePosters) {
@@ -37,8 +35,8 @@ public class MovieRobot {
         return this;
     }
 
-    public MovieRobot launchDetailsScreen(long movieId) {
-        rule.launchActivity(MovieDetailsActivity.createIntentFor(movieId, InstrumentationRegistry.getInstrumentation()
+    public MovieRobot launchDetailsScreen(long movieId, ActivityTestRule<MovieDetailsActivity> testRule) {
+        testRule.launchActivity(MovieDetailsActivity.createIntentFor(movieId, InstrumentationRegistry.getInstrumentation()
                 .getTargetContext()
                 .getApplicationContext()));
         return this;
