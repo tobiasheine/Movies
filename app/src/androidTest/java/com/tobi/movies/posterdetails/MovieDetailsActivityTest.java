@@ -41,7 +41,7 @@ public class MovieDetailsActivityTest {
     public void shouldShowMovieTitle() throws Exception {
         MovieRobot
                 .createRobot(backend)
-                .addRemoteMovieDetails(apiMovieDetails)
+                .addApiMovieDetailsToRemoteDataSource(apiMovieDetails)
                 .launchDetailsScreen(MOVIE_ID, rule)
                 .checkMovieTitleIsDisplayed(MOVIE_TITLE)
                 .checkMovieDescriptionIsDisplayed(MOVIE_DESCRIPTION);

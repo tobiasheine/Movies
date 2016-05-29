@@ -44,12 +44,12 @@ public class MovieRobot {
         this.configurableBackend = configurableBackend;
     }
 
-    public MovieRobot addRemoteMoviePoster(ApiMoviePoster moviePosters) {
+    public MovieRobot addApiMoviePosterToRemoteDataSource(ApiMoviePoster moviePosters) {
         configurableBackend.addToPopularStream(moviePosters);
         return this;
     }
 
-    public MovieRobot addRemoteMovieDetails(ApiMovieDetails movieDetails) {
+    public MovieRobot addApiMovieDetailsToRemoteDataSource(ApiMovieDetails movieDetails) {
         configurableBackend.addMovieDetails(movieDetails);
         return this;
     }

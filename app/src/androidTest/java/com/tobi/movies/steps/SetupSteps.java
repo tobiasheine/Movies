@@ -70,7 +70,7 @@ public class SetupSteps {
             String title = row.get("title");
             String description = row.get("description");
 
-            movieRobot.addRemoteMovieDetails(createMovieDetails(movieId, title, description, posterPath));
+            movieRobot.addApiMovieDetailsToRemoteDataSource(createMovieDetails(movieId, title, description, posterPath));
         }
     }
 
@@ -79,7 +79,7 @@ public class SetupSteps {
             Long movieId = Long.valueOf(row.get("movieId"));
             String posterPath = row.get("posterPath");
 
-            movieRobot.addRemoteMoviePoster(createApiMoviePoster(movieId, posterPath));
+            movieRobot.addApiMoviePosterToRemoteDataSource(createApiMoviePoster(movieId, posterPath));
         }
     }
 
