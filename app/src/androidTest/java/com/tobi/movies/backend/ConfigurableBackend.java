@@ -24,8 +24,8 @@ public class ConfigurableBackend implements Backend {
         movieDetails.put(apiMovieDetails.movieId, apiMovieDetails);
     }
 
-    public void addToPopularStream(ApiMoviePoster... movieDetails) {
-        popularStream.addAll(Lists.newArrayList(movieDetails));
+    public void addToPopularStream(ApiMoviePoster movieDetails) {
+        popularStream.add(movieDetails);
     }
 
     @Override

@@ -25,7 +25,7 @@ public class MovieRobot {
         this.configurableBackend = configurableBackend;
     }
 
-    public MovieRobot withRemoteMoviePosters(ApiMoviePoster... moviePosters) {
+    public MovieRobot withRemoteMoviePosters(ApiMoviePoster moviePosters) {
         configurableBackend.addToPopularStream(moviePosters);
         return this;
     }
