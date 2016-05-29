@@ -1,6 +1,7 @@
 package com.tobi.movies.utils;
 
 import android.support.test.InstrumentationRegistry;
+import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.rule.ActivityTestRule;
 
 import com.tobi.movies.R;
@@ -12,6 +13,7 @@ import com.tobi.movies.posterdetails.ApiMovieDetails;
 import com.tobi.movies.posterdetails.MovieDetailsActivity;
 
 import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
@@ -29,7 +31,7 @@ public class MovieRobot {
         this.configurableBackend = configurableBackend;
     }
 
-    public MovieRobot withRemoteMoviePosters(ApiMoviePoster moviePosters) {
+    public MovieRobot addRemoteMoviePoster(ApiMoviePoster moviePosters) {
         configurableBackend.addToPopularStream(moviePosters);
         return this;
     }
@@ -64,7 +66,12 @@ public class MovieRobot {
     public MovieRobot checkPosterWithPathIsDisplayedAtPosition(int position, String posterPath) {
         onView(withId(R.id.popularMovies_recycler))
                 .check(matches(PosterMatcher.hasPosterAt(position, posterPath)));
+        return this;
+    }
 
+    public MovieRobot selectPosterAtPosition(int position) {
+        onView(withId(R.id.popularMovies_recycler))
+                .perform(RecyclerViewActions.actionOnItemAtPosition(position, click()));
         return this;
     }
 }
