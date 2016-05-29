@@ -15,16 +15,29 @@ import com.tobi.movies.posterdetails.MovieDetailsActivity;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static android.support.test.espresso.matcher.ViewMatchers.*;
 
 public class MovieRobot {
+
+    private static MovieRobot INSTANCE;
 
     private final ConfigurableBackend configurableBackend;
 
     public static MovieRobot createRobot(final ConfigurableBackend configurableBackend) {
-        return new MovieRobot(configurableBackend);
+        INSTANCE = new MovieRobot(configurableBackend);
+        return INSTANCE;
+    }
+
+    public static MovieRobot get() {
+        if (INSTANCE != null) {
+            return INSTANCE;
+        }
+
+        throw new IllegalStateException("MovieRobot not created");
+    }
+
+    public static void reset() {
+        INSTANCE = null;
     }
 
     protected MovieRobot(ConfigurableBackend configurableBackend) {
