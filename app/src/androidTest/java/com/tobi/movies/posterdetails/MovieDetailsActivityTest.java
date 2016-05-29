@@ -34,7 +34,7 @@ public class MovieDetailsActivityTest {
     public void shouldShowMovieTitle() throws Exception {
         long movieId = 293660L;
         String movieTitle = "Deadpool";
-        String movieDescription = "Based upon Marvel Comics’ most unconventional anti-hero, DEADPOOL tells the origin story of former Special Forces operative turned mercenary Wade Wilson, who after being subjected to a rogue experiment that leaves him with accelerated healing powers, adopts the alter ego Deadpool. Armed with his new abilities and a dark, twisted sense of humor, Deadpool hunts down the man who nearly destroyed his life.";
+        String movieDescription = "Such an awesome movie!";
         String posterPath = "deadpool.jpg";
         givenBackendReturnsMovieDetails(movieId, movieTitle, movieDescription, posterPath);
 
@@ -51,6 +51,6 @@ public class MovieDetailsActivityTest {
         apiMovieDetails.movieId = movieId;
         apiMovieDetails.overview = movieOverview;
         apiMovieDetails.posterPath = posterPath;
-        backend.addMovieDetails(movieId, apiMovieDetails);
+        backend.addMovieDetails(apiMovieDetails);
     }
 }

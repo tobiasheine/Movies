@@ -65,6 +65,6 @@ public class PopularMoviesActivityTest {
         apiMovieDetails.movieId = movieId;
         apiMovieDetails.overview = movieOverview;
         apiMovieDetails.posterPath = posterPath;
-        backend.addMovieDetails(movieId, apiMovieDetails);
+        backend.addMovieDetails(apiMovieDetails);
     }
 }
