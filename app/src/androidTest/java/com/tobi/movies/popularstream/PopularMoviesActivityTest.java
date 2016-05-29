@@ -9,9 +9,10 @@ import com.tobi.movies.EspressoDependencies;
 import com.tobi.movies.MovieApplication;
 import com.tobi.movies.R;
 import com.tobi.movies.backend.ConfigurableBackend;
-import com.tobi.movies.matchers.PosterMatcher;
 import com.tobi.movies.posterdetails.ApiMovieDetails;
+import com.tobi.movies.utils.MovieRobot;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -38,14 +39,20 @@ public class PopularMoviesActivityTest {
 
     private final ConfigurableBackend backend = new ConfigurableBackend();
 
+    private ApiMoviePoster apiMoviePoster;
+
+    @Before
+    public void setUp() throws Exception {
+        apiMoviePoster = createApiMoviePoster(MOVIE_ID, POSTER_PATH);
+    }
+
     @Test
     public void shouldShowPoster() throws Exception {
-        givenBackendReturnsPopularStreamWith(MOVIE_ID, POSTER_PATH);
-
-        rule.launchActivity(null);
-
-        onView(withId(R.id.popularMovies_recycler))
-                .check(matches(PosterMatcher.hasPosterAt(0, POSTER_PATH)));
+        MovieRobot
+                .createRobot(backend)
+                .withRemoteMoviePosters(apiMoviePoster)
+                .launchPopularMovies(rule)
+                .checkPosterWithPathIsDisplayedAtPosition(0, POSTER_PATH);
     }
 
     @Test
@@ -61,19 +68,27 @@ public class PopularMoviesActivityTest {
         onView(withText(MOVIE_DESCRIPTION)).check(matches(isDisplayed()));
     }
 
-    private void givenBackendReturnsPopularStreamWith(long movieId, String posterPath) {
+    private ApiMoviePoster createApiMoviePoster(long movieId, String posterPath) {
         ApiMoviePoster poster = new ApiMoviePoster();
         poster.movieId = movieId;
         poster.posterPath = posterPath;
-        backend.addToPopularStream(poster);
+        return poster;
     }
 
-    private void givenBackendReturnsMovieDetails(long movieId, String movieTitle, String movieOverview, String posterPath) {
+    private ApiMovieDetails createMovieDetails(long movieId, String movieTitle, String movieOverview, String posterPath) {
         ApiMovieDetails apiMovieDetails = new ApiMovieDetails();
         apiMovieDetails.originalTitle = movieTitle;
         apiMovieDetails.movieId = movieId;
         apiMovieDetails.overview = movieOverview;
         apiMovieDetails.posterPath = posterPath;
-        backend.addMovieDetails(apiMovieDetails);
+        return apiMovieDetails;
+    }
+
+    private void givenBackendReturnsPopularStreamWith(long movieId, String posterPath) {
+        backend.addToPopularStream(createApiMoviePoster(movieId, posterPath));
+    }
+
+    private void givenBackendReturnsMovieDetails(long movieId, String movieTitle, String movieOverview, String posterPath) {
+        backend.addMovieDetails(createMovieDetails(movieId, movieTitle, movieOverview, posterPath));
     }
 }
