@@ -9,6 +9,7 @@ import com.tobi.movies.MovieApplication;
 import com.tobi.movies.backend.ConfigurableBackend;
 import com.tobi.movies.utils.MovieRobot;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -29,11 +30,15 @@ public class MovieDetailsActivityTest {
             movieApplication.setDependencies(new EspressoDependencies(backend));
         }
     };
+    private ApiMovieDetails apiMovieDetails;
+
+    @Before
+    public void setUp() throws Exception {
+        apiMovieDetails = createApiMovieDetails(MOVIE_ID, MOVIE_TITLE, MOVIE_DESCRIPTION, POSTER_PATH);
+    }
 
     @Test
     public void shouldShowMovieTitle() throws Exception {
-        ApiMovieDetails apiMovieDetails = createApiMovieDetails(MOVIE_ID, MOVIE_TITLE, MOVIE_DESCRIPTION, POSTER_PATH);
-
         MovieRobot
                 .createRobot(backend, rule)
                 .addRemoteMovieDetails(apiMovieDetails)
