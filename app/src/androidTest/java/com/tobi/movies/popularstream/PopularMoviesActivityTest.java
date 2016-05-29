@@ -9,6 +9,7 @@ import com.tobi.movies.EspressoDependencies;
 import com.tobi.movies.MovieApplication;
 import com.tobi.movies.R;
 import com.tobi.movies.backend.ConfigurableBackend;
+import com.tobi.movies.matchers.PosterMatcher;
 import com.tobi.movies.posterdetails.ApiMovieDetails;
 
 import org.junit.Test;
@@ -17,9 +18,7 @@ import org.junit.runner.RunWith;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static android.support.test.espresso.matcher.ViewMatchers.*;
 
 @RunWith(AndroidJUnit4.class)
 public class PopularMoviesActivityTest {
@@ -38,6 +37,16 @@ public class PopularMoviesActivityTest {
     };
 
     private final ConfigurableBackend backend = new ConfigurableBackend();
+
+    @Test
+    public void shouldShowPoster() throws Exception {
+        givenBackendReturnsPopularStreamWith(MOVIE_ID, POSTER_PATH);
+
+        rule.launchActivity(null);
+
+        onView(withId(R.id.popularMovies_recycler))
+                .check(matches(PosterMatcher.hasPosterAt(0, POSTER_PATH)));
+    }
 
     @Test
     public void shouldNavigateToMovieDetails() throws Exception {
