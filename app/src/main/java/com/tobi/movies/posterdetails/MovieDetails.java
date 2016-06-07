@@ -1,108 +1,41 @@
 package com.tobi.movies.posterdetails;
 
-public class MovieDetails implements MovieDetailsMVP.Model {
+import com.google.auto.value.AutoValue;
 
-    private final long movieId;
-
-    private final String posterPath;
-
-    private final String originalTitle;
-
-    private final String overview;
-
-    private final String release_date;
-
-    private MovieDetails(long movieId, String posterPath, String originalTitle, String overview, String release_date) {
-        this.movieId = movieId;
-        this.posterPath = posterPath;
-        this.originalTitle = originalTitle;
-        this.overview = overview;
-        this.release_date = release_date;
-    }
+@AutoValue
+public abstract class MovieDetails implements MovieDetailsMVP.Model {
 
     @Override
-    public String getOverview() {
-        return overview;
-    }
+    public abstract String overview();
 
     @Override
-    public long getMovieId() {
-        return movieId;
-    }
+    public abstract long movieId();
 
     @Override
-    public String getOriginalTitle() {
-        return originalTitle;
-    }
+    public abstract String originalTitle();
 
     @Override
-    public String getPosterPath() {
-        return posterPath;
-    }
-
-    public static class MovieDetailsBuilder {
-
-        private long movieId;
-        private String posterPath;
-        private String originalTitle;
-        private String overview;
-        private String releaseDate;
-        public MovieDetailsBuilder setMovieId(long movieId) {
-            this.movieId = movieId;
-            return this;
-        }
-
-        public MovieDetailsBuilder setPosterPath(String posterPath) {
-            this.posterPath = posterPath;
-            return this;
-        }
-
-        public MovieDetailsBuilder setOriginalTitle(String originalTitle) {
-            this.originalTitle = originalTitle;
-            return this;
-        }
-
-        public MovieDetailsBuilder setOverview(String overview) {
-            this.overview = overview;
-            return this;
-        }
-
-        public MovieDetailsBuilder setReleaseDate(String release_date) {
-            this.releaseDate = release_date;
-            return this;
-        }
-
-        public MovieDetails createMovieDetails() {
-            return new MovieDetails(movieId, posterPath, originalTitle, overview, releaseDate);
-        }
-
-    }
+    public abstract String posterPath();
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+    public abstract String releaseDate();
 
-        MovieDetails that = (MovieDetails) o;
-
-        return movieId == that.movieId
-                && posterPath != null ? posterPath.equals(that.posterPath) : that.posterPath == null
-                && originalTitle != null ? originalTitle.equals(that.originalTitle) : that.originalTitle == null
-                && overview != null ? overview.equals(that.overview) : that.overview == null
-                && release_date != null ? release_date.equals(that.release_date) : that.release_date == null;
+    static Builder builder() {
+        return new AutoValue_MovieDetails.Builder();
     }
 
-    @Override
-    public int hashCode() {
-        int result = (int) (movieId ^ (movieId >>> 32));
-        result = 31 * result + (posterPath != null ? posterPath.hashCode() : 0);
-        result = 31 * result + (originalTitle != null ? originalTitle.hashCode() : 0);
-        result = 31 * result + (overview != null ? overview.hashCode() : 0);
-        result = 31 * result + (release_date != null ? release_date.hashCode() : 0);
-        return result;
+    @AutoValue.Builder
+    abstract static class Builder {
+        abstract Builder overview(String overview);
+
+        abstract Builder movieId(long movieId);
+
+        abstract Builder originalTitle(String originalTitle);
+
+        abstract Builder posterPath(String posterPath);
+
+        abstract Builder releaseDate(String releaseDate);
+
+        abstract MovieDetails build();
     }
 }

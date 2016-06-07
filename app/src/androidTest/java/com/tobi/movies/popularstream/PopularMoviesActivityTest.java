@@ -21,6 +21,7 @@ public class PopularMoviesActivityTest {
     private static final String POSTER_PATH = "deadpool.jpg";
     private static final String MOVIE_TITLE = "Deadpool";
     private static final String MOVIE_DESCRIPTION = "Awesome movie";
+    private static final String RELEASE_DATE = "01.01.2000";
 
     private final ActivityTestRule<PopularMoviesActivity> rule = new ActivityTestRule<PopularMoviesActivity>(PopularMoviesActivity.class) {
         @Override
@@ -38,7 +39,7 @@ public class PopularMoviesActivityTest {
     @Before
     public void setUp() throws Exception {
         apiMoviePoster = createApiMoviePoster(MOVIE_ID, POSTER_PATH);
-        movieDetails = createMovieDetails(MOVIE_ID, MOVIE_TITLE, MOVIE_DESCRIPTION, POSTER_PATH);
+        movieDetails = createMovieDetails(MOVIE_ID, MOVIE_TITLE, MOVIE_DESCRIPTION, POSTER_PATH, RELEASE_DATE);
     }
 
     @Test
@@ -69,12 +70,13 @@ public class PopularMoviesActivityTest {
         return poster;
     }
 
-    private ApiMovieDetails createMovieDetails(long movieId, String movieTitle, String movieOverview, String posterPath) {
+    private ApiMovieDetails createMovieDetails(long movieId, String movieTitle, String movieOverview, String posterPath, String releaseDate) {
         ApiMovieDetails apiMovieDetails = new ApiMovieDetails();
         apiMovieDetails.originalTitle = movieTitle;
         apiMovieDetails.movieId = movieId;
         apiMovieDetails.overview = movieOverview;
         apiMovieDetails.posterPath = posterPath;
+        apiMovieDetails.releaseDate = releaseDate;
         return apiMovieDetails;
     }
 }

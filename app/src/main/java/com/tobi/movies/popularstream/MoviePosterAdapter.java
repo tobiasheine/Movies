@@ -38,12 +38,12 @@ public class MoviePosterAdapter extends RecyclerView.Adapter<MoviePosterAdapter.
     @Override
     public void onBindViewHolder(MoviePosterViewHolder holder, int position) {
         final MoviePoster moviePoster = moviePosters.get(position);
-        String posterPath = moviePoster.getPosterPath();
+        String posterPath = moviePoster.posterPath();
         imageLoader.loadWebImageInto(Uri.parse(posterPath), holder.posterImage);
         holder.posterImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigator.toMovieDetails(moviePoster.getMovieId());
+                navigator.toMovieDetails(moviePoster.movieId());
             }
         });
     }

@@ -69,8 +69,9 @@ public class SetupSteps {
             String posterPath = row.get("posterPath");
             String title = row.get("title");
             String description = row.get("description");
+            String releaseDate = row.get("releaseDate");
 
-            movieRobot.addApiMovieDetailsToRemoteDataSource(createMovieDetails(movieId, title, description, posterPath));
+            movieRobot.addApiMovieDetailsToRemoteDataSource(createMovieDetails(movieId, title, description, posterPath, releaseDate));
         }
     }
 
@@ -90,12 +91,13 @@ public class SetupSteps {
         return poster;
     }
 
-    private ApiMovieDetails createMovieDetails(long movieId, String movieTitle, String movieOverview, String posterPath) {
+    private ApiMovieDetails createMovieDetails(long movieId, String movieTitle, String movieOverview, String posterPath, String releaseDate) {
         ApiMovieDetails apiMovieDetails = new ApiMovieDetails();
         apiMovieDetails.originalTitle = movieTitle;
         apiMovieDetails.movieId = movieId;
         apiMovieDetails.overview = movieOverview;
         apiMovieDetails.posterPath = posterPath;
+        apiMovieDetails.releaseDate = releaseDate;
         return apiMovieDetails;
     }
 }
