@@ -1,42 +1,16 @@
 package com.tobi.movies.popularstream;
 
-public class MoviePoster {
+import com.google.auto.value.AutoValue;
 
-    private final long movieId;
-    private final String posterPath;
+@AutoValue
+public abstract class MoviePoster {
 
-    public MoviePoster(long movieId, String posterPath) {
-        this.movieId = movieId;
-        this.posterPath = posterPath;
+    public abstract long movieId();
+
+    public abstract String posterPath();
+
+    static MoviePoster create(long movieId, String posterPath) {
+        return new AutoValue_MoviePoster(movieId, posterPath);
     }
 
-    public long getMovieId() {
-        return movieId;
-    }
-
-    public String getPosterPath() {
-        return posterPath;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        MoviePoster that = (MoviePoster) o;
-
-        return movieId == that.movieId
-                && posterPath != null ? posterPath.equals(that.posterPath) : that.posterPath == null;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = (int) (movieId ^ (movieId >>> 32));
-        result = 31 * result + (posterPath != null ? posterPath.hashCode() : 0);
-        return result;
-    }
 }
