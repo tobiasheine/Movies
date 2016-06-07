@@ -4,13 +4,15 @@ public interface MovieDetailsMVP {
 
     interface Model {
 
-        String getOverview();
+        String overview();
 
-        long getMovieId();
+        long movieId();
 
-        String getOriginalTitle();
+        String originalTitle();
 
-        String getPosterPath();
+        String posterPath();
+
+        String releaseDate();
     }
 
     interface Presenter {

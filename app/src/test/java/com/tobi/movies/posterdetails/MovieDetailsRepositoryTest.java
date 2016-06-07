@@ -37,12 +37,12 @@ public class MovieDetailsRepositoryTest {
             public Object answer(InvocationOnMock invocation) throws Throwable {
                 ApiMovieDetails apiMovieDetails = ((ApiMovieDetails) invocation.getArguments()[0]);
 
-                return new MovieDetails.MovieDetailsBuilder().
-                        setMovieId(apiMovieDetails.movieId).
-                        setOriginalTitle(apiMovieDetails.originalTitle).
-                        setPosterPath(apiMovieDetails.posterPath).
-                        setOverview(apiMovieDetails.overview).
-                        setReleaseDate(apiMovieDetails.releaseDate).createMovieDetails();
+                return MovieDetails.builder().
+                        movieId(apiMovieDetails.movieId).
+                        originalTitle(apiMovieDetails.originalTitle).
+                        posterPath(apiMovieDetails.posterPath).
+                        overview(apiMovieDetails.overview).
+                        releaseDate(apiMovieDetails.releaseDate).build();
             }
         }).when(conveter).convert(any(ApiMovieDetails.class));
     }
@@ -61,12 +61,13 @@ public class MovieDetailsRepositoryTest {
 
         TestSubscriber<MovieDetails> testSubscriber = new TestSubscriber<>();
         detailsObservable.subscribe(testSubscriber);
-        MovieDetails expectedMovieDetails = new MovieDetails.MovieDetailsBuilder().
-                setMovieId(movieId).
-                setPosterPath(imagePath).
-                setOriginalTitle(title).
-                setReleaseDate(releaseDate).
-                createMovieDetails();
+        MovieDetails expectedMovieDetails = MovieDetails.builder().
+                movieId(movieId).
+                posterPath(imagePath).
+                originalTitle(title).
+                releaseDate(releaseDate).
+                overview(overview).
+                build();
         testSubscriber.assertValue(expectedMovieDetails);
     }
 

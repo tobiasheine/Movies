@@ -20,6 +20,7 @@ public class MovieDetailsActivityTest {
     private static final String MOVIE_TITLE = "Deadpool";
     private static final String MOVIE_DESCRIPTION = "Such an awesome movie!";
     private static final String POSTER_PATH = "deadpool.jpg";
+    private static final String RELEASE_DATE = "01.01.2010";
 
     private ConfigurableBackend backend = new ConfigurableBackend();
 
@@ -34,7 +35,7 @@ public class MovieDetailsActivityTest {
 
     @Before
     public void setUp() throws Exception {
-        apiMovieDetails = createApiMovieDetails(MOVIE_ID, MOVIE_TITLE, MOVIE_DESCRIPTION, POSTER_PATH);
+        apiMovieDetails = createApiMovieDetails(MOVIE_ID, MOVIE_TITLE, MOVIE_DESCRIPTION, POSTER_PATH, RELEASE_DATE);
     }
 
     @Test
@@ -47,12 +48,13 @@ public class MovieDetailsActivityTest {
                 .checkMovieDescriptionIsDisplayed(MOVIE_DESCRIPTION);
     }
 
-    private ApiMovieDetails createApiMovieDetails(long movieId, String movieTitle, String movieOverview, String posterPath) {
+    private ApiMovieDetails createApiMovieDetails(long movieId, String movieTitle, String movieOverview, String posterPath, String releaseDate) {
         ApiMovieDetails apiMovieDetails = new ApiMovieDetails();
         apiMovieDetails.originalTitle = movieTitle;
         apiMovieDetails.movieId = movieId;
         apiMovieDetails.overview = movieOverview;
         apiMovieDetails.posterPath = posterPath;
+        apiMovieDetails.releaseDate = releaseDate;
 
         return apiMovieDetails;
     }
