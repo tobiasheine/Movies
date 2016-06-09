@@ -1,4 +1,4 @@
-Feature: Popular movies
+Feature: Movie Details
 
   @test
   Scenario: Show movie details for a single poster

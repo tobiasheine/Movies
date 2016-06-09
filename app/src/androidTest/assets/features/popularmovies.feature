@@ -1,4 +1,4 @@
-Feature: Popular movies
+Feature: Popular Movies
 
   @smoke
   Scenario: Show Movie Posters
