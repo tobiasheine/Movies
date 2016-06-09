@@ -15,9 +15,8 @@ Feature: Popular movies
     When I start the application
     And I select the poster at position 0
     Then I expect to see the following movie details
-      | movieId | posterPath   | movieTitle | movieDetails  |
-      | 100     | deadpool.jpg | Deadpool   | awesome movie |
-
+      | movieTitle | movieDetails  |
+      | Deadpool   | awesome movie |
 
   Scenario Outline: Show movie details for all posters
     Given the following remote movie posters exist
@@ -33,11 +32,11 @@ Feature: Popular movies
     When I start the application
     And I select the poster at position <pos>
     Then I expect to see the following movie details
-      | movieId | posterPath | movieTitle | movieDetails |
-      | <id>    | <path>     | <title>    | <details>    |
+      | movieTitle | movieDetails |
+      | <title>    | <details>    |
 
     Examples:
-      | pos | id  | path         | title     | details                |
-      | 0   | 100 | deadpool.jpg | Deadpool  | awesome movie          |
-      | 1   | 200 | xmen.jpg     | X-Men     | wolverine rocks        |
-      | 2   | 300 | starwars.jpg | Star Wars | may the force with you |
+      | pos | title     | details                |
+      | 0   | Deadpool  | awesome movie          |
+      | 1   | X-Men     | wolverine rocks        |
+      | 2   | Star Wars | may the force with you |
