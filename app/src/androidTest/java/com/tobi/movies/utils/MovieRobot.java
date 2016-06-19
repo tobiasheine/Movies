@@ -16,6 +16,7 @@ import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.*;
+import static org.hamcrest.core.AllOf.allOf;
 
 public class MovieRobot {
 
@@ -67,12 +68,12 @@ public class MovieRobot {
     }
 
     public MovieRobot checkMovieTitleIsDisplayed(String movieTitle) {
-        onView(withText(movieTitle)).check(matches(isDisplayed()));
+        onView(allOf(withId(R.id.movieTitle), withText(movieTitle))).check(matches(isDisplayed()));
         return this;
     }
 
     public MovieRobot checkMovieDescriptionIsDisplayed(String movieDescription) {
-        onView(withText(movieDescription)).check(matches(isDisplayed()));
+        onView(allOf(withId(R.id.movieOverview), withText(movieDescription))).check(matches(isDisplayed()));
         return this;
     }
 
