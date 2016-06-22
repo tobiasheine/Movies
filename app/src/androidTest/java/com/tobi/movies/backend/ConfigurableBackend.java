@@ -10,6 +10,7 @@ import com.tobi.movies.posterdetails.ApiMovieDetails;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Callable;
 
 import retrofit2.http.Path;
 import retrofit2.http.Query;
@@ -30,12 +31,21 @@ public class ConfigurableBackend implements Backend {
 
     @Override
     public Observable<ApiPopularMoviesResponse> popularStream(@Query("api_key") String apiKey) {
-        ApiPopularMoviesResponse moviesResponse = new PublicApiPopularMoviesResponse(popularStream);
-        return Observable.just(moviesResponse);
+        return Observable.fromCallable(new Callable<ApiPopularMoviesResponse>() {
+            @Override
+            public ApiPopularMoviesResponse call() throws Exception {
+                return new PublicApiPopularMoviesResponse(popularStream);
+            }
+        });
     }
 
     @Override
-    public Observable<ApiMovieDetails> movieDetails(@Path("id") long movieId, @Query("api_key") String apiKey) {
-        return Observable.just(movieDetails.get(movieId));
+    public Observable<ApiMovieDetails> movieDetails(@Path("id") final long movieId, @Query("api_key") String apiKey) {
+        return Observable.fromCallable(new Callable<ApiMovieDetails>() {
+            @Override
+            public ApiMovieDetails call() throws Exception {
+                return movieDetails.get(movieId);
+            }
+        });
     }
 }
