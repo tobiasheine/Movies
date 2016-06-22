@@ -1,60 +1,36 @@
 package com.tobi.movies.posterdetails;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-
-import rx.Subscriber;
-
 public class MovieDetailsPresenter implements MovieDetailsMVP.Presenter {
 
-    private final MovieDetailsRepository repository;
+    private final MovieDetailsUseCase movieDetailsUseCase;
 
-    @Nullable
-    private MovieDetailsMVP.View view;
-
-    @Nullable
-    private Subscriber<MovieDetails> subscriber;
-
-    public MovieDetailsPresenter(MovieDetailsRepository repository) {
-        this.repository = repository;
+    public MovieDetailsPresenter(MovieDetailsUseCase movieDetailsUseCase) {
+        this.movieDetailsUseCase = movieDetailsUseCase;
     }
 
     @Override
-    public void startPresenting(MovieDetailsMVP.View movieDetailsView, long movieId) {
-        this.view = movieDetailsView;
-        subscriber = createSubscriber();
-        repository.getMovieDetails(movieId).subscribe(subscriber);
+    public void startPresenting(final MovieDetailsMVP.View movieDetailsView, long movieId) {
+        MovieDetails movieDetails = movieDetailsUseCase.getMovieDetails();
+        if (movieDetails != null) {
+            movieDetailsView.display(movieDetails);
+        } else {
+            movieDetailsUseCase.setListener(new MovieDetailsUseCase.Listener() {
+                @Override
+                public void onMovieDetails(MovieDetails movieDetails) {
+                    movieDetailsView.display(movieDetails);
+                }
+
+                @Override
+                public void onError(Throwable throwable) {
+                    movieDetailsView.showError();
+                }
+            });
+        }
+
     }
 
     @Override
     public void stopPresenting() {
-        if (subscriber != null) {
-            subscriber.unsubscribe();
-        }
-        view = null;
-    }
-
-    @NonNull
-    private Subscriber<MovieDetails> createSubscriber() {
-        return new Subscriber<MovieDetails>() {
-            @Override
-            public void onCompleted() {
-
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                if (MovieDetailsPresenter.this.view != null) {
-                    MovieDetailsPresenter.this.view.showError();
-                }
-            }
-
-            @Override
-            public void onNext(MovieDetails movieDetails) {
-                if (MovieDetailsPresenter.this.view != null) {
-                    MovieDetailsPresenter.this.view.display(movieDetails);
-                }
-            }
-        };
+        movieDetailsUseCase.setListener(null);
     }
 }
