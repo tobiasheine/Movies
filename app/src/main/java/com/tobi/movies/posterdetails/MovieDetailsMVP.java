@@ -1,18 +1,15 @@
 package com.tobi.movies.posterdetails;
 
+import android.support.annotation.Nullable;
+
 public interface MovieDetailsMVP {
 
     interface Model {
 
-        String overview();
+        @Nullable
+        MovieDetails getMovieDetails();
 
-        long movieId();
-
-        String originalTitle();
-
-        String posterPath();
-
-        String releaseDate();
+        void loadMovieDetails(long movieId);
     }
 
     interface Presenter {
@@ -22,7 +19,7 @@ public interface MovieDetailsMVP {
     }
 
     interface View {
-        void display(Model model);
+        void display(MovieDetails movieDetails);
 
         void showError();
     }
