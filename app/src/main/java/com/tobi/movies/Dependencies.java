@@ -1,7 +1,7 @@
 package com.tobi.movies;
 
 import com.tobi.movies.popularstream.PopularStreamRepository;
-import com.tobi.movies.posterdetails.MovieDetailsPresenter;
+import com.tobi.movies.posterdetails.MovieDetailsRepository;
 
 public interface Dependencies {
 
@@ -9,5 +9,5 @@ public interface Dependencies {
 
     PopularStreamRepository streamRepository();
 
-    MovieDetailsPresenter movieDetailsPresenter();
+    MovieDetailsRepository movieDetailsRepository();
 }

@@ -10,7 +10,6 @@ import com.tobi.movies.posterdetails.ApiMovieDetails;
 import com.tobi.movies.posterdetails.ApiMovieDetailsConverter;
 import com.tobi.movies.posterdetails.MovieDetails;
 import com.tobi.movies.posterdetails.MovieDetailsApiDatasource;
-import com.tobi.movies.posterdetails.MovieDetailsPresenter;
 import com.tobi.movies.posterdetails.MovieDetailsRepository;
 
 import retrofit2.Retrofit;
@@ -25,7 +24,7 @@ public class ApplicationDependencies implements Dependencies {
     private ImageLoader imageLoader;
     private Backend backend;
     private PopularStreamRepository streamRepository;
-    private MovieDetailsPresenter movieDetailsPresenter;
+    private MovieDetailsRepository movieDetailsRepository;
 
     @Override
     public ImageLoader imageLoader() {
@@ -46,16 +45,20 @@ public class ApplicationDependencies implements Dependencies {
     }
 
     @Override
-    public MovieDetailsPresenter movieDetailsPresenter() {
-        if (movieDetailsPresenter == null) {
-            movieDetailsPresenter = createMovieDetailsPresenter();
+    public MovieDetailsRepository movieDetailsRepository() {
+        if (movieDetailsRepository == null) {
+            movieDetailsRepository = createMovieDetailsRepository();
         }
-
-        return movieDetailsPresenter;
+        return movieDetailsRepository;
     }
 
-    protected MovieDetailsPresenter createMovieDetailsPresenter() {
-        return new MovieDetailsPresenter(createMovieDetailsRepository());
+    protected MovieDetailsRepository createMovieDetailsRepository() {
+        return new MovieDetailsRepository(
+                createMovieDetailsApiSource(),
+                createMovieDetailsConverter(),
+                createSubscribeScheduler(),
+                createObserveScheduler()
+        );
     }
 
     protected ImageLoader createImageLoader() {
@@ -94,14 +97,6 @@ public class ApplicationDependencies implements Dependencies {
                 createObserveScheduler(),
                 createPosterConverter()
         );
-    }
-
-    private MovieDetailsRepository createMovieDetailsRepository() {
-        return new MovieDetailsRepository(
-                createMovieDetailsApiSource(),
-                createMovieDetailsConverter(),
-                createSubscribeScheduler(),
-                createObserveScheduler());
     }
 
     protected Converter<ApiMovieDetails, MovieDetails> createMovieDetailsConverter() {

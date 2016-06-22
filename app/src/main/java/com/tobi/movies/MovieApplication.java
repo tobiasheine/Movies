@@ -5,6 +5,7 @@ import android.support.annotation.VisibleForTesting;
 
 import com.tobi.movies.popularstream.PopularStreamRepository;
 import com.tobi.movies.posterdetails.MovieDetailsPresenter;
+import com.tobi.movies.posterdetails.MovieDetailsRepository;
 
 public class MovieApplication extends Application implements Dependencies {
 
@@ -27,8 +28,8 @@ public class MovieApplication extends Application implements Dependencies {
     }
 
     @Override
-    public MovieDetailsPresenter movieDetailsPresenter() {
-        return dependencies.movieDetailsPresenter();
+    public MovieDetailsRepository movieDetailsRepository() {
+        return dependencies.movieDetailsRepository();
     }
 
     @VisibleForTesting

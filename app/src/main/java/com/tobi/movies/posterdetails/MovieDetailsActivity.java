@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.VisibleForTesting;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,14 +22,6 @@ public class MovieDetailsActivity extends Activity implements MovieDetailsMVP.Vi
 
     public static Intent createIntentFor(long movieId, Context activity) {
         Intent intent = new Intent(activity, MovieDetailsActivity.class);
-        intent.putExtra(EXTRA_MOVIE_ID, movieId);
-
-        return intent;
-    }
-
-    @VisibleForTesting
-    static Intent createTestIntentFor(long movieId) {
-        Intent intent = new Intent();
         intent.putExtra(EXTRA_MOVIE_ID, movieId);
 
         return intent;
@@ -57,7 +48,7 @@ public class MovieDetailsActivity extends Activity implements MovieDetailsMVP.Vi
         imageLoader = new ImageLoader();
 
         MovieApplication movieApplication = (MovieApplication) getApplicationContext();
-        presenter = movieApplication.movieDetailsPresenter();
+        presenter = new MovieDetailsPresenter(movieApplication.movieDetailsRepository());
     }
 
     @Override
