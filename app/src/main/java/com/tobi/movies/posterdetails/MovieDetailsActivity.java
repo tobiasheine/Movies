@@ -19,6 +19,7 @@ import butterknife.ButterKnife;
 public class MovieDetailsActivity extends Activity implements MovieDetailsMVP.View {
 
     private static final String EXTRA_MOVIE_ID = "extra_movie_id";
+    private MovieDetailsUseCase movieDetailsUseCase;
 
     public static Intent createIntentFor(long movieId, Context activity) {
         Intent intent = new Intent(activity, MovieDetailsActivity.class);
@@ -47,15 +48,30 @@ public class MovieDetailsActivity extends Activity implements MovieDetailsMVP.Vi
 
         imageLoader = new ImageLoader();
 
-        MovieApplication movieApplication = (MovieApplication) getApplicationContext();
-        presenter = new MovieDetailsPresenter(movieApplication.movieDetailsRepository());
+        movieDetailsUseCase = provideMovieDetailsUseCase();
+
+        presenter = new MovieDetailsPresenter(movieDetailsUseCase);
+    }
+
+    private MovieDetailsUseCase provideMovieDetailsUseCase() {
+        Object lastNonConfigurationInstance = getLastNonConfigurationInstance();
+        if (lastNonConfigurationInstance == null) {
+            MovieApplication movieApplication = (MovieApplication) getApplicationContext();
+            return new MovieDetailsUseCase(movieApplication.movieDetailsRepository());
+        }
+        return ((MovieDetailsUseCase) lastNonConfigurationInstance);
     }
 
     @Override
-    public void display(MovieDetailsMVP.Model model) {
-        movieTitle.setText(model.originalTitle());
-        movieOverview.setText(model.overview());
-        imageLoader.loadWebImageInto(Uri.parse(model.posterPath()), moviePoster);
+    public Object onRetainNonConfigurationInstance() {
+        return movieDetailsUseCase;
+    }
+
+    @Override
+    public void display(MovieDetails movieDetails) {
+        movieTitle.setText(movieDetails.originalTitle());
+        movieOverview.setText(movieDetails.overview());
+        imageLoader.loadWebImageInto(Uri.parse(movieDetails.posterPath()), moviePoster);
     }
 
     @Override
