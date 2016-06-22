@@ -25,6 +25,8 @@ public class MovieDetailsPresenter implements MovieDetailsMVP.Presenter {
                     movieDetailsView.showError();
                 }
             });
+
+            movieDetailsUseCase.loadMovieDetails(movieId);
         }
 
     }
