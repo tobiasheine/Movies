@@ -3,6 +3,7 @@ package com.tobi.movies.posterdetails;
 import org.junit.Test;
 
 import rx.Observable;
+import rx.schedulers.Schedulers;
 
 import static junit.framework.Assert.assertEquals;
 import static org.mockito.Mockito.*;
@@ -13,7 +14,7 @@ public class MovieDetailsUseCaseTest {
     private final MovieDetailsRepository repository = mock(MovieDetailsRepository.class);
     private final MovieDetailsUseCase.Listener listener = mock(MovieDetailsUseCase.Listener.class);
 
-    private final MovieDetailsUseCase movieDetailsUseCase = new MovieDetailsUseCase(repository);
+    private final MovieDetailsUseCase movieDetailsUseCase = new MovieDetailsUseCase(repository, Schedulers.immediate(), Schedulers.immediate());
 
     @Test
     public void shouldTriggerListenerOnMovieDetails() throws Exception {

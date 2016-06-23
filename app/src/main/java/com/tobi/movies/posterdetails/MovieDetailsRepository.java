@@ -5,31 +5,22 @@ import android.support.annotation.NonNull;
 import com.tobi.movies.Converter;
 
 import rx.Observable;
-import rx.Scheduler;
 import rx.functions.Func1;
 
 public class MovieDetailsRepository {
 
     private final MovieDetailsApiDatasource apiDatasource;
     private final Converter<ApiMovieDetails, MovieDetails> converter;
-    private final Scheduler subscribeScheduler;
-    private final Scheduler observeScheduler;
 
     public MovieDetailsRepository(MovieDetailsApiDatasource apiDatasource,
-                           Converter<ApiMovieDetails, MovieDetails> converter,
-                           Scheduler subscribeScheduler,
-                           Scheduler observeScheduler) {
+                                  Converter<ApiMovieDetails, MovieDetails> converter) {
         this.apiDatasource = apiDatasource;
         this.converter = converter;
-        this.subscribeScheduler = subscribeScheduler;
-        this.observeScheduler = observeScheduler;
     }
 
     public Observable<MovieDetails> getMovieDetails(long movieId) {
         return apiDatasource.getMovieDetails(movieId).
-                map(toMovieDetails()).
-                subscribeOn(subscribeScheduler).
-                observeOn(observeScheduler);
+                map(toMovieDetails());
     }
 
     @NonNull

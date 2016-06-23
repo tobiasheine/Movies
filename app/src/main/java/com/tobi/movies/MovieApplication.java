@@ -6,6 +6,8 @@ import android.support.annotation.VisibleForTesting;
 import com.tobi.movies.popularstream.PopularStreamRepository;
 import com.tobi.movies.posterdetails.MovieDetailsRepository;
 
+import rx.Scheduler;
+
 public class MovieApplication extends Application implements Dependencies {
 
     private Dependencies dependencies;
@@ -29,6 +31,16 @@ public class MovieApplication extends Application implements Dependencies {
     @Override
     public MovieDetailsRepository movieDetailsRepository() {
         return dependencies.movieDetailsRepository();
+    }
+
+    @Override
+    public Scheduler createSubscriberThread() {
+        return dependencies.createSubscriberThread();
+    }
+
+    @Override
+    public Scheduler createObserverThread() {
+        return dependencies.createObserverThread();
     }
 
     @VisibleForTesting

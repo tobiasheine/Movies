@@ -57,7 +57,7 @@ public class MovieDetailsActivity extends Activity implements MovieDetailsMVP.Vi
         Object lastNonConfigurationInstance = getLastNonConfigurationInstance();
         if (lastNonConfigurationInstance == null) {
             MovieApplication movieApplication = (MovieApplication) getApplicationContext();
-            return new MovieDetailsUseCase(movieApplication.movieDetailsRepository());
+            return new MovieDetailsUseCase(movieApplication.movieDetailsRepository(), movieApplication.createSubscriberThread(), movieApplication.createObserverThread());
         }
         return ((MovieDetailsUseCase) lastNonConfigurationInstance);
     }

@@ -3,6 +3,7 @@ package com.tobi.movies.posterdetails;
 import android.support.annotation.Nullable;
 
 import rx.Observer;
+import rx.Scheduler;
 import rx.Subscription;
 
 public class MovieDetailsUseCase implements MovieDetailsMVP.Model {
@@ -27,13 +28,20 @@ public class MovieDetailsUseCase implements MovieDetailsMVP.Model {
     }
 
     private final MovieDetailsRepository repository;
+    private final Scheduler schedulerThread;
+    private final Scheduler observerThread;
 
     @Nullable
     private Subscription subscription;
     private Listener listener = NO_OP_LISTENER;
 
-    public MovieDetailsUseCase(MovieDetailsRepository repository) {
+    public MovieDetailsUseCase(
+            MovieDetailsRepository repository,
+            Scheduler schedulerThread,
+            Scheduler observerThread) {
         this.repository = repository;
+        this.schedulerThread = schedulerThread;
+        this.observerThread = observerThread;
     }
 
     @Nullable
@@ -51,23 +59,27 @@ public class MovieDetailsUseCase implements MovieDetailsMVP.Model {
             subscription.unsubscribe();
         }
 
-        subscription = repository.getMovieDetails(movieId).subscribe(new Observer<MovieDetails>() {
-            @Override
-            public void onCompleted() {
+        subscription = repository
+                .getMovieDetails(movieId)
+                .subscribeOn(schedulerThread)
+                .observeOn(observerThread)
+                .subscribe(new Observer<MovieDetails>() {
+                    @Override
+                    public void onCompleted() {
 
-            }
+                    }
 
-            @Override
-            public void onError(Throwable e) {
-                listener.onError(e);
-            }
+                    @Override
+                    public void onError(Throwable e) {
+                        listener.onError(e);
+                    }
 
-            @Override
-            public void onNext(MovieDetails movieDetails) {
-                MovieDetailsUseCase.this.movieDetails = movieDetails;
-                listener.onMovieDetails(movieDetails);
-            }
-        });
+                    @Override
+                    public void onNext(MovieDetails movieDetails) {
+                        MovieDetailsUseCase.this.movieDetails = movieDetails;
+                        listener.onMovieDetails(movieDetails);
+                    }
+                });
     }
 
     void setListener(@Nullable Listener listener) {

@@ -11,7 +11,6 @@ import org.mockito.stubbing.Answer;
 
 import rx.Observable;
 import rx.observers.TestSubscriber;
-import rx.schedulers.Schedulers;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.doAnswer;
@@ -25,9 +24,7 @@ public class MovieDetailsRepositoryTest {
 
     private final MovieDetailsRepository repository = new MovieDetailsRepository(
             apiDatasource,
-            conveter,
-            Schedulers.immediate(),
-            Schedulers.immediate()
+            conveter
     );
 
     @Before
