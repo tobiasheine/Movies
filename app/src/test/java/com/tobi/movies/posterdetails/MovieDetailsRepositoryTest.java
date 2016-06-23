@@ -4,50 +4,25 @@ import android.support.annotation.NonNull;
 
 import com.tobi.movies.Converter;
 
-import org.junit.Before;
 import org.junit.Test;
-import org.mockito.invocation.InvocationOnMock;
-import org.mockito.stubbing.Answer;
 
 import rx.Observable;
 import rx.observers.TestSubscriber;
 
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class MovieDetailsRepositoryTest {
 
-    private MovieDetailsApiDatasource apiDatasource = mock(MovieDetailsApiDatasource.class);
-    private Converter<ApiMovieDetails, MovieDetails> conveter = mock(ApiMovieDetailsConverter.class);
+    private final MovieDetailsApiDatasource apiDatasource = mock(MovieDetailsApiDatasource.class);
+    private final Converter<ApiMovieDetails, MovieDetails> conveter = new ApiMovieDetailsConverter();
 
-    private final MovieDetailsRepository repository = new MovieDetailsRepository(
-            apiDatasource,
-            conveter
-    );
-
-    @Before
-    public void setUp() throws Exception {
-        doAnswer(new Answer() {
-            @Override
-            public Object answer(InvocationOnMock invocation) throws Throwable {
-                ApiMovieDetails apiMovieDetails = ((ApiMovieDetails) invocation.getArguments()[0]);
-
-                return MovieDetails.builder().
-                        movieId(apiMovieDetails.movieId).
-                        originalTitle(apiMovieDetails.originalTitle).
-                        posterPath(apiMovieDetails.posterPath).
-                        overview(apiMovieDetails.overview).
-                        releaseDate(apiMovieDetails.releaseDate).build();
-            }
-        }).when(conveter).convert(any(ApiMovieDetails.class));
-    }
+    private final MovieDetailsRepository repository = new MovieDetailsRepository(apiDatasource, conveter);
 
     @Test
     public void shouldReturnMovieDetailsForId() throws Exception {
         long movieId = 1L;
-        String imagePath = "path";
+        String imagePath = "/path";
         String overview = "overview";
         String title = "title";
         String releaseDate = "date";
@@ -60,7 +35,7 @@ public class MovieDetailsRepositoryTest {
         detailsObservable.subscribe(testSubscriber);
         MovieDetails expectedMovieDetails = MovieDetails.builder().
                 movieId(movieId).
-                posterPath(imagePath).
+                posterPath("http://image.tmdb.org/t/p/w500/" + imagePath.substring(1, imagePath.length())).
                 originalTitle(title).
                 releaseDate(releaseDate).
                 overview(overview).
