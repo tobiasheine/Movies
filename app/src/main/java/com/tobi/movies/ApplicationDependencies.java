@@ -52,12 +52,20 @@ public class ApplicationDependencies implements Dependencies {
         return movieDetailsRepository;
     }
 
+    @Override
+    public Scheduler createSubscriberThread() {
+        return Schedulers.io();
+    }
+
+    @Override
+    public Scheduler createObserverThread() {
+        return AndroidSchedulers.mainThread();
+    }
+
     protected MovieDetailsRepository createMovieDetailsRepository() {
         return new MovieDetailsRepository(
                 createMovieDetailsApiSource(),
-                createMovieDetailsConverter(),
-                createSubscribeScheduler(),
-                createObserveScheduler()
+                createMovieDetailsConverter()
         );
     }
 
@@ -73,14 +81,6 @@ public class ApplicationDependencies implements Dependencies {
         return new PopularStreamApiDatasource(createBackend());
     }
 
-    protected Scheduler createSubscribeScheduler() {
-        return Schedulers.io();
-    }
-
-    protected Scheduler createObserveScheduler() {
-        return AndroidSchedulers.mainThread();
-    }
-
     protected Backend createBackend() {
 
         return new Retrofit.Builder()
@@ -93,8 +93,8 @@ public class ApplicationDependencies implements Dependencies {
     private PopularStreamRepository createStreamRepository() {
         return new PopularStreamRepository(
                 createStreamApiDataSource(),
-                createSubscribeScheduler(),
-                createObserveScheduler(),
+                createSubscriberThread(),
+                createObserverThread(),
                 createPosterConverter()
         );
     }

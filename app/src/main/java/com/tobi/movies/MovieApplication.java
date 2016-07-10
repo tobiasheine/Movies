@@ -4,8 +4,9 @@ import android.app.Application;
 import android.support.annotation.VisibleForTesting;
 
 import com.tobi.movies.popularstream.PopularStreamRepository;
-import com.tobi.movies.posterdetails.MovieDetailsPresenter;
 import com.tobi.movies.posterdetails.MovieDetailsRepository;
+
+import rx.Scheduler;
 
 public class MovieApplication extends Application implements Dependencies {
 
@@ -32,13 +33,18 @@ public class MovieApplication extends Application implements Dependencies {
         return dependencies.movieDetailsRepository();
     }
 
-    @VisibleForTesting
-    public void setDependencies(Dependencies dependencies) {
-        this.dependencies = dependencies;
+    @Override
+    public Scheduler createSubscriberThread() {
+        return dependencies.createSubscriberThread();
+    }
+
+    @Override
+    public Scheduler createObserverThread() {
+        return dependencies.createObserverThread();
     }
 
     @VisibleForTesting
-    public Dependencies getDependencies() {
-        return dependencies;
+    public void setDependencies(Dependencies dependencies) {
+        this.dependencies = dependencies;
     }
 }
