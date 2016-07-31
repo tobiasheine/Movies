@@ -8,6 +8,7 @@ import com.tobi.movies.EspressoDependencies;
 import com.tobi.movies.MovieApplication;
 import com.tobi.movies.backend.ConfigurableBackend;
 import com.tobi.movies.posterdetails.ApiMovieDetails;
+import com.tobi.movies.posterdetails.PosterDetailsRobot;
 import com.tobi.movies.utils.MovieRobot;
 
 import org.junit.Before;
@@ -60,7 +61,9 @@ public class PopularMoviesActivityTest {
         MovieRobot
                 .create()
                 .launchPopularMovies(rule)
-                .selectPosterAtPosition(0)
+                .selectPosterAtPosition(0);
+
+        PosterDetailsRobot.create()
                 .checkMovieTitleIsDisplayed(MOVIE_TITLE)
                 .checkMovieDescriptionIsDisplayed(MOVIE_DESCRIPTION);
     }

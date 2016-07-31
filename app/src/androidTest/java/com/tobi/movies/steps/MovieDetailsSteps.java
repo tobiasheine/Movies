@@ -1,6 +1,6 @@
 package com.tobi.movies.steps;
 
-import com.tobi.movies.utils.MovieRobot;
+import com.tobi.movies.posterdetails.PosterDetailsRobot;
 
 import java.util.Map;
 
@@ -8,6 +8,8 @@ import cucumber.api.DataTable;
 import cucumber.api.java.en.Then;
 
 public class MovieDetailsSteps {
+
+    private final PosterDetailsRobot posterDetailsRobot = PosterDetailsRobot.create();
 
     @Then("^I expect to see the following movie details$")
     public void I_expect_to_see_the_movie_details(final DataTable dataTable) {
@@ -20,7 +22,7 @@ public class MovieDetailsSteps {
         String movieTitle = row.get("movieTitle");
         String movieDetails = row.get("movieDetails");
 
-        MovieRobot.get().checkMovieTitleIsDisplayed(movieTitle);
-        MovieRobot.get().checkMovieDescriptionIsDisplayed(movieDetails);
+        posterDetailsRobot.checkMovieTitleIsDisplayed(movieTitle);
+        posterDetailsRobot.checkMovieDescriptionIsDisplayed(movieDetails);
     }
 }

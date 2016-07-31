@@ -7,7 +7,6 @@ import android.support.test.runner.AndroidJUnit4;
 import com.tobi.movies.EspressoDependencies;
 import com.tobi.movies.MovieApplication;
 import com.tobi.movies.backend.ConfigurableBackend;
-import com.tobi.movies.utils.MovieRobot;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -42,8 +41,7 @@ public class MovieDetailsActivityTest {
     public void shouldShowMovieTitle() throws Exception {
         backend.addMovieDetails(apiMovieDetails);
 
-        MovieRobot
-                .create()
+        PosterDetailsRobot
                 .launchDetailsScreen(MOVIE_ID, rule)
                 .checkMovieTitleIsDisplayed(MOVIE_TITLE)
                 .checkMovieDescriptionIsDisplayed(MOVIE_DESCRIPTION);
