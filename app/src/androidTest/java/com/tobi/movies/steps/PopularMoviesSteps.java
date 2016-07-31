@@ -1,6 +1,6 @@
 package com.tobi.movies.steps;
 
-import com.tobi.movies.utils.MovieRobot;
+import com.tobi.movies.popularstream.PopularMoviesRobot;
 
 import java.util.Map;
 
@@ -9,9 +9,11 @@ import cucumber.api.java.en.When;
 
 public class PopularMoviesSteps {
 
+    private final PopularMoviesRobot popularMoviesRobot = PopularMoviesRobot.create();
+
     @When("^I select the poster at position (\\d+)$")
     public void I_select_a_poster_at(final int position) {
-        MovieRobot.get().selectPosterAtPosition(position);
+        popularMoviesRobot.selectPosterAtPosition(position);
     }
 
     @When("^I expect to see the following movie posters$")
@@ -20,7 +22,7 @@ public class PopularMoviesSteps {
             int position = Integer.valueOf(row.get("position"));
             String posterPath = row.get("posterPath");
 
-            MovieRobot.get().checkPosterWithPathIsDisplayedAtPosition(position, posterPath);
+            popularMoviesRobot.checkPosterWithPathIsDisplayedAtPosition(position, posterPath);
         }
     }
 }

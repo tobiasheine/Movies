@@ -9,7 +9,6 @@ import com.tobi.movies.MovieApplication;
 import com.tobi.movies.backend.ConfigurableBackend;
 import com.tobi.movies.posterdetails.ApiMovieDetails;
 import com.tobi.movies.posterdetails.PosterDetailsRobot;
-import com.tobi.movies.utils.MovieRobot;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -47,7 +46,7 @@ public class PopularMoviesActivityTest {
     public void shouldShowPoster() throws Exception {
         backend.addToPopularStream(apiMoviePoster);
 
-        MovieRobot
+        PopularMoviesRobot
                 .create()
                 .launchPopularMovies(rule)
                 .checkPosterWithPathIsDisplayedAtPosition(0, POSTER_PATH);
@@ -58,7 +57,7 @@ public class PopularMoviesActivityTest {
         backend.addToPopularStream(apiMoviePoster);
         backend.addMovieDetails(movieDetails);
 
-        MovieRobot
+        PopularMoviesRobot
                 .create()
                 .launchPopularMovies(rule)
                 .selectPosterAtPosition(0);

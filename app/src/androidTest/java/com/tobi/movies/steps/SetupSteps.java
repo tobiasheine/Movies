@@ -10,7 +10,7 @@ import com.tobi.movies.popularstream.ApiMoviePoster;
 import com.tobi.movies.popularstream.PopularMoviesActivity;
 import com.tobi.movies.posterdetails.ApiMovieDetails;
 import com.tobi.movies.utils.ActivityFinisher;
-import com.tobi.movies.utils.MovieRobot;
+import com.tobi.movies.popularstream.PopularMoviesRobot;
 
 import java.util.Map;
 
@@ -24,7 +24,7 @@ public class SetupSteps {
     private final ActivityTestRule<PopularMoviesActivity> activityRule = new ActivityTestRule<>(
             PopularMoviesActivity.class);
 
-    private MovieRobot movieRobot;
+    private PopularMoviesRobot movieRobot;
     private ConfigurableBackend configurableBackend;
 
     @Before
@@ -33,13 +33,12 @@ public class SetupSteps {
         configurableBackend = new ConfigurableBackend();
         movieApplication.setDependencies(new EspressoDependencies(configurableBackend));
 
-        movieRobot = MovieRobot.create();
+        movieRobot = PopularMoviesRobot.create();
     }
 
     @After
     public void tearDown() {
         ActivityFinisher.finishOpenActivities(); // Required for testing App with multiple activities
-        MovieRobot.reset();
     }
 
     @Given("^I start the application$")
