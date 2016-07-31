@@ -41,7 +41,7 @@ public class MovieDetailsActivityTest {
     public void shouldShowMovieTitle() throws Exception {
         backend.addMovieDetails(apiMovieDetails);
 
-        PosterDetailsRobot
+        PosterDetailsRobot.create()
                 .launchDetailsScreen(MOVIE_ID, rule)
                 .checkMovieTitleIsDisplayed(MOVIE_TITLE)
                 .checkMovieDescriptionIsDisplayed(MOVIE_DESCRIPTION);

@@ -18,19 +18,19 @@ public class PosterDetailsRobot {
         return new PosterDetailsRobot();
     }
 
-    public static PosterDetailsRobot launchDetailsScreen(long movieId, ActivityTestRule<MovieDetailsActivity> testRule) {
-        testRule.launchActivity(MovieDetailsActivity.createIntentFor(movieId, InstrumentationRegistry.getInstrumentation()
-                .getTargetContext()
-                .getApplicationContext()));
-        return new PosterDetailsRobot();
-    }
-
     private PosterDetailsRobot() {
     }
 
     public PosterDetailsRobot checkMovieTitleIsDisplayed(String movieTitle) {
         onView(allOf(withId(R.id.movieTitle), withText(movieTitle))).check(matches(isDisplayed()));
         return this;
+    }
+
+    public PosterDetailsRobot launchDetailsScreen(long movieId, ActivityTestRule<MovieDetailsActivity> testRule) {
+        testRule.launchActivity(MovieDetailsActivity.createIntentFor(movieId, InstrumentationRegistry.getInstrumentation()
+                .getTargetContext()
+                .getApplicationContext()));
+        return new PosterDetailsRobot();
     }
 
     public PosterDetailsRobot checkMovieDescriptionIsDisplayed(String movieDescription) {
