@@ -25,14 +25,15 @@ public class SetupSteps {
             PopularMoviesActivity.class);
 
     private MovieRobot movieRobot;
+    private ConfigurableBackend configurableBackend;
 
     @Before
     public void setup() {
         MovieApplication movieApplication = (MovieApplication) InstrumentationRegistry.getTargetContext().getApplicationContext();
-        ConfigurableBackend configurableBackend = new ConfigurableBackend();
+        configurableBackend = new ConfigurableBackend();
         movieApplication.setDependencies(new EspressoDependencies(configurableBackend));
 
-        movieRobot = MovieRobot.createRobot(configurableBackend);
+        movieRobot = MovieRobot.create();
     }
 
     @After
@@ -71,7 +72,7 @@ public class SetupSteps {
             String description = row.get("description");
             String releaseDate = row.get("releaseDate");
 
-            movieRobot.addApiMovieDetailsToRemoteDataSource(createMovieDetails(movieId, title, description, posterPath, releaseDate));
+            configurableBackend.addMovieDetails(createMovieDetails(movieId, title, description, posterPath, releaseDate));
         }
     }
 
@@ -80,7 +81,7 @@ public class SetupSteps {
             Long movieId = Long.valueOf(row.get("movieId"));
             String posterPath = row.get("posterPath");
 
-            movieRobot.addApiMoviePosterToRemoteDataSource(createApiMoviePoster(movieId, posterPath));
+            configurableBackend.addToPopularStream(createApiMoviePoster(movieId, posterPath));
         }
     }
 

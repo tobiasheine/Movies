@@ -5,11 +5,8 @@ import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.rule.ActivityTestRule;
 
 import com.tobi.movies.R;
-import com.tobi.movies.backend.ConfigurableBackend;
 import com.tobi.movies.matchers.PosterMatcher;
-import com.tobi.movies.popularstream.ApiMoviePoster;
 import com.tobi.movies.popularstream.PopularMoviesActivity;
-import com.tobi.movies.posterdetails.ApiMovieDetails;
 import com.tobi.movies.posterdetails.MovieDetailsActivity;
 
 import static android.support.test.espresso.Espresso.onView;
@@ -22,10 +19,8 @@ public class MovieRobot {
 
     private static MovieRobot INSTANCE;
 
-    private final ConfigurableBackend configurableBackend;
-
-    public static MovieRobot createRobot(final ConfigurableBackend configurableBackend) {
-        INSTANCE = new MovieRobot(configurableBackend);
+    public static MovieRobot create() {
+        INSTANCE = new MovieRobot();
         return INSTANCE;
     }
 
@@ -41,18 +36,7 @@ public class MovieRobot {
         INSTANCE = null;
     }
 
-    protected MovieRobot(ConfigurableBackend configurableBackend) {
-        this.configurableBackend = configurableBackend;
-    }
-
-    public MovieRobot addApiMoviePosterToRemoteDataSource(ApiMoviePoster moviePosters) {
-        configurableBackend.addToPopularStream(moviePosters);
-        return this;
-    }
-
-    public MovieRobot addApiMovieDetailsToRemoteDataSource(ApiMovieDetails movieDetails) {
-        configurableBackend.addMovieDetails(movieDetails);
-        return this;
+    private MovieRobot() {
     }
 
     public MovieRobot launchDetailsScreen(long movieId, ActivityTestRule<MovieDetailsActivity> testRule) {

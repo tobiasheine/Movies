@@ -44,19 +44,21 @@ public class PopularMoviesActivityTest {
 
     @Test
     public void shouldShowPoster() throws Exception {
+        backend.addToPopularStream(apiMoviePoster);
+
         MovieRobot
-                .createRobot(backend)
-                .addApiMoviePosterToRemoteDataSource(apiMoviePoster)
+                .create()
                 .launchPopularMovies(rule)
                 .checkPosterWithPathIsDisplayedAtPosition(0, POSTER_PATH);
     }
 
     @Test
     public void shouldNavigateToMovieDetails() throws Exception {
+        backend.addToPopularStream(apiMoviePoster);
+        backend.addMovieDetails(movieDetails);
+
         MovieRobot
-                .createRobot(backend)
-                .addApiMoviePosterToRemoteDataSource(apiMoviePoster)
-                .addApiMovieDetailsToRemoteDataSource(movieDetails)
+                .create()
                 .launchPopularMovies(rule)
                 .selectPosterAtPosition(0)
                 .checkMovieTitleIsDisplayed(MOVIE_TITLE)
