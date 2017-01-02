@@ -38,6 +38,9 @@ android {
 
     packagingOptions {
         exclude 'META-INF/services/javax.annotation.processing.Processor'
+        exclude 'META-INF/maven/com.google.guava/guava/pom.properties'
+        exclude 'META-INF/maven/com.google.guava/guava/pom.xml'
+
     }
 }
 
@@ -89,8 +92,9 @@ dependencies {
     androidTestCompile 'com.android.support.test:runner:0.5'
     androidTestCompile 'com.android.support.test:rules:0.5'
     androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
+
     androidTestCompile 'org.hamcrest:hamcrest-library:1.3'
-    androidTestCompile 'info.cukes:cucumber-android:1.2.0@jar'
+    androidTestCompile 'info.cukes:cucumber-android:1.2.2'
     androidTestCompile 'info.cukes:cucumber-picocontainer:1.2.0'
     androidTestCompile('com.android.support.test.espresso:espresso-contrib:2.2.1') {
         exclude module: 'support-annotations'
