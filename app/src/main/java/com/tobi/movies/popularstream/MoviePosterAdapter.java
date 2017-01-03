@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.tobi.movies.ImageLoader;
-import com.tobi.movies.Navigator;
 import com.tobi.movies.R;
 
 import java.util.List;

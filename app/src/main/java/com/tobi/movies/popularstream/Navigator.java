@@ -1,19 +1,19 @@
-package com.tobi.movies;
+package com.tobi.movies.popularstream;
 
 import android.app.Activity;
 import android.content.Intent;
 
 import com.tobi.movies.posterdetails.MovieDetailsActivity;
 
-public class Navigator {
+class Navigator {
 
     private final Activity activity;
 
-    public Navigator(Activity activity) {
+    Navigator(Activity activity) {
         this.activity = activity;
     }
 
-    public void toMovieDetails(long movieId) {
+    void toMovieDetails(long movieId) {
         Intent intent = MovieDetailsActivity.createIntentFor(movieId, activity);
         activity.startActivity(intent);
     }

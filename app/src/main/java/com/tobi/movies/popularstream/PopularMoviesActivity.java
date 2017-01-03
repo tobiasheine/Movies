@@ -7,7 +7,6 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
 import com.tobi.movies.MovieApplication;
-import com.tobi.movies.Navigator;
 import com.tobi.movies.R;
 
 import java.util.List;
