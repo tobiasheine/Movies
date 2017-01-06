@@ -19,9 +19,8 @@ public class CucumberInstrumentation extends AndroidJUnitRunner {
     public void onCreate(final Bundle bundle) {
         String tags = BuildConfig.TEST_TAGS;
         if (!tags.isEmpty()) {
-            // Reformat tags list to separate items with '--' as expected by Cucumber library, see method
-            // cucumber-android-1.2.2.jar\cucumber\runtime\android\Arguments.class @ appendOption()
-            bundle.putString(CUCUMBER_TAGS_KEY, tags.replaceAll(",", "--").replaceAll("\\s", ""));
+            String tagsKey = tags.replaceAll("\\s", "");
+            bundle.putString(CUCUMBER_TAGS_KEY, tagsKey);
         }
 
         String scenario = BuildConfig.TEST_SCENARIO;
