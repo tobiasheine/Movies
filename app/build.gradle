@@ -3,27 +3,27 @@ apply plugin: 'com.neenbedankt.android-apt'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "24.0.2"
+    buildToolsVersion '24.0.2'
 
     defaultConfig {
-        applicationId "com.tobi.movies"
+        applicationId 'com.tobi.movies'
         minSdkVersion 19
         targetSdkVersion 25
         versionCode 1
-        versionName "1.0"
-        testApplicationId "com.tobi.movies.steps"
+        versionName '1.0'
+        testApplicationId 'com.tobi.movies.steps'
         testInstrumentationRunner getInstrumentation()
     }
     buildTypes {
 
         applicationVariants.all { variant ->
-            variant.buildConfigField "String", "API_KEY", "\"" + getApiKey() + "\""
+            variant.buildConfigField 'String', 'API_KEY', '"' + getApiKey() + '"'
         }
 
         debug {
-            buildConfigField "String", "TEST_TAGS", "\"${getTestTags()}\""
-            buildConfigField "String", "TEST_FEATURE", "\"${getTestFeature()}\""
-            buildConfigField "String", "TEST_SCENARIO", "\"${getTestScenario()}\""
+            buildConfigField 'String', 'TEST_TAGS', '"' + getTestTags() + '"'
+            buildConfigField 'String', 'TEST_FEATURE', '"' + getTestFeature() + '"'
+            buildConfigField 'String', 'TEST_SCENARIO', '"' + getTestScenario() + '"'
         }
 
         release {
@@ -51,19 +51,19 @@ def getApiKey() {
 }
 
 def getTestTags() {
-    return project.hasProperty('tags') ? project.getProperties().get("tags") : ""
+    project.getProperties().get('tags') ?: ''
 }
 
 def getTestFeature() {
-    return project.hasProperty('feature') ? project.getProperties().get("feature") : ""
+    project.getProperties().get('feature') ?: ''
 }
 
 def getTestScenario() {
-    return project.hasProperty('scenario') ? project.getProperties().get("scenario") : ""
+    project.getProperties().get('scenario') ?: ''
 }
 
 def getInstrumentation() {
-    return project.hasProperty("cucumber") ? 'com.tobi.movies.utils.CucumberInstrumentation' : 'android.support.test.runner.AndroidJUnitRunner'
+    return project.hasProperty('cucumber') ? 'com.tobi.movies.utils.CucumberInstrumentation' : 'android.support.test.runner.AndroidJUnitRunner'
 }
 
 dependencies {
