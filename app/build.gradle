@@ -63,7 +63,7 @@ def getTestScenario() {
 }
 
 def getInstrumentation() {
-    return project.hasProperty('cucumber') ? 'com.tobi.movies.utils.CucumberInstrumentation' : 'android.support.test.runner.AndroidJUnitRunner'
+    project.hasProperty('cucumber') ? 'com.tobi.movies.utils.CucumberInstrumentation' : 'android.support.test.runner.AndroidJUnitRunner'
 }
 
 dependencies {
