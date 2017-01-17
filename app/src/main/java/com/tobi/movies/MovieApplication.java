@@ -47,4 +47,9 @@ public class MovieApplication extends Application implements Dependencies {
     public void setDependencies(Dependencies dependencies) {
         this.dependencies = dependencies;
     }
+
+    @VisibleForTesting
+    public Dependencies getDependencies() {
+        return dependencies;
+    }
 }

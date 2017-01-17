@@ -18,6 +18,10 @@ public class EspressoDependencies extends ApplicationDependencies {
 
     private final ConfigurableBackend backend;
 
+    public EspressoDependencies() {
+        this(new ConfigurableBackend());
+    }
+
     public EspressoDependencies(ConfigurableBackend backend) {
         this.backend = backend;
     }
@@ -41,5 +45,9 @@ public class EspressoDependencies extends ApplicationDependencies {
     public Scheduler createSubscriberThread() {
         // IdlingResource is not needed since espresso waits for AsyncTask.THREAD_POOL_EXECUTOR
         return Schedulers.from(AsyncTask.THREAD_POOL_EXECUTOR);
+    }
+
+    public ConfigurableBackend getConfigurableBackend() {
+        return backend;
     }
 }

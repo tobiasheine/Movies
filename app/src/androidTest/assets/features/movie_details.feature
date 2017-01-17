@@ -18,6 +18,17 @@ Feature: Movie Details
       | movieTitle | movieDetails  |
       | Deadpool   | awesome movie |
 
+  Scenario: Show movie details for a single poster from details screen
+    Given the following remote movie details exist
+      | movieId | posterPath   | title     | description            | releaseDate |
+      | 100     | deadpool.jpg | Deadpool  | awesome movie          | 01.01.2000  |
+      | 200     | xmen.jpg     | X-Men     | wolverine rocks        | 05.03.2010  |
+      | 300     | starwars.jpg | Star Wars | may the force with you | 03.04.2008  |
+    When I start the details screen with movie id 100
+    Then I expect to see the following movie details
+      | movieTitle | movieDetails  |
+      | Deadpool   | awesome movie |
+
   Scenario Outline: Show movie details for all posters
     Given the following remote movie posters exist
       | movieId | posterPath   |
