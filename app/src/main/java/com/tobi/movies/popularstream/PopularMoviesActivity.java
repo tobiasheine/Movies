@@ -8,12 +8,12 @@ import android.util.Log;
 
 import com.tobi.movies.MovieApplication;
 import com.tobi.movies.R;
+import com.tobi.movies.misc.AbstractObserver;
 
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import rx.Subscriber;
 
 public class PopularMoviesActivity extends AppCompatActivity {
 
@@ -34,11 +34,7 @@ public class PopularMoviesActivity extends AppCompatActivity {
 
         final Navigator navigator = new Navigator(this);
         final MovieApplication movieApplication = (MovieApplication) getApplicationContext();
-        movieApplication.streamRepository().getPopularPosters().subscribe(new Subscriber<List<MoviePoster>>() {
-            @Override
-            public void onCompleted() {
-
-            }
+        movieApplication.streamRepository().getPopularPosters().subscribe(new AbstractObserver<List<MoviePoster>>() {
 
             @Override
             public void onError(Throwable e) {

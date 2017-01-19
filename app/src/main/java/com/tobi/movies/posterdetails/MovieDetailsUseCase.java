@@ -2,7 +2,8 @@ package com.tobi.movies.posterdetails;
 
 import android.support.annotation.Nullable;
 
-import rx.Observer;
+import com.tobi.movies.misc.AbstractObserver;
+
 import rx.Scheduler;
 import rx.Subscription;
 
@@ -63,11 +64,7 @@ public class MovieDetailsUseCase implements MovieDetailsMVP.Model {
                 .getMovieDetails(movieId)
                 .subscribeOn(schedulerThread)
                 .observeOn(observerThread)
-                .subscribe(new Observer<MovieDetails>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
+                .subscribe(new AbstractObserver<MovieDetails>() {
 
                     @Override
                     public void onError(Throwable e) {
