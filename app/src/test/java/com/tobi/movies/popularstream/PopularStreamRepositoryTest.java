@@ -22,10 +22,10 @@ import static org.mockito.Mockito.when;
 
 public class PopularStreamRepositoryTest {
 
-    public static final long FIRST_MOVIE_ID = 1L;
-    public static final long SECOND_MOVIE_ID = 2L;
-    public static final String FIRST_POSTER_PATH = "first path";
-    public static final String SECOND_POSTER_PATH = "second path";
+    private static final long FIRST_MOVIE_ID = 1L;
+    private static final long SECOND_MOVIE_ID = 2L;
+    private static final String FIRST_POSTER_PATH = "first path";
+    private static final String SECOND_POSTER_PATH = "second path";
 
     @Rule
     public MockitoRule rule = MockitoJUnit.rule();
