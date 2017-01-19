@@ -1,24 +1,22 @@
 package com.tobi.movies.popularstream;
 
-import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.rule.ActivityTestRule;
 
 import com.tobi.movies.R;
+import com.tobi.movies.Robot;
 import com.tobi.movies.matchers.PosterMatcher;
 
 import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 
-public class PopularMoviesRobot {
-
+public class PopularMoviesRobot extends Robot<PopularMoviesRobot> {
 
     public static PopularMoviesRobot create() {
         return new PopularMoviesRobot();
     }
 
-    private PopularMoviesRobot() {
+    public PopularMoviesRobot() {
     }
 
     public PopularMoviesRobot launchPopularMovies(ActivityTestRule<PopularMoviesActivity> rule) {
@@ -33,8 +31,6 @@ public class PopularMoviesRobot {
     }
 
     public PopularMoviesRobot selectPosterAtPosition(int position) {
-        onView(withId(R.id.popularMovies_recycler))
-                .perform(RecyclerViewActions.actionOnItemAtPosition(position, click()));
-        return this;
+        return selectPositionInRecyclerView(position, R.id.popularMovies_recycler);
     }
 }
