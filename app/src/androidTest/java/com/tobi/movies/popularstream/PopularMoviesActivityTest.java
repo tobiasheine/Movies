@@ -60,9 +60,8 @@ public class PopularMoviesActivityTest {
         PopularMoviesRobot
                 .create()
                 .launchPopularMovies(rule)
-                .selectPosterAtPosition(0);
-
-        PosterDetailsRobot.create()
+                .selectPosterAtPosition(0)
+                .toRobot(PosterDetailsRobot.class)
                 .checkMovieTitleIsDisplayed(MOVIE_TITLE)
                 .checkMovieDescriptionIsDisplayed(MOVIE_DESCRIPTION);
     }
