@@ -1,5 +1,6 @@
 package com.tobi.movies.posterdetails;
 
+import org.joda.time.LocalDate;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InOrder;
@@ -14,7 +15,7 @@ public class MovieDetailsPresenterTest {
             .originalTitle("title")
             .overview("overview")
             .posterPath("poster")
-            .releaseDate("date")
+            .releaseDate(new LocalDate())
             .build();
 
     private final MovieDetailsMVP.View view = mock(MovieDetailsMVP.View.class);

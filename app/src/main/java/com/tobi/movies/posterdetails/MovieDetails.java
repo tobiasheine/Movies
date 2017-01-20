@@ -2,6 +2,8 @@ package com.tobi.movies.posterdetails;
 
 import com.google.auto.value.AutoValue;
 
+import org.joda.time.LocalDate;
+
 @AutoValue
 public abstract class MovieDetails {
 
@@ -9,7 +11,7 @@ public abstract class MovieDetails {
     public abstract long movieId();
     public abstract String originalTitle();
     public abstract String posterPath();
-    public abstract String releaseDate();
+    public abstract LocalDate releaseDate();
 
     static Builder builder() {
         return new AutoValue_MovieDetails.Builder();
@@ -25,7 +27,7 @@ public abstract class MovieDetails {
 
         abstract Builder posterPath(String posterPath);
 
-        abstract Builder releaseDate(String releaseDate);
+        abstract Builder releaseDate(LocalDate releaseDate);
 
         abstract MovieDetails build();
     }
