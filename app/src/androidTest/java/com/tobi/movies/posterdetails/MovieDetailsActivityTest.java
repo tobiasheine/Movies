@@ -19,7 +19,7 @@ public class MovieDetailsActivityTest {
     private static final String MOVIE_TITLE = "Deadpool";
     private static final String MOVIE_DESCRIPTION = "Such an awesome movie!";
     private static final String POSTER_PATH = "deadpool.jpg";
-    private static final String RELEASE_DATE = "2010-01-01";
+    private static final String RELEASE_DATE = "2001-01-01";
 
     private ConfigurableBackend backend = new ConfigurableBackend();
 
