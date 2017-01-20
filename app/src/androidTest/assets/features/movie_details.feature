@@ -8,10 +8,10 @@ Feature: Movie Details
       | 200     | xmen.jpg     |
       | 300     | starwars.jpg |
     And the following remote movie details exist
-      | movieId | posterPath   | title     | description            | releaseDate |
-      | 100     | deadpool.jpg | Deadpool  | awesome movie          | 01.01.2000  |
-      | 200     | xmen.jpg     | X-Men     | wolverine rocks        | 05.03.2010  |
-      | 300     | starwars.jpg | Star Wars | may the force with you | 03.04.2008  |
+      | movieId | posterPath   | title     | description               | releaseDate |
+      | 100     | deadpool.jpg | Deadpool  | awesome movie             | 2000-01-01  |
+      | 200     | xmen.jpg     | X-Men     | wolverine rocks           | 2010-05-03  |
+      | 300     | starwars.jpg | Star Wars | may the force be with you | 2008-03-04  |
     When I start the application
     And I select the poster at position 0
     Then I expect to see the following movie details
@@ -20,10 +20,10 @@ Feature: Movie Details
 
   Scenario: Show movie details for a single poster from details screen
     Given the following remote movie details exist
-      | movieId | posterPath   | title     | description            | releaseDate |
-      | 100     | deadpool.jpg | Deadpool  | awesome movie          | 01.01.2000  |
-      | 200     | xmen.jpg     | X-Men     | wolverine rocks        | 05.03.2010  |
-      | 300     | starwars.jpg | Star Wars | may the force with you | 03.04.2008  |
+      | movieId | posterPath   | title     | description               | releaseDate |
+      | 100     | deadpool.jpg | Deadpool  | awesome movie             | 2001-01-01  |
+      | 200     | xmen.jpg     | X-Men     | wolverine rocks           | 2010-05-03  |
+      | 300     | starwars.jpg | Star Wars | may the force be with you | 2008-03-04  |
     When I start the details screen with movie id 100
     Then I expect to see the following movie details
       | movieTitle | movieDetails  |
@@ -36,10 +36,10 @@ Feature: Movie Details
       | 200     | xmen.jpg     |
       | 300     | starwars.jpg |
     And the following remote movie details exist
-      | movieId | posterPath   | title     | description            | releaseDate |
-      | 100     | deadpool.jpg | Deadpool  | awesome movie          | 01.01.2000  |
-      | 200     | xmen.jpg     | X-Men     | wolverine rocks        | 05.03.2010  |
-      | 300     | starwars.jpg | Star Wars | may the force with you | 03.04.2008  |
+      | movieId | posterPath   | title     | description               | releaseDate |
+      | 100     | deadpool.jpg | Deadpool  | awesome movie             | 2001-01-01  |
+      | 200     | xmen.jpg     | X-Men     | wolverine rocks           | 2010-05-03  |
+      | 300     | starwars.jpg | Star Wars | may the force be with you | 2008-03-04  |
     When I start the application
     And I select the poster at position <pos>
     Then I expect to see the following movie details
@@ -47,7 +47,7 @@ Feature: Movie Details
       | <title>    | <details>    |
 
     Examples:
-      | pos | title     | details                |
-      | 0   | Deadpool  | awesome movie          |
-      | 1   | X-Men     | wolverine rocks        |
-      | 2   | Star Wars | may the force with you |
+      | pos | title     | details                   |
+      | 0   | Deadpool  | awesome movie             |
+      | 1   | X-Men     | wolverine rocks           |
+      | 2   | Star Wars | may the force be with you |

@@ -21,7 +21,7 @@ public class PopularMoviesActivityTest {
     private static final String POSTER_PATH = "deadpool.jpg";
     private static final String MOVIE_TITLE = "Deadpool";
     private static final String MOVIE_DESCRIPTION = "Awesome movie";
-    private static final String RELEASE_DATE = "01.01.2000";
+    private static final String RELEASE_DATE = "2000-01-01";
 
     private final ActivityTestRule<PopularMoviesActivity> rule = new ActivityTestRule<PopularMoviesActivity>(PopularMoviesActivity.class) {
         @Override
