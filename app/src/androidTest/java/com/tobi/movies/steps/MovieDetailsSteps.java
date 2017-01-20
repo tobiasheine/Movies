@@ -7,6 +7,7 @@ import com.tobi.movies.EspressoDependencies;
 import com.tobi.movies.MovieApplication;
 import com.tobi.movies.backend.ConfigurableBackend;
 import com.tobi.movies.posterdetails.ApiMovieDetails;
+import com.tobi.movies.posterdetails.PosterDetailsRobot;
 
 import java.util.Map;
 
@@ -14,6 +15,8 @@ import cucumber.api.DataTable;
 import cucumber.api.java.en.Given;
 
 public class MovieDetailsSteps {
+
+    private final PosterDetailsRobot posterDetailsRobot = PosterDetailsRobot.create();
 
     @Given("^the following remote movie details exist$")
     public void the_following_remote_movie_details_exist(final DataTable dataTable) {
