@@ -45,7 +45,7 @@ You can run your test scenario using the command-line:
 Next fix the failing test by displaying the **MovieDetails#releaseDate** in the **MovieDetailsActivity**. Implement the feature and add the needed code to the **PosterDetailsRobot** to make the test pass.
 
 ### Implement the same test without Cucumber
-,
+
 Reuse the code you have added to the **PosterDetailsRobot** in a regular Espresso test. Add this test to **MovieDetailsActivityTest** and see how easily you can share the code between Cucumber and Espresso tests!
 
 ### Migrate PopularMoviesActivityTest#shouldShowPoster into a cucumber scenario.
