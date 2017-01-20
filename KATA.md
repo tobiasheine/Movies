@@ -24,7 +24,11 @@ To improve the internal feature documentation they want to migrate their existin
 
 Create a scenario that verifies that the **releaseDate** of a given movie is displayed in the **MovieDetailsActivity**. 
 
-Add a scenario and step definitions to **movie_details.feature**. The java implementation of the steps should go to **MovieDetailsSteps**. Leave the step implementation empty so the test fails. For more information have a look at the [Cucumber Wiki](https://github.com/cucumber/cucumber/wiki/Feature-Introduction).
+Add a scenario and step definitions to **movie_details.feature**. The java implementations of the steps should go to **MovieDetailsSteps**. 
+
+The first step should use **PosterDetailsRobot#launchDetailsScreen** to start the **MovieDetailsActivity** with a given **movieId**:
+```Given I show the detail screen for movie with id 1```
+
 
 You can run your test scenario using the command-line:
 
@@ -32,23 +36,33 @@ You can run your test scenario using the command-line:
 
 *Tips*
 
+- Have a look at the [Cucumber Wiki](https://github.com/cucumber/cucumber/wiki/Feature-Introduction) if you're not cure how a Scenario is structured
+
 - use autocompletion when editing the **feature files**
-- You can annotate your scenario or the whole feature, for example with **@details** and just run this using the command-line:
 
-	```./gradlew connectedCheck -Pcucumber -Ptags="@details"```
+- [here](http://blog.czeczotka.com/2014/08/17/writing-cucumber-jvm-step-definitions/) you can find some examples how to pass arguments to your step definitions
 
-Next fix our failing test by displaying the **MovieDetails#releaseDate** in the **MovieDetailsActivity**. Therefore you need to add some code to the **PosterDetailsRobot** and use it in the step definitions you have just created.
+Next fix the failing test by displaying the **MovieDetails#releaseDate** in the **MovieDetailsActivity**. Implement the feature and add the needed code to the **PosterDetailsRobot** to make the test pass.
 
-### Implement the same test using Espresso
+### Implement the same test without Cucumber
+,
 Reuse the code you have added to the **PosterDetailsRobot** in a regular Espresso test. Add this test to **MovieDetailsActivityTest** and see how easily you can share the code between Cucumber and Espresso tests!
 
 ### Migrate PopularMoviesActivityTest#shouldShowPoster into a cucumber scenario.
+
+Create a new **feature file** with the name **movie_stream.feature** and a scenario that makes sure the poster of a given movie is displayed. Use **PopularMoviesRobot** in your steps implementations. The step implementations should go to **PopularMoviesSteps**.
 
 *Tips*
 
 - Use [DataTables](http://www.thinkcode.se/blog/2014/06/30/cucumber-data-tables) to pass the DTO's as step arguments as it is done in the **Background** section of **movie_details.feature**
 
-- The assets for movie posters are located in **main/assets**. You can reference them by file name, as it is done in the **PopularMoviesActivityTest**
+- The assets for movie posters are located in **main/assets**. You can reference them by file name, as it is done in **PopularMoviesActivityTest.POSTER_PATH**
+
+- You can annotate your scenario or the whole feature, for example with **@details** to just run this one using the command-line:
+
+	```./gradlew connectedCheck -Pcucumber -Ptags="@details"```
+
+
 
 ### Create Scenario Outlines 
 If there is still time left, change the test you have just written in order to verify that multiple movies are shown in the correct order using [Scenario Outlines](https://github.com/cucumber/cucumber/wiki/Scenario-Outlines).
