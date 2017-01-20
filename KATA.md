@@ -10,6 +10,8 @@ Install the [Gherkin](https://plugins.jetbrains.com/androidstudio/plugin/7211-gh
 
 Clone **git@github.com:tobiasheine/Movies.git** and checkout the branch **kata**.
 
+Create a file called **secrets.properties** in the root directory and add the **API-Key** you have received in advance.
+
 ---
 
 ## Exercise
@@ -22,16 +24,16 @@ To improve the internal feature documentation they want to migrate their existin
 
 Create a scenario that verifies that the **releaseDate** of a given movie is displayed in the **MovieDetailsActivity**. 
 
-Add a scenario and step definitions to **movie_details.feature**. The java implementation of the steps should go to **MovieDetailsSteps**. Leave the step implementation empty so the test fails. For more information have a look at the [wiki](https://github.com/cucumber/cucumber/wiki/Feature-Introduction()).
+Add a scenario and step definitions to **movie_details.feature**. The java implementation of the steps should go to **MovieDetailsSteps**. Leave the step implementation empty so the test fails. For more information have a look at the [Cucumber Wiki](https://github.com/cucumber/cucumber/wiki/Feature-Introduction).
 
-You can run your test scenario using the command line:
+You can run your test scenario using the command-line:
 
 ```./gradlew connectedCheck -Pcucumber --info```
 
 *Tips*
 
 - use autocompletion when editing the **feature files**
-- You can annotate your scenario or the whole feature, for example with **@details** and just run this using the command line:
+- You can annotate your scenario or the whole feature, for example with **@details** and just run this using the command-line:
 
 	```./gradlew connectedCheck -Pcucumber -Ptags="@details"```
 
@@ -46,7 +48,7 @@ Reuse the code you have added to the **PosterDetailsRobot** in a regular Espress
 
 - Use [DataTables](http://www.thinkcode.se/blog/2014/06/30/cucumber-data-tables) to pass the DTO's as step arguments as it is done in the **Background** section of **movie_details.feature**
 
-- Assets for movie posters are located in **main/assets**. You can reference them by file name, as it is done in the **PopularMoviesActivityTest**
+- The assets for movie posters are located in **main/assets**. You can reference them by file name, as it is done in the **PopularMoviesActivityTest**
 
 ### Create Scenario Outlines 
 If there is still time left, change the test you have just written in order to verify that multiple movies are shown in the correct order using [Scenario Outlines](https://github.com/cucumber/cucumber/wiki/Scenario-Outlines).
