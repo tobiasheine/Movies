@@ -16,15 +16,15 @@ Create a file called **secrets.properties** in the root directory and add the **
 
 ## Exercise
 
-Your Android team was working hard to create an application which displays the latest movies from [themoviedb](https://www.themoviedb.org/documentation/api).
+Your Android team was working hard to build an application which provides information about the latest movies from [themoviedb](https://www.themoviedb.org/documentation/api).
 
 To improve the internal feature documentation they want to migrate their existing Espresso test suite to Cucumber scenarios. The team has done an awesome job so far by decoupling most of the test code from the tests by introducing the testing robots **PopularMoviesRobot** and **PosterDetailsRobot**.
 
 ### Display the movie release date besides the description
 
-Create a scenario that verifies that the **releaseDate** of a given movie is displayed in the **MovieDetailsActivity**. 
+We first gonna create a failing Cucumber Scenario then implement the feature and make the test pass.  Create a scenario that verifies that the **release date** of a given movie is displayed in the **MovieDetailsActivity**. 
 
-Add a scenario and step definitions to **movie_details.feature**. The java implementations of the steps should go to **MovieDetailsSteps**. 
+Add a scenario and step definitions to **movie_details.feature**. The java implementations of the steps should go to **MovieDetailsSteps**.
 
 The first step should use **PosterDetailsRobot#launchDetailsScreen** to start the **MovieDetailsActivity** with a given **movieId**:
 ```When I show the detail screen for movie with id 1```
@@ -42,7 +42,7 @@ You can run your test scenario using the command-line:
 
 - [here](http://blog.czeczotka.com/2014/08/17/writing-cucumber-jvm-step-definitions/) you can find some examples how to pass arguments to your step definitions
 
-Next fix the failing test by displaying the **MovieDetails#releaseDate** in the **MovieDetailsActivity**. Implement the feature and add the needed code to the **PosterDetailsRobot** to make the test pass.
+Next fix the failing test by displaying the **MovieDetails#releaseDate** in the **MovieDetailsActivity**. To do so implement the feature and add the needed code to the **PosterDetailsRobot**. Then use the **PosterDetailsRobot** in your step definitions to make the test pass.
 
 ### Implement the same test without Cucumber
 
