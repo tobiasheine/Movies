@@ -27,7 +27,7 @@ Create a scenario that verifies that the **releaseDate** of a given movie is dis
 Add a scenario and step definitions to **movie_details.feature**. The java implementations of the steps should go to **MovieDetailsSteps**. 
 
 The first step should use **PosterDetailsRobot#launchDetailsScreen** to start the **MovieDetailsActivity** with a given **movieId**:
-```Given I show the detail screen for movie with id 1```
+```When I show the detail screen for movie with id 1```
 
 
 You can run your test scenario using the command-line:
