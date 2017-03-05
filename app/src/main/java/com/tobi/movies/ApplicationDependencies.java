@@ -12,9 +12,6 @@ import com.tobi.movies.posterdetails.MovieDetails;
 import com.tobi.movies.posterdetails.MovieDetailsApiDatasource;
 import com.tobi.movies.posterdetails.MovieDetailsRepository;
 
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
 import rx.Scheduler;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -78,16 +75,12 @@ public class ApplicationDependencies implements Dependencies {
     }
 
     protected PopularStreamApiDatasource createStreamApiDataSource() {
-        return new PopularStreamApiDatasource(createBackend());
+        return new PopularStreamApiDatasource(backend());
     }
 
+    @Deprecated
     protected Backend createBackend() {
-
-        return new Retrofit.Builder()
-                .baseUrl(Backend.SERVICE_ENDPOINT)
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .build().create(Backend.class);
+        throw new IllegalStateException("Backend should be provided from BackendModule");
     }
 
     private PopularStreamRepository createStreamRepository() {
@@ -107,7 +100,7 @@ public class ApplicationDependencies implements Dependencies {
         return new MovieDetailsApiDatasource(backend());
     }
 
-    private Backend backend() {
+    protected Backend backend() {
         if (backend == null) {
             backend = createBackend();
         }
@@ -115,4 +108,8 @@ public class ApplicationDependencies implements Dependencies {
         return backend;
     }
 
+    @Override
+    public void setBackend(Backend backend) {
+        this.backend = backend;
+    }
 }

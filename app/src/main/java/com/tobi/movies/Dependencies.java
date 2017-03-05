@@ -1,5 +1,6 @@
 package com.tobi.movies;
 
+import com.tobi.movies.backend.Backend;
 import com.tobi.movies.popularstream.PopularStreamRepository;
 import com.tobi.movies.posterdetails.MovieDetailsRepository;
 
@@ -16,4 +17,6 @@ public interface Dependencies {
     Scheduler createSubscriberThread();
 
     Scheduler createObserverThread();
+
+    void setBackend(Backend backend);
 }

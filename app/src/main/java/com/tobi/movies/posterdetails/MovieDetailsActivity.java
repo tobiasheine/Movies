@@ -12,6 +12,9 @@ import android.widget.Toast;
 import com.tobi.movies.ImageLoader;
 import com.tobi.movies.MovieApplication;
 import com.tobi.movies.R;
+import com.tobi.movies.backend.Backend;
+
+import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -37,6 +40,9 @@ public class MovieDetailsActivity extends Activity implements MovieDetailsMVP.Vi
     @Bind(R.id.movieOverview)
     TextView movieOverview;
 
+    @Inject
+    Backend backend;
+
     private MovieDetailsPresenter presenter;
     private ImageLoader imageLoader;
 
@@ -45,6 +51,9 @@ public class MovieDetailsActivity extends Activity implements MovieDetailsMVP.Vi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_details);
         ButterKnife.bind(this);
+        MovieApplication application = (MovieApplication) getApplication();
+        application.getMovieDetailsComponent().inject(this);
+        application.setBackend(backend);
 
         imageLoader = new ImageLoader();
 

@@ -8,8 +8,10 @@ import android.util.Log;
 
 import com.tobi.movies.MovieApplication;
 import com.tobi.movies.R;
+import com.tobi.movies.backend.Backend;
 import com.tobi.movies.misc.AbstractObserver;
 
+import javax.inject.Inject;
 import java.util.List;
 
 import butterknife.Bind;
@@ -23,17 +25,25 @@ public class PopularMoviesActivity extends AppCompatActivity {
     @Bind(R.id.popularMovies_recycler)
     RecyclerView popularMoviesRecycler;
 
+    @Inject
+    Backend backend;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_popular_movies);
         ButterKnife.bind(this);
+        final MovieApplication movieApplication = (MovieApplication) getApplicationContext();
+        movieApplication.getPopularMoviesComponent().inject(this);
+        movieApplication.setBackend(backend);
 
         popularMoviesRecycler.setLayoutManager(new GridLayoutManager(this, POSTER_COL_COUNT));
         popularMoviesRecycler.setHasFixedSize(true);
 
         final Navigator navigator = new Navigator(this);
-        final MovieApplication movieApplication = (MovieApplication) getApplicationContext();
+
+
+
         movieApplication.streamRepository().getPopularPosters().subscribe(new AbstractObserver<List<MoviePoster>>() {
 
             @Override
