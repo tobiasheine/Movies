@@ -25,15 +25,20 @@ public class MovieApplication extends Application implements Dependencies {
     public void onCreate() {
         super.onCreate();
         dependencies = new ApplicationDependencies();
+        popularMoviesComponent = popularMoviesComponent();
 
-        BackendModule backendModule = new BackendModule();
+        movieDetailsComponent = movieDetailsComponent();
+    }
 
-        popularMoviesComponent = DaggerPopularMoviesComponent.builder()
-                .backendModule(backendModule)
+    protected MovieDetailsComponent movieDetailsComponent() {
+        return DaggerMovieDetailsComponent.builder()
+                .backendModule(new BackendModule())
                 .build();
+    }
 
-        movieDetailsComponent = DaggerMovieDetailsComponent.builder()
-                .backendModule(backendModule)
+    protected PopularMoviesComponent popularMoviesComponent() {
+        return DaggerPopularMoviesComponent.builder()
+                .backendModule(new BackendModule())
                 .build();
     }
 
