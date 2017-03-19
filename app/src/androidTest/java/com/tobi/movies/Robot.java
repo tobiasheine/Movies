@@ -22,6 +22,12 @@ public abstract class Robot<T extends Robot> {
         return (T) this;
     }
 
+    public T waitFor(int seconds) throws InterruptedException {
+        Thread.sleep(seconds * 1000);
+        return (T) this;
+    }
+
+
     public <K> K toRobot(Class<K> robotClass) throws IllegalAccessException, InstantiationException {
         return robotClass.newInstance();
     }
