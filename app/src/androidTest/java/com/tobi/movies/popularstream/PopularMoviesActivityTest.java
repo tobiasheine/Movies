@@ -71,7 +71,6 @@ public class PopularMoviesActivityTest {
                 .launchPopularMovies(rule)
                 .selectPosterAtPosition(0)
                 .toRobot(PosterDetailsRobot.class)
-                .waitFor(5)
                 .checkMovieTitleIsDisplayed(MOVIE_TITLE)
                 .checkMovieDescriptionIsDisplayed(MOVIE_DESCRIPTION);
     }
