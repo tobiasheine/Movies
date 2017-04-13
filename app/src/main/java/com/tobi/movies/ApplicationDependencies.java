@@ -78,11 +78,6 @@ public class ApplicationDependencies implements Dependencies {
         return new PopularStreamApiDatasource(backend());
     }
 
-    @Deprecated
-    protected Backend createBackend() {
-        throw new IllegalStateException("Backend should be provided from BackendModule");
-    }
-
     private PopularStreamRepository createStreamRepository() {
         return new PopularStreamRepository(
                 createStreamApiDataSource(),
@@ -102,7 +97,7 @@ public class ApplicationDependencies implements Dependencies {
 
     protected Backend backend() {
         if (backend == null) {
-            backend = createBackend();
+            throw new IllegalStateException("Backend should be provided via dagger");
         }
 
         return backend;
