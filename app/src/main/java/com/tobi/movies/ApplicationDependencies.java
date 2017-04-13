@@ -12,9 +12,6 @@ import com.tobi.movies.posterdetails.MovieDetails;
 import com.tobi.movies.posterdetails.MovieDetailsApiDatasource;
 import com.tobi.movies.posterdetails.MovieDetailsRepository;
 
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
 import rx.Scheduler;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -78,16 +75,7 @@ public class ApplicationDependencies implements Dependencies {
     }
 
     protected PopularStreamApiDatasource createStreamApiDataSource() {
-        return new PopularStreamApiDatasource(createBackend());
-    }
-
-    protected Backend createBackend() {
-
-        return new Retrofit.Builder()
-                .baseUrl(Backend.SERVICE_ENDPOINT)
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .build().create(Backend.class);
+        return new PopularStreamApiDatasource(backend());
     }
 
     private PopularStreamRepository createStreamRepository() {
@@ -107,12 +95,16 @@ public class ApplicationDependencies implements Dependencies {
         return new MovieDetailsApiDatasource(backend());
     }
 
-    private Backend backend() {
+    protected Backend backend() {
         if (backend == null) {
-            backend = createBackend();
+            throw new IllegalStateException("Backend should be provided via dagger");
         }
 
         return backend;
     }
 
+    @Override
+    public void setBackend(Backend backend) {
+        this.backend = backend;
+    }
 }

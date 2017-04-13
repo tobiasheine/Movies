@@ -1,9 +1,12 @@
 package com.tobi.movies.utils;
 
+import android.app.Application;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.test.runner.AndroidJUnitRunner;
 
 import com.tobi.movies.BuildConfig;
+import com.tobi.movies.TestMovieApplication;
 
 import cucumber.api.android.CucumberInstrumentationCore;
 
@@ -42,5 +45,11 @@ public class CucumberInstrumentation extends AndroidJUnitRunner {
     public void onStart() {
         waitForIdleSync();
         instrumentationCore.start();
+    }
+
+    @Override
+    public Application newApplication(ClassLoader cl, String className, Context context) throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+        String testAppClassName = TestMovieApplication.class.getCanonicalName();
+        return super.newApplication(cl, testAppClassName, context);
     }
 }

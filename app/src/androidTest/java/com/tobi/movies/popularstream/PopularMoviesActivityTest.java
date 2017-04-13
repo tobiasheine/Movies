@@ -6,9 +6,12 @@ import android.support.test.runner.AndroidJUnit4;
 
 import com.tobi.movies.EspressoDependencies;
 import com.tobi.movies.MovieApplication;
+import com.tobi.movies.backend.Backend;
 import com.tobi.movies.backend.ConfigurableBackend;
 import com.tobi.movies.posterdetails.ApiMovieDetails;
 import com.tobi.movies.posterdetails.PosterDetailsRobot;
+
+import javax.inject.Inject;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -23,28 +26,34 @@ public class PopularMoviesActivityTest {
     private static final String MOVIE_DESCRIPTION = "Awesome movie";
     private static final String RELEASE_DATE = "2000-01-01";
 
-    private final ActivityTestRule<PopularMoviesActivity> rule = new ActivityTestRule<PopularMoviesActivity>(PopularMoviesActivity.class) {
-        @Override
-        protected void beforeActivityLaunched() {
-            MovieApplication movieApplication = (MovieApplication) InstrumentationRegistry.getTargetContext().getApplicationContext();
-            movieApplication.setDependencies(new EspressoDependencies(backend));
-        }
-    };
+    private ActivityTestRule<PopularMoviesActivity> rule;
 
-    private final ConfigurableBackend backend = new ConfigurableBackend();
+    @Inject
+    Backend backend;
 
     private ApiMoviePoster apiMoviePoster;
     private ApiMovieDetails movieDetails;
 
     @Before
     public void setUp() throws Exception {
+        MovieApplication movieApplication = (MovieApplication) InstrumentationRegistry.getTargetContext().getApplicationContext();
+        ((TestPopularMoviesComponent) movieApplication.getPopularMoviesComponent()).inject(this);
+
+        rule = new ActivityTestRule<PopularMoviesActivity>(PopularMoviesActivity.class) {
+            @Override
+            protected void beforeActivityLaunched() {
+                MovieApplication movieApplication = (MovieApplication) InstrumentationRegistry.getTargetContext().getApplicationContext();
+                movieApplication.setDependencies(new EspressoDependencies(((ConfigurableBackend) backend)));
+            }
+        };
+
         apiMoviePoster = createApiMoviePoster(MOVIE_ID, POSTER_PATH);
         movieDetails = createMovieDetails(MOVIE_ID, MOVIE_TITLE, MOVIE_DESCRIPTION, POSTER_PATH, RELEASE_DATE);
     }
 
     @Test
     public void shouldShowPoster() throws Exception {
-        backend.addToPopularStream(apiMoviePoster);
+        ((ConfigurableBackend) backend).addToPopularStream(apiMoviePoster);
 
         PopularMoviesRobot
                 .create()
@@ -54,8 +63,8 @@ public class PopularMoviesActivityTest {
 
     @Test
     public void shouldNavigateToMovieDetails() throws Exception {
-        backend.addToPopularStream(apiMoviePoster);
-        backend.addMovieDetails(movieDetails);
+        ((ConfigurableBackend) backend).addToPopularStream(apiMoviePoster);
+        ((ConfigurableBackend) backend).addMovieDetails(movieDetails);
 
         PopularMoviesRobot
                 .create()

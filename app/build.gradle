@@ -1,9 +1,8 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.neenbedankt.android-apt'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion '25.0.0'
+    buildToolsVersion '25.0.2'
 
     defaultConfig {
         applicationId 'com.tobi.movies'
@@ -63,14 +62,14 @@ def getTestScenario() {
 }
 
 def getInstrumentation() {
-    project.hasProperty('cucumber') ? 'com.tobi.movies.utils.CucumberInstrumentation' : 'android.support.test.runner.AndroidJUnitRunner'
+    project.hasProperty('cucumber') ? 'com.tobi.movies.utils.CucumberInstrumentation' : 'com.tobi.movies.runner.DaggerOverridesTestRunner'
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
-    compile 'com.android.support:appcompat-v7:25.1.0'
-    compile 'com.android.support:design:25.1.0'
+    compile 'com.android.support:appcompat-v7:25.3.0'
+    compile 'com.android.support:design:25.3.0'
     compile 'com.squareup.retrofit2:retrofit:2.0.2'
     compile 'com.squareup.retrofit2:converter-gson:2.0.0'
     compile 'com.squareup.retrofit2:adapter-rxjava:2.0.0'
@@ -78,18 +77,21 @@ dependencies {
     compile 'io.reactivex:rxandroid:1.1.0'
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.github.bumptech.glide:glide:3.7.0'
-    compile 'com.android.support:support-v4:25.1.0'
+    compile 'com.android.support:support-v4:25.3.0'
     provided 'javax.annotation:javax.annotation-api:1.2'
     compile 'com.google.auto.value:auto-value:1.2'
     compile 'joda-time:joda-time:2.9.4'
 
+    compile 'com.google.dagger:dagger:2.9'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.9'
+    androidTestAnnotationProcessor 'com.google.dagger:dagger-compiler:2.9'
 
     testCompile 'junit:junit:4.12'
     testCompile 'org.mockito:mockito-core:1.10.19'
-    testCompile 'com.google.guava:guava:18.0'
+    testCompile 'com.google.guava:guava:20.0'
 
     // Espresso and Cucumber
-    androidTestCompile 'com.android.support:support-annotations:25.1.0'
+    androidTestCompile 'com.android.support:support-annotations:25.3.0'
     androidTestCompile 'com.android.support.test:runner:0.5'
     androidTestCompile 'com.android.support.test:rules:0.5'
     androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'

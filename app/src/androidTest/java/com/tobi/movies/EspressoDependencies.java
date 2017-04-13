@@ -37,7 +37,7 @@ public class EspressoDependencies extends ApplicationDependencies {
     }
 
     @Override
-    protected Backend createBackend() {
+    protected Backend backend() {
         return backend;
     }
 
