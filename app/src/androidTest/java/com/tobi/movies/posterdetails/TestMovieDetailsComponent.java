@@ -1,14 +1,16 @@
 package com.tobi.movies.posterdetails;
 
 import com.tobi.movies.backend.FakeBackendModule;
+import com.tobi.movies.misc.ImageModule;
 
 import dagger.Component;
 
 @Component(
         modules = {
-                FakeBackendModule.class
+                FakeBackendModule.class,
+                ImageModule.class
         }
 )
-public interface TestMovieDetailsComponent extends MovieDetailsComponent {
+interface TestMovieDetailsComponent extends MovieDetailsComponent {
     void inject(MovieDetailsActivityTest movieDetailsActivityTest);
 }
