@@ -4,12 +4,8 @@ import android.support.test.InstrumentationRegistry;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
-import com.tobi.movies.EspressoDependencies;
 import com.tobi.movies.MovieApplication;
-import com.tobi.movies.backend.Backend;
 import com.tobi.movies.backend.ConfigurableBackend;
-
-import javax.inject.Inject;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -24,8 +20,7 @@ public class MovieDetailsActivityTest {
     private static final String POSTER_PATH = "deadpool.jpg";
     private static final String RELEASE_DATE = "2010-01-01";
 
-    @Inject
-    Backend backend;
+    ConfigurableBackend backend;
 
     private ActivityTestRule<MovieDetailsActivity> rule;
     private ApiMovieDetails apiMovieDetails;
@@ -33,21 +28,15 @@ public class MovieDetailsActivityTest {
     @Before
     public void setUp() throws Exception {
         MovieApplication movieApplication = (MovieApplication) InstrumentationRegistry.getTargetContext().getApplicationContext();
-        ((TestMovieDetailsComponent) movieApplication.getMovieDetailsComponent()).inject(this);
-        apiMovieDetails = createApiMovieDetails(MOVIE_ID, MOVIE_TITLE, MOVIE_DESCRIPTION, POSTER_PATH, RELEASE_DATE);
 
-        rule = new ActivityTestRule<MovieDetailsActivity>(MovieDetailsActivity.class) {
-            @Override
-            protected void beforeActivityLaunched() {
-                MovieApplication movieApplication = (MovieApplication) InstrumentationRegistry.getTargetContext().getApplicationContext();
-                movieApplication.setDependencies(new EspressoDependencies((ConfigurableBackend) backend));
-            }
-        };
+        backend = (ConfigurableBackend) ((TestMovieDetailsComponent) movieApplication.getMovieDetailsComponent()).backend();
+        apiMovieDetails = createApiMovieDetails(MOVIE_ID, MOVIE_TITLE, MOVIE_DESCRIPTION, POSTER_PATH, RELEASE_DATE);
+        rule = new ActivityTestRule<>(MovieDetailsActivity.class);
     }
 
     @Test
     public void shouldShowMovieTitle() throws Exception {
-        ((ConfigurableBackend)backend).addMovieDetails(apiMovieDetails);
+        backend.addMovieDetails(apiMovieDetails);
 
         PosterDetailsRobot.create()
                 .launchDetailsScreen(MOVIE_ID, rule)

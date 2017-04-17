@@ -77,7 +77,7 @@ public class ApplicationDependencies implements Dependencies {
         return new ApiMovieDetailsConverter();
     }
 
-    protected MovieDetailsApiDatasource createMovieDetailsApiSource() {
+    private MovieDetailsApiDatasource createMovieDetailsApiSource() {
         return new MovieDetailsApiDatasource(backend());
     }
 

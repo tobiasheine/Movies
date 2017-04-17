@@ -12,7 +12,6 @@ import android.widget.Toast;
 import com.tobi.movies.ImageLoader;
 import com.tobi.movies.MovieApplication;
 import com.tobi.movies.R;
-import com.tobi.movies.backend.Backend;
 import com.tobi.movies.misc.Threading;
 
 import javax.inject.Inject;
@@ -44,13 +43,13 @@ public class MovieDetailsActivity extends Activity implements MovieDetailsMVP.Vi
     TextView movieOverview;
 
     @Inject
-    Backend backend;
-
-    @Inject
     ImageLoader imageLoader;
 
     @Inject
     Map<Threading, Scheduler> schedulerMap;
+
+    @Inject
+    MovieDetailsRepository movieDetailsRepository;
 
     private MovieDetailsPresenter presenter;
 
@@ -61,7 +60,6 @@ public class MovieDetailsActivity extends Activity implements MovieDetailsMVP.Vi
         ButterKnife.bind(this);
         MovieApplication application = (MovieApplication) getApplication();
         application.getMovieDetailsComponent().inject(this);
-        application.setBackend(backend);
 
         movieDetailsUseCase = provideMovieDetailsUseCase();
         presenter = new MovieDetailsPresenter(movieDetailsUseCase);
@@ -70,8 +68,7 @@ public class MovieDetailsActivity extends Activity implements MovieDetailsMVP.Vi
     private MovieDetailsUseCase provideMovieDetailsUseCase() {
         Object lastNonConfigurationInstance = getLastNonConfigurationInstance();
         if (lastNonConfigurationInstance == null) {
-            MovieApplication movieApplication = (MovieApplication) getApplicationContext();
-            return new MovieDetailsUseCase(movieApplication.movieDetailsRepository(), schedulerMap.get(Threading.SUBSCRIBER), schedulerMap.get(Threading.OBSERVER));
+            return new MovieDetailsUseCase(movieDetailsRepository, schedulerMap.get(Threading.SUBSCRIBER), schedulerMap.get(Threading.OBSERVER));
         }
         return ((MovieDetailsUseCase) lastNonConfigurationInstance);
     }

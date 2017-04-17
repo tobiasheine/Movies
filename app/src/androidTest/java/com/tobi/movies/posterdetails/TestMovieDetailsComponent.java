@@ -1,18 +1,26 @@
 package com.tobi.movies.posterdetails;
 
-import com.tobi.movies.backend.FakeBackendModule;
+import com.tobi.movies.backend.Backend;
 import com.tobi.movies.misc.ImageModule;
 import com.tobi.movies.misc.TestThreadingModule;
 
+import javax.inject.Singleton;
+
 import dagger.Component;
 
+
+@Singleton
 @Component(
         modules = {
-                FakeBackendModule.class,
                 ImageModule.class,
-                TestThreadingModule.class
+                TestDetailsApiModule.class,
+                TestThreadingModule.class,
+                TestDetailsConverterModule.class
         }
 )
 interface TestMovieDetailsComponent extends MovieDetailsComponent {
-    void inject(MovieDetailsActivityTest movieDetailsActivityTest);
+
+    Backend backend();
+
+//    void inject(MovieDetailsActivityTest movieDetailsActivityTest);
 }
