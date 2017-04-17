@@ -1,10 +1,6 @@
 package com.tobi.movies;
 
 import com.tobi.movies.backend.Backend;
-import com.tobi.movies.popularstream.ApiMoviePoster;
-import com.tobi.movies.popularstream.ApiMoviePosterConverter;
-import com.tobi.movies.popularstream.MoviePoster;
-import com.tobi.movies.popularstream.PopularStreamApiDatasource;
 import com.tobi.movies.popularstream.PopularStreamRepository;
 import com.tobi.movies.posterdetails.ApiMovieDetails;
 import com.tobi.movies.posterdetails.ApiMovieDetailsConverter;
@@ -56,21 +52,9 @@ public class ApplicationDependencies implements Dependencies {
         );
     }
 
-    protected Converter<ApiMoviePoster, MoviePoster> createPosterConverter() {
-        return new ApiMoviePosterConverter();
-    }
-
-    protected PopularStreamApiDatasource createStreamApiDataSource() {
-        return new PopularStreamApiDatasource(backend());
-    }
-
+    @Deprecated
     private PopularStreamRepository createStreamRepository() {
-        return new PopularStreamRepository(
-                createStreamApiDataSource(),
-                createSubscriberThread(),
-                createObserverThread(),
-                createPosterConverter()
-        );
+        return null;
     }
 
     protected Converter<ApiMovieDetails, MovieDetails> createMovieDetailsConverter() {

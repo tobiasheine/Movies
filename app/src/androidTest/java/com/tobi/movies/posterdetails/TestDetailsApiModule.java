@@ -1,12 +1,11 @@
 package com.tobi.movies.posterdetails;
 
 import com.tobi.movies.backend.Backend;
-import com.tobi.movies.backend.FakeBackendModule;
 
 import dagger.Module;
 import dagger.Provides;
 
-@Module(includes = FakeBackendModule.class)
+@Module()
 class TestDetailsApiModule {
 
     @Provides

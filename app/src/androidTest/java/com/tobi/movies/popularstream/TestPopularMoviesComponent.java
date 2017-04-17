@@ -1,19 +1,23 @@
 package com.tobi.movies.popularstream;
 
-import com.tobi.movies.backend.FakeBackendModule;
+import com.tobi.movies.TestApplicationComponent;
+import com.tobi.movies.backend.Backend;
+import com.tobi.movies.di.ActivityScope;
 import com.tobi.movies.misc.ImageModule;
-
-import javax.inject.Singleton;
+import com.tobi.movies.misc.TestThreadingModule;
 
 import dagger.Component;
 
-@Singleton
+@ActivityScope
 @Component(
         modules = {
-                FakeBackendModule.class,
-                ImageModule.class
-        }
+                ImageModule.class,
+                TestStreamConverterModule.class,
+                TestStreamApiModule.class,
+                TestThreadingModule.class,
+        },
+        dependencies = TestApplicationComponent.class
 )
 interface TestPopularMoviesComponent extends PopularMoviesComponent {
-    void inject(PopularMoviesActivityTest popularMoviesActivityTest);
+    Backend backend();
 }

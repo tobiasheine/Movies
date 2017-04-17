@@ -32,6 +32,9 @@ public class PopularMoviesActivity extends AppCompatActivity {
     @Inject
     ImageLoader imageLoader;
 
+    @Inject
+    PopularStreamRepository streamRepository;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +49,7 @@ public class PopularMoviesActivity extends AppCompatActivity {
 
         final Navigator navigator = new Navigator(this);
 
-        movieApplication.streamRepository().getPopularPosters().subscribe(new AbstractObserver<List<MoviePoster>>() {
+        streamRepository.getPopularPosters().subscribe(new AbstractObserver<List<MoviePoster>>() {
 
             @Override
             public void onError(Throwable e) {

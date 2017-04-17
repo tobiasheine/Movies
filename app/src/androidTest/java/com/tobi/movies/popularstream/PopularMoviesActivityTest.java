@@ -4,14 +4,10 @@ import android.support.test.InstrumentationRegistry;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
-import com.tobi.movies.EspressoDependencies;
 import com.tobi.movies.MovieApplication;
-import com.tobi.movies.backend.Backend;
 import com.tobi.movies.backend.ConfigurableBackend;
 import com.tobi.movies.posterdetails.ApiMovieDetails;
 import com.tobi.movies.posterdetails.PosterDetailsRobot;
-
-import javax.inject.Inject;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -28,8 +24,7 @@ public class PopularMoviesActivityTest {
 
     private ActivityTestRule<PopularMoviesActivity> rule;
 
-    @Inject
-    Backend backend;
+    ConfigurableBackend backend;
 
     private ApiMoviePoster apiMoviePoster;
     private ApiMovieDetails movieDetails;
@@ -37,15 +32,9 @@ public class PopularMoviesActivityTest {
     @Before
     public void setUp() throws Exception {
         MovieApplication movieApplication = (MovieApplication) InstrumentationRegistry.getTargetContext().getApplicationContext();
-        ((TestPopularMoviesComponent) movieApplication.getPopularMoviesComponent()).inject(this);
+        backend = (ConfigurableBackend) ((TestPopularMoviesComponent) movieApplication.getPopularMoviesComponent()).backend();
 
-        rule = new ActivityTestRule<PopularMoviesActivity>(PopularMoviesActivity.class) {
-            @Override
-            protected void beforeActivityLaunched() {
-                MovieApplication movieApplication = (MovieApplication) InstrumentationRegistry.getTargetContext().getApplicationContext();
-                movieApplication.setDependencies(new EspressoDependencies(((ConfigurableBackend) backend)));
-            }
-        };
+        rule = new ActivityTestRule<>(PopularMoviesActivity.class);
 
         apiMoviePoster = createApiMoviePoster(MOVIE_ID, POSTER_PATH);
         movieDetails = createMovieDetails(MOVIE_ID, MOVIE_TITLE, MOVIE_DESCRIPTION, POSTER_PATH, RELEASE_DATE);
@@ -53,7 +42,7 @@ public class PopularMoviesActivityTest {
 
     @Test
     public void shouldShowPoster() throws Exception {
-        ((ConfigurableBackend) backend).addToPopularStream(apiMoviePoster);
+        backend.addToPopularStream(apiMoviePoster);
 
         PopularMoviesRobot
                 .create()
@@ -63,8 +52,8 @@ public class PopularMoviesActivityTest {
 
     @Test
     public void shouldNavigateToMovieDetails() throws Exception {
-        ((ConfigurableBackend) backend).addToPopularStream(apiMoviePoster);
-        ((ConfigurableBackend) backend).addMovieDetails(movieDetails);
+        backend.addToPopularStream(apiMoviePoster);
+        backend.addMovieDetails(movieDetails);
 
         PopularMoviesRobot
                 .create()

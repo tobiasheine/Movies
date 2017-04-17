@@ -1,15 +1,19 @@
 package com.tobi.movies.popularstream;
 
-import com.tobi.movies.backend.BackendModule;
+import com.tobi.movies.ApplicationComponent;
 import com.tobi.movies.misc.ImageModule;
+import com.tobi.movies.misc.ThreadingModule;
 
 import dagger.Component;
 
 @Component(
         modules = {
-                BackendModule.class,
-                ImageModule.class
-        }
+                ImageModule.class,
+                StreamApiModule.class,
+                StreamConverterModule.class,
+                ThreadingModule.class
+        },
+        dependencies = ApplicationComponent.class
 )
 public interface PopularMoviesComponent {
 

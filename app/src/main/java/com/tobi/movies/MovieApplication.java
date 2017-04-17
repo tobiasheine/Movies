@@ -4,7 +4,6 @@ import android.app.Application;
 import android.support.annotation.VisibleForTesting;
 
 import com.tobi.movies.backend.Backend;
-import com.tobi.movies.backend.BackendModule;
 import com.tobi.movies.popularstream.DaggerPopularMoviesComponent;
 import com.tobi.movies.popularstream.PopularMoviesComponent;
 import com.tobi.movies.popularstream.PopularStreamRepository;
@@ -18,6 +17,7 @@ public class MovieApplication extends Application implements Dependencies {
 
     private Dependencies dependencies;
 
+    private ApplicationComponent applicationComponent;
     private PopularMoviesComponent popularMoviesComponent;
     private MovieDetailsComponent movieDetailsComponent;
 
@@ -25,20 +25,24 @@ public class MovieApplication extends Application implements Dependencies {
     public void onCreate() {
         super.onCreate();
         dependencies = new ApplicationDependencies();
-        popularMoviesComponent = popularMoviesComponent();
-
-        movieDetailsComponent = movieDetailsComponent();
+        applicationComponent = applicationComponent();
+        popularMoviesComponent = popularMoviesComponent(applicationComponent);
+        movieDetailsComponent = movieDetailsComponent(applicationComponent);
     }
 
-    protected MovieDetailsComponent movieDetailsComponent() {
+    protected ApplicationComponent applicationComponent() {
+        return DaggerApplicationComponent.create();
+    }
+
+    protected MovieDetailsComponent movieDetailsComponent(ApplicationComponent applicationComponent) {
         return DaggerMovieDetailsComponent.builder()
-                .backendModule(new BackendModule())
+                .applicationComponent(applicationComponent)
                 .build();
     }
 
-    protected PopularMoviesComponent popularMoviesComponent() {
+    protected PopularMoviesComponent popularMoviesComponent(ApplicationComponent applicationComponent) {
         return DaggerPopularMoviesComponent.builder()
-                .backendModule(new BackendModule())
+                .applicationComponent(applicationComponent)
                 .build();
     }
 

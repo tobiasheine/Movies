@@ -8,12 +8,21 @@ import com.tobi.movies.posterdetails.MovieDetailsComponent;
 public class TestMovieApplication extends MovieApplication {
 
     @Override
-    protected PopularMoviesComponent popularMoviesComponent() {
-        return DaggerTestPopularMoviesComponent.builder().build();
+    protected ApplicationComponent applicationComponent() {
+        return DaggerTestApplicationComponent.create();
     }
 
     @Override
-    protected MovieDetailsComponent movieDetailsComponent() {
-        return DaggerTestMovieDetailsComponent.builder().build();
+    protected PopularMoviesComponent popularMoviesComponent(ApplicationComponent applicationComponent) {
+        return DaggerTestPopularMoviesComponent.builder()
+                .testApplicationComponent((TestApplicationComponent) applicationComponent)
+                .build();
+    }
+
+    @Override
+    protected MovieDetailsComponent movieDetailsComponent(ApplicationComponent applicationComponent) {
+        return DaggerTestMovieDetailsComponent.builder()
+                .testApplicationComponent((TestApplicationComponent) applicationComponent)
+                .build();
     }
 }
