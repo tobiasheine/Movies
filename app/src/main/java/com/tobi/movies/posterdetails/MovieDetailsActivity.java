@@ -13,11 +13,14 @@ import com.tobi.movies.ImageLoader;
 import com.tobi.movies.MovieApplication;
 import com.tobi.movies.R;
 import com.tobi.movies.backend.Backend;
+import com.tobi.movies.misc.Threading;
 
 import javax.inject.Inject;
+import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import rx.Scheduler;
 
 public class MovieDetailsActivity extends Activity implements MovieDetailsMVP.View {
 
@@ -46,6 +49,9 @@ public class MovieDetailsActivity extends Activity implements MovieDetailsMVP.Vi
     @Inject
     ImageLoader imageLoader;
 
+    @Inject
+    Map<Threading, Scheduler> schedulerMap;
+
     private MovieDetailsPresenter presenter;
 
     @Override
@@ -65,7 +71,7 @@ public class MovieDetailsActivity extends Activity implements MovieDetailsMVP.Vi
         Object lastNonConfigurationInstance = getLastNonConfigurationInstance();
         if (lastNonConfigurationInstance == null) {
             MovieApplication movieApplication = (MovieApplication) getApplicationContext();
-            return new MovieDetailsUseCase(movieApplication.movieDetailsRepository(), movieApplication.createSubscriberThread(), movieApplication.createObserverThread());
+            return new MovieDetailsUseCase(movieApplication.movieDetailsRepository(), schedulerMap.get(Threading.SUBSCRIBER), schedulerMap.get(Threading.OBSERVER));
         }
         return ((MovieDetailsUseCase) lastNonConfigurationInstance);
     }
