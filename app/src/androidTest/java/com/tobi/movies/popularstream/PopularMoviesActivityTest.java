@@ -9,6 +9,7 @@ import com.tobi.movies.backend.ConfigurableBackend;
 import com.tobi.movies.posterdetails.ApiMovieDetails;
 import com.tobi.movies.posterdetails.PosterDetailsRobot;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -38,6 +39,11 @@ public class PopularMoviesActivityTest {
 
         apiMoviePoster = createApiMoviePoster(MOVIE_ID, POSTER_PATH);
         movieDetails = createMovieDetails(MOVIE_ID, MOVIE_TITLE, MOVIE_DESCRIPTION, POSTER_PATH, RELEASE_DATE);
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        backend.clear();
     }
 
     @Test

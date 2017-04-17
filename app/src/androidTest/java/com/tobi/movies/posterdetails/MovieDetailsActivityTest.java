@@ -7,6 +7,7 @@ import android.support.test.runner.AndroidJUnit4;
 import com.tobi.movies.MovieApplication;
 import com.tobi.movies.backend.ConfigurableBackend;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,6 +33,11 @@ public class MovieDetailsActivityTest {
         backend = (ConfigurableBackend) ((TestMovieDetailsComponent) movieApplication.getMovieDetailsComponent()).backend();
         apiMovieDetails = createApiMovieDetails(MOVIE_ID, MOVIE_TITLE, MOVIE_DESCRIPTION, POSTER_PATH, RELEASE_DATE);
         rule = new ActivityTestRule<>(MovieDetailsActivity.class);
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        backend.clear();
     }
 
     @Test
