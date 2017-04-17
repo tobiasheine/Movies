@@ -18,6 +18,6 @@ import dagger.Component;
         },
         dependencies = TestApplicationComponent.class
 )
-interface TestPopularMoviesComponent extends PopularMoviesComponent {
+public interface TestPopularMoviesComponent extends PopularMoviesComponent {
     Backend backend();
 }

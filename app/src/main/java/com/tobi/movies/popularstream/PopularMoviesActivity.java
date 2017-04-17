@@ -42,7 +42,6 @@ public class PopularMoviesActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         final MovieApplication movieApplication = (MovieApplication) getApplicationContext();
         movieApplication.getPopularMoviesComponent().inject(this);
-        movieApplication.setBackend(backend);
 
         popularMoviesRecycler.setLayoutManager(new GridLayoutManager(this, POSTER_COL_COUNT));
         popularMoviesRecycler.setHasFixedSize(true);
