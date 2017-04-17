@@ -18,19 +18,9 @@ import rx.schedulers.Schedulers;
 
 public class ApplicationDependencies implements Dependencies {
 
-    private ImageLoader imageLoader;
     private Backend backend;
     private PopularStreamRepository streamRepository;
     private MovieDetailsRepository movieDetailsRepository;
-
-    @Override
-    public ImageLoader imageLoader() {
-        if (imageLoader == null) {
-            imageLoader = createImageLoader();
-        }
-
-        return imageLoader;
-    }
 
     @Override
     public PopularStreamRepository streamRepository() {
@@ -64,10 +54,6 @@ public class ApplicationDependencies implements Dependencies {
                 createMovieDetailsApiSource(),
                 createMovieDetailsConverter()
         );
-    }
-
-    protected ImageLoader createImageLoader() {
-        return new ImageLoader();
     }
 
     protected Converter<ApiMoviePoster, MoviePoster> createPosterConverter() {

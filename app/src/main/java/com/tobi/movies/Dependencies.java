@@ -8,8 +8,6 @@ import rx.Scheduler;
 
 public interface Dependencies {
 
-    ImageLoader imageLoader();
-
     PopularStreamRepository streamRepository();
 
     MovieDetailsRepository movieDetailsRepository();
