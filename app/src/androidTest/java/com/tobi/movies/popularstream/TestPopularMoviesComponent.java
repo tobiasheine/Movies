@@ -1,14 +1,16 @@
 package com.tobi.movies.popularstream;
 
 import com.tobi.movies.backend.FakeBackendModule;
+import com.tobi.movies.misc.ImageModule;
 
 import dagger.Component;
 
 @Component(
         modules = {
-                FakeBackendModule.class
+                FakeBackendModule.class,
+                ImageModule.class
         }
 )
-public interface TestPopularMoviesComponent extends PopularMoviesComponent {
+interface TestPopularMoviesComponent extends PopularMoviesComponent {
     void inject(PopularMoviesActivityTest popularMoviesActivityTest);
 }

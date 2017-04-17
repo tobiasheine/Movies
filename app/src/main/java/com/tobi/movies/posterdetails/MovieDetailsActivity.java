@@ -43,8 +43,10 @@ public class MovieDetailsActivity extends Activity implements MovieDetailsMVP.Vi
     @Inject
     Backend backend;
 
+    @Inject
+    ImageLoader imageLoader;
+
     private MovieDetailsPresenter presenter;
-    private ImageLoader imageLoader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,10 +57,7 @@ public class MovieDetailsActivity extends Activity implements MovieDetailsMVP.Vi
         application.getMovieDetailsComponent().inject(this);
         application.setBackend(backend);
 
-        imageLoader = new ImageLoader();
-
         movieDetailsUseCase = provideMovieDetailsUseCase();
-
         presenter = new MovieDetailsPresenter(movieDetailsUseCase);
     }
 

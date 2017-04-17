@@ -43,11 +43,6 @@ public class MovieApplication extends Application implements Dependencies {
     }
 
     @Override
-    public ImageLoader imageLoader() {
-        return dependencies.imageLoader();
-    }
-
-    @Override
     public PopularStreamRepository streamRepository() {
         return dependencies.streamRepository();
     }
