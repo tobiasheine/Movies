@@ -2,12 +2,11 @@ package com.tobi.movies;
 
 import com.tobi.movies.backend.Backend;
 import com.tobi.movies.backend.FakeBackendModule;
-
-import javax.inject.Singleton;
+import com.tobi.movies.di.ApplicationScope;
 
 import dagger.Component;
 
-@Singleton
+@ApplicationScope
 @Component(modules = FakeBackendModule.class)
 public interface TestApplicationComponent extends ApplicationComponent{
     Backend backend();

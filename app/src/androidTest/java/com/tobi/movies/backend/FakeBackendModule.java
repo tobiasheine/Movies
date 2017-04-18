@@ -1,6 +1,6 @@
 package com.tobi.movies.backend;
 
-import javax.inject.Singleton;
+import com.tobi.movies.di.ApplicationScope;
 
 import dagger.Module;
 import dagger.Provides;
@@ -8,7 +8,7 @@ import dagger.Provides;
 @Module
 public class FakeBackendModule {
 
-    @Singleton
+    @ApplicationScope
     @Provides
     Backend provideBackend() {
         return new ConfigurableBackend();
