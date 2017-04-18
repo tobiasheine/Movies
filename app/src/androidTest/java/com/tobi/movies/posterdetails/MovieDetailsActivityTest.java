@@ -21,8 +21,7 @@ public class MovieDetailsActivityTest {
     private static final String POSTER_PATH = "deadpool.jpg";
     private static final String RELEASE_DATE = "2010-01-01";
 
-    ConfigurableBackend backend;
-
+    private ConfigurableBackend backend;
     private ActivityTestRule<MovieDetailsActivity> rule;
     private ApiMovieDetails apiMovieDetails;
 

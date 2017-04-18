@@ -19,8 +19,5 @@ import dagger.Component;
         dependencies = TestApplicationComponent.class
 )
 interface TestMovieDetailsComponent extends MovieDetailsComponent {
-
     Backend backend();
-
-//    void inject(MovieDetailsActivityTest movieDetailsActivityTest);
 }

@@ -24,9 +24,7 @@ public class PopularMoviesActivityTest {
     private static final String RELEASE_DATE = "2000-01-01";
 
     private ActivityTestRule<PopularMoviesActivity> rule;
-
-    ConfigurableBackend backend;
-
+    private ConfigurableBackend backend;
     private ApiMoviePoster apiMoviePoster;
     private ApiMovieDetails movieDetails;
 
