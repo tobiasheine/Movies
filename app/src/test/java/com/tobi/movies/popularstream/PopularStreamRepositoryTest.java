@@ -4,7 +4,9 @@ import android.support.annotation.NonNull;
 
 import com.google.common.collect.Lists;
 import com.tobi.movies.Converter;
+import com.tobi.movies.misc.Threading;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.junit.Before;
@@ -15,6 +17,7 @@ import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 
 import rx.Observable;
+import rx.Scheduler;
 import rx.observers.TestSubscriber;
 import rx.schedulers.Schedulers;
 
@@ -40,10 +43,13 @@ public class PopularStreamRepositoryTest {
 
     @Before
     public void setUp() throws Exception {
+        HashMap<Threading, Scheduler> schedulerHashMap = new HashMap<>();
+        schedulerHashMap.put(Threading.SUBSCRIBER, Schedulers.immediate());
+        schedulerHashMap.put(Threading.OBSERVER, Schedulers.immediate());
+
         streamRepository = new PopularStreamRepository(
                 apiDataSource,
-                Schedulers.immediate(),
-                Schedulers.immediate(),
+                schedulerHashMap,
                 posterConverter
         );
     }

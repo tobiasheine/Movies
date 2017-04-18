@@ -32,6 +32,9 @@ public class PopularMoviesActivity extends AppCompatActivity {
     @Inject
     ImageLoader imageLoader;
 
+    @Inject
+    PopularStreamRepository streamRepository;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,14 +42,13 @@ public class PopularMoviesActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         final MovieApplication movieApplication = (MovieApplication) getApplicationContext();
         movieApplication.getPopularMoviesComponent().inject(this);
-        movieApplication.setBackend(backend);
 
         popularMoviesRecycler.setLayoutManager(new GridLayoutManager(this, POSTER_COL_COUNT));
         popularMoviesRecycler.setHasFixedSize(true);
 
         final Navigator navigator = new Navigator(this);
 
-        movieApplication.streamRepository().getPopularPosters().subscribe(new AbstractObserver<List<MoviePoster>>() {
+        streamRepository.getPopularPosters().subscribe(new AbstractObserver<List<MoviePoster>>() {
 
             @Override
             public void onError(Throwable e) {

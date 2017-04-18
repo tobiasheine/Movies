@@ -48,4 +48,9 @@ public class ConfigurableBackend implements Backend {
             }
         });
     }
+
+    public void clear() {
+        movieDetails.clear();
+        popularStream.clear();
+    }
 }

@@ -1,16 +1,23 @@
 package com.tobi.movies.posterdetails;
 
-import com.tobi.movies.backend.FakeBackendModule;
+import com.tobi.movies.TestApplicationComponent;
+import com.tobi.movies.backend.Backend;
+import com.tobi.movies.di.ActivityScope;
 import com.tobi.movies.misc.ImageModule;
+import com.tobi.movies.misc.TestThreadingModule;
 
 import dagger.Component;
 
+@ActivityScope
 @Component(
         modules = {
-                FakeBackendModule.class,
-                ImageModule.class
-        }
+                ImageModule.class,
+                TestDetailsApiModule.class,
+                TestThreadingModule.class,
+                TestDetailsConverterModule.class
+        },
+        dependencies = TestApplicationComponent.class
 )
 interface TestMovieDetailsComponent extends MovieDetailsComponent {
-    void inject(MovieDetailsActivityTest movieDetailsActivityTest);
+    Backend backend();
 }

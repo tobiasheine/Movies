@@ -3,10 +3,9 @@ package com.tobi.movies.steps;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.rule.ActivityTestRule;
 
-import com.tobi.movies.Dependencies;
-import com.tobi.movies.EspressoDependencies;
 import com.tobi.movies.MovieApplication;
 import com.tobi.movies.backend.ConfigurableBackend;
+import com.tobi.movies.popularstream.TestPopularMoviesComponent;
 import com.tobi.movies.posterdetails.ApiMovieDetails;
 import com.tobi.movies.posterdetails.MovieDetailsActivity;
 import com.tobi.movies.posterdetails.PosterDetailsRobot;
@@ -73,7 +72,6 @@ public class MovieDetailsSteps {
 
     private ConfigurableBackend getConfigurableBackend() {
         MovieApplication movieApplication = (MovieApplication) InstrumentationRegistry.getTargetContext().getApplicationContext();
-        Dependencies dependencies = movieApplication.getDependencies();
-        return ((EspressoDependencies) dependencies).getConfigurableBackend();
+        return (ConfigurableBackend) ((TestPopularMoviesComponent) movieApplication.getPopularMoviesComponent()).backend();
     }
 }
