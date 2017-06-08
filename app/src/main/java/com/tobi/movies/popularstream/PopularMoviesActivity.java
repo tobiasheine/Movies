@@ -15,7 +15,7 @@ import com.tobi.movies.misc.AbstractObserver;
 import javax.inject.Inject;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class PopularMoviesActivity extends AppCompatActivity {
@@ -23,7 +23,7 @@ public class PopularMoviesActivity extends AppCompatActivity {
     private static final String TAG = PopularMoviesActivity.class.getSimpleName();
     private static final int POSTER_COL_COUNT = 3;
 
-    @Bind(R.id.popularMovies_recycler)
+    @BindView(R.id.popularMovies_recycler)
     RecyclerView popularMoviesRecycler;
 
     @Inject

@@ -13,7 +13,7 @@ import com.tobi.movies.R;
 
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MoviePosterAdapter extends RecyclerView.Adapter<MoviePosterAdapter.MoviePosterViewHolder> {
@@ -59,7 +59,7 @@ public class MoviePosterAdapter extends RecyclerView.Adapter<MoviePosterAdapter.
 
     public static class MoviePosterViewHolder extends RecyclerView.ViewHolder {
 
-        @Bind(R.id.posterImage)
+        @BindView(R.id.posterImage)
         ImageView posterImage;
 
         public MoviePosterViewHolder(View itemView) {

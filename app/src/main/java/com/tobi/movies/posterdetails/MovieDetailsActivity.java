@@ -17,7 +17,7 @@ import com.tobi.movies.misc.Threading;
 import javax.inject.Inject;
 import java.util.Map;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import rx.Scheduler;
 
@@ -33,13 +33,13 @@ public class MovieDetailsActivity extends Activity implements MovieDetailsMVP.Vi
         return intent;
     }
 
-    @Bind(R.id.movieTitle)
+    @BindView(R.id.movieTitle)
     TextView movieTitle;
 
-    @Bind(R.id.posterImage)
+    @BindView(R.id.posterImage)
     ImageView moviePoster;
 
-    @Bind(R.id.movieOverview)
+    @BindView(R.id.movieOverview)
     TextView movieOverview;
 
     @Inject
