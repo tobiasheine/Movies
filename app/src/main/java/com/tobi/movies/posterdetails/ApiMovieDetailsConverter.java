@@ -13,12 +13,12 @@ public class ApiMovieDetailsConverter implements Converter<ApiMovieDetails, Movi
         String imageUrl = IMAGE_BASE_URL + input.posterPath.substring(1, input.posterPath.length());
         LocalDate releaseDate = new LocalDate(input.releaseDate);
 
-        return MovieDetails.builder().
-                movieId(input.movieId).
-                originalTitle(input.originalTitle).
-                overview(input.overview).
-                posterPath(imageUrl).
-                releaseDate(releaseDate).
-                build();
+        return new MovieDetails(
+                input.overview,
+                input.movieId,
+                input.originalTitle,
+                imageUrl,
+                releaseDate
+        );
     }
 }

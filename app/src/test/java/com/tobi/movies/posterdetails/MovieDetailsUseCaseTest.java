@@ -1,5 +1,6 @@
 package com.tobi.movies.posterdetails;
 
+import org.joda.time.LocalDate;
 import org.junit.Test;
 
 import rx.Observable;
@@ -11,26 +12,25 @@ import static org.mockito.Mockito.*;
 public class MovieDetailsUseCaseTest {
 
     private static final long ANY_MOVIE_ID = 1;
+    private static final MovieDetails ANY_MOVIE_DETAILS = new MovieDetails("overview", 1L, "title,", "path", new LocalDate());
+
     private final MovieDetailsRepository repository = mock(MovieDetailsRepository.class);
     private final MovieDetailsUseCase.Listener listener = mock(MovieDetailsUseCase.Listener.class);
-
     private final MovieDetailsUseCase movieDetailsUseCase = new MovieDetailsUseCase(repository, Schedulers.immediate(), Schedulers.immediate());
 
     @Test
     public void shouldTriggerListenerOnMovieDetails() throws Exception {
-        MovieDetails movieDetails = mock(MovieDetails.class);
-        when(repository.getMovieDetails(ANY_MOVIE_ID)).thenReturn(Observable.just(movieDetails));
+        when(repository.getMovieDetails(ANY_MOVIE_ID)).thenReturn(Observable.just(ANY_MOVIE_DETAILS));
         movieDetailsUseCase.setListener(listener);
 
         movieDetailsUseCase.loadMovieDetails(ANY_MOVIE_ID);
 
-        verify(listener).onMovieDetails(movieDetails);
+        verify(listener).onMovieDetails(ANY_MOVIE_DETAILS);
     }
 
     @Test
     public void shouldNoOpWhenNoListenerAttached() throws Exception {
-        MovieDetails movieDetails = mock(MovieDetails.class);
-        when(repository.getMovieDetails(ANY_MOVIE_ID)).thenReturn(Observable.just(movieDetails));
+        when(repository.getMovieDetails(ANY_MOVIE_ID)).thenReturn(Observable.just(ANY_MOVIE_DETAILS));
 
         movieDetailsUseCase.loadMovieDetails(ANY_MOVIE_ID);
 
@@ -39,13 +39,12 @@ public class MovieDetailsUseCaseTest {
 
     @Test
     public void shouldReturnLastMovieDetails() throws Exception {
-        MovieDetails expectedMovieDetails = mock(MovieDetails.class);
-        when(repository.getMovieDetails(ANY_MOVIE_ID)).thenReturn(Observable.just(expectedMovieDetails));
+        when(repository.getMovieDetails(ANY_MOVIE_ID)).thenReturn(Observable.just(ANY_MOVIE_DETAILS));
         movieDetailsUseCase.loadMovieDetails(ANY_MOVIE_ID);
 
         MovieDetails movieDetails = movieDetailsUseCase.getMovieDetails();
 
-        assertEquals(expectedMovieDetails, movieDetails);
+        assertEquals(ANY_MOVIE_DETAILS, movieDetails);
     }
 
     @Test

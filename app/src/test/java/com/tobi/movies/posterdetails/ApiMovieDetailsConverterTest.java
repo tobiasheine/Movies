@@ -26,11 +26,11 @@ public class ApiMovieDetailsConverterTest {
     }
 
     private void assertMovieDetailsHas(MovieDetails convertedDetails, String overview, String imageUrl, long movieId, String title, LocalDate releaseDate) {
-        assertEquals(movieId, convertedDetails.movieId());
-        assertEquals(title, convertedDetails.originalTitle());
-        assertEquals(overview, convertedDetails.overview());
-        assertEquals(releaseDate, convertedDetails.releaseDate());
-        assertEquals("http://image.tmdb.org/t/p/w500/" + imageUrl, convertedDetails.posterPath());
+        assertEquals(movieId, convertedDetails.getMovieId());
+        assertEquals(title, convertedDetails.getOriginalTitle());
+        assertEquals(overview, convertedDetails.getOverview());
+        assertEquals(releaseDate, convertedDetails.getReleaseDate());
+        assertEquals("http://image.tmdb.org/t/p/w500/" + imageUrl, convertedDetails.getPosterPath());
     }
 
     @NonNull

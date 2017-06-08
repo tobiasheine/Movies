@@ -34,13 +34,15 @@ public class MovieDetailsRepositoryTest {
 
         TestSubscriber<MovieDetails> testSubscriber = new TestSubscriber<>();
         detailsObservable.subscribe(testSubscriber);
-        MovieDetails expectedMovieDetails = MovieDetails.builder().
-                movieId(movieId).
-                posterPath("http://image.tmdb.org/t/p/w500/" + imagePath.substring(1, imagePath.length())).
-                originalTitle(title).
-                releaseDate(new LocalDate(releaseDate)).
-                overview(overview).
-                build();
+
+        MovieDetails expectedMovieDetails = new MovieDetails(
+                overview,
+                movieId,
+                title,
+                "http://image.tmdb.org/t/p/w500/" + imagePath.substring(1, imagePath.length()),
+                new LocalDate(releaseDate)
+        );
+
         testSubscriber.assertValue(expectedMovieDetails);
     }
 

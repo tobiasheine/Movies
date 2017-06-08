@@ -69,8 +69,8 @@ public class PopularStreamRepositoryTest {
 
         // then
         List<MoviePoster> moviePosters = Lists.newArrayList(
-                MoviePoster.create(FIRST_MOVIE_ID, FIRST_POSTER_PATH),
-                MoviePoster.create(SECOND_MOVIE_ID, SECOND_POSTER_PATH)
+                new MoviePoster(FIRST_MOVIE_ID, FIRST_POSTER_PATH),
+                new MoviePoster(SECOND_MOVIE_ID, SECOND_POSTER_PATH)
         );
 
         testSubscriber.assertValue(moviePosters);
@@ -78,7 +78,7 @@ public class PopularStreamRepositoryTest {
 
     private void givenConverterConvertsPosters(ApiMoviePoster... posters) {
         for (ApiMoviePoster poster : posters) {
-            when(posterConverter.convert(poster)).thenReturn(MoviePoster.create(poster.movieId, poster.posterPath));
+            when(posterConverter.convert(poster)).thenReturn(new MoviePoster(poster.movieId, poster.posterPath));
         }
     }
 

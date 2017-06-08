@@ -9,6 +9,6 @@ public class ApiMoviePosterConverter implements Converter<ApiMoviePoster, MovieP
     @Override
     public MoviePoster convert(ApiMoviePoster input) {
         String imageUrl = IMAGE_BASE_URL + input.posterPath.substring(1, input.posterPath.length());
-        return MoviePoster.create(input.movieId, imageUrl);
+        return new MoviePoster(input.movieId, imageUrl);
     }
 }

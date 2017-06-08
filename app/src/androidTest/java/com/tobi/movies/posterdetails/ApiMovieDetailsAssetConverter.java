@@ -13,12 +13,12 @@ public class ApiMovieDetailsAssetConverter implements Converter<ApiMovieDetails,
         String imageUrl = ASSET_PATH + input.posterPath.substring(0, input.posterPath.length());
         LocalDate releaseDate = new LocalDate(input.releaseDate);
 
-        return MovieDetails.builder().
-                movieId(input.movieId).
-                originalTitle(input.originalTitle).
-                overview(input.overview).
-                posterPath(imageUrl).
-                releaseDate(releaseDate).
-                build();
+        return new MovieDetails(
+                input.overview,
+                input.movieId,
+                input.originalTitle,
+                imageUrl,
+                releaseDate
+        );
     }
 }
