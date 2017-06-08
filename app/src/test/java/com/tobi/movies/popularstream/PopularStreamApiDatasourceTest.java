@@ -1,6 +1,5 @@
 package com.tobi.movies.popularstream;
 
-import com.tobi.movies.BuildConfig;
 import com.tobi.movies.backend.Backend;
 
 import java.util.List;
@@ -61,7 +60,7 @@ public class PopularStreamApiDatasourceTest {
         ApiPopularMoviesResponse apiResponse = new ApiPopularMoviesResponse();
         apiResponse.results = posters;
 
-        when(backend.popularStream(BuildConfig.API_KEY)).thenReturn(Observable.just(apiResponse));
+        when(backend.popularStream()).thenReturn(Observable.just(apiResponse));
     }
 }
 

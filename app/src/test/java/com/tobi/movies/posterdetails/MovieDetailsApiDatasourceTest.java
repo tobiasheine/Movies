@@ -1,6 +1,5 @@
 package com.tobi.movies.posterdetails;
 
-import com.tobi.movies.BuildConfig;
 import com.tobi.movies.backend.Backend;
 
 import org.junit.Before;
@@ -46,6 +45,6 @@ public class MovieDetailsApiDatasourceTest {
     }
 
     private void givenBackenReturnsMovieDetailsForId(long movieId, ApiMovieDetails movieDetails) {
-        when(backend.movieDetails(movieId, BuildConfig.API_KEY)).thenReturn(Observable.just(movieDetails));
+        when(backend.movieDetails(movieId)).thenReturn(Observable.just(movieDetails));
     }
 }

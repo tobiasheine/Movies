@@ -13,7 +13,6 @@ import java.util.Map;
 import java.util.concurrent.Callable;
 
 import retrofit2.http.Path;
-import retrofit2.http.Query;
 import rx.Observable;
 
 public class ConfigurableBackend implements Backend {
@@ -30,7 +29,7 @@ public class ConfigurableBackend implements Backend {
     }
 
     @Override
-    public Observable<ApiPopularMoviesResponse> popularStream(@Query("api_key") String apiKey) {
+    public Observable<ApiPopularMoviesResponse> popularStream() {
         return Observable.fromCallable(new Callable<ApiPopularMoviesResponse>() {
             @Override
             public ApiPopularMoviesResponse call() throws Exception {
@@ -40,7 +39,7 @@ public class ConfigurableBackend implements Backend {
     }
 
     @Override
-    public Observable<ApiMovieDetails> movieDetails(@Path("id") final long movieId, @Query("api_key") String apiKey) {
+    public Observable<ApiMovieDetails> movieDetails(@Path("id") final long movieId) {
         return Observable.fromCallable(new Callable<ApiMovieDetails>() {
             @Override
             public ApiMovieDetails call() throws Exception {

@@ -2,7 +2,6 @@ package com.tobi.movies.popularstream;
 
 import android.support.annotation.NonNull;
 
-import com.tobi.movies.BuildConfig;
 import com.tobi.movies.backend.Backend;
 
 import java.util.List;
@@ -19,8 +18,7 @@ public class PopularStreamApiDatasource {
     }
 
     public Observable<List<ApiMoviePoster>> getPopularPosters() {
-        return backend.popularStream(BuildConfig.API_KEY)
-                .map(tApiMoviePosters());
+        return backend.popularStream().map(tApiMoviePosters());
     }
 
     @NonNull
