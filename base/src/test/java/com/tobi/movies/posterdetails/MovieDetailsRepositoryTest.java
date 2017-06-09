@@ -1,7 +1,5 @@
 package com.tobi.movies.posterdetails;
 
-import android.support.annotation.NonNull;
-
 import com.tobi.movies.Converter;
 
 import org.joda.time.LocalDate;
@@ -46,7 +44,6 @@ public class MovieDetailsRepositoryTest {
         testSubscriber.assertValue(expectedMovieDetails);
     }
 
-    @NonNull
     private ApiMovieDetails createApiMovieDetails(long movieId, String imagePath, String overview, String title, String releaseDate) {
         ApiMovieDetails apiMovieDetails = new ApiMovieDetails();
         apiMovieDetails.movieId = movieId;
