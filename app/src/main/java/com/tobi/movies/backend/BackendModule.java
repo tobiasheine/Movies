@@ -22,7 +22,7 @@ public class BackendModule {
     Backend provideBackend() {
 
         return new Retrofit.Builder()
-                .baseUrl(Backend.SERVICE_ENDPOINT)
+                .baseUrl(Backend.Companion.getSERVICE_ENDPOINT())
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .client(okHttpClient())
