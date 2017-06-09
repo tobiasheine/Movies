@@ -10,13 +10,13 @@ import static org.mockito.Mockito.*;
 public class MovieDetailsPresenterTest {
 
     private static final long ANY_MOVIE_ID = 1L;
-    private static final MovieDetails ANY_MOVIE_DETAILS = MovieDetails.builder()
-            .movieId(ANY_MOVIE_ID)
-            .originalTitle("title")
-            .overview("overview")
-            .posterPath("poster")
-            .releaseDate(new LocalDate())
-            .build();
+    private static final MovieDetails ANY_MOVIE_DETAILS = new MovieDetails(
+            "overview",
+            ANY_MOVIE_ID,
+            "title",
+            "poster",
+            new LocalDate()
+    );
 
     private final MovieDetailsMVP.View view = mock(MovieDetailsMVP.View.class);
     private final MovieDetailsUseCase movieDetailsUseCase = mock(MovieDetailsUseCase.class);

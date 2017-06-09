@@ -18,15 +18,12 @@ public class ApiMoviePosterConverterTest {
 
         MoviePoster moviePoster = apiMoviePosterConverter.convert(apiMoviePoster);
 
-        assertEquals("http://image.tmdb.org/t/p/w500/" + imageUrl, moviePoster.posterPath());
-        assertEquals(posterId, moviePoster.movieId());
+        assertEquals("http://image.tmdb.org/t/p/w500/" + imageUrl, moviePoster.getPosterPath());
+        assertEquals(posterId, moviePoster.getMovieId());
     }
 
     @NonNull
     private ApiMoviePoster createApiMoviePoster(String imageUrl, long posterId) {
-        ApiMoviePoster apiMoviePoster = new ApiMoviePoster();
-        apiMoviePoster.posterPath = "/" + imageUrl;
-        apiMoviePoster.movieId = posterId;
-        return apiMoviePoster;
+        return new ApiMoviePoster(posterId, "/" + imageUrl);
     }
 }

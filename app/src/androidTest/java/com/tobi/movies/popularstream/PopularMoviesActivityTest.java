@@ -69,10 +69,7 @@ public class PopularMoviesActivityTest {
     }
 
     private ApiMoviePoster createApiMoviePoster(long movieId, String posterPath) {
-        ApiMoviePoster poster = new ApiMoviePoster();
-        poster.movieId = movieId;
-        poster.posterPath = posterPath;
-        return poster;
+        return new ApiMoviePoster(movieId, posterPath);
     }
 
     private ApiMovieDetails createMovieDetails(long movieId, String movieTitle, String movieOverview, String posterPath, String releaseDate) {

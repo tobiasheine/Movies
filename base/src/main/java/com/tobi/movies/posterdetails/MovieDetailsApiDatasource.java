@@ -1,6 +1,5 @@
 package com.tobi.movies.posterdetails;
 
-import com.tobi.movies.BuildConfig;
 import com.tobi.movies.backend.Backend;
 
 import rx.Observable;
@@ -14,6 +13,6 @@ public class MovieDetailsApiDatasource {
     }
 
     public Observable<ApiMovieDetails> getMovieDetails(long movieId) {
-        return backend.movieDetails(movieId, BuildConfig.API_KEY);
+        return backend.movieDetails(movieId);
     }
 }

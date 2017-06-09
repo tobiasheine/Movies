@@ -80,9 +80,9 @@ public class MovieDetailsActivity extends Activity implements MovieDetailsMVP.Vi
 
     @Override
     public void display(MovieDetails movieDetails) {
-        movieTitle.setText(movieDetails.originalTitle());
-        movieOverview.setText(movieDetails.overview());
-        imageLoader.loadWebImageInto(Uri.parse(movieDetails.posterPath()), moviePoster);
+        movieTitle.setText(movieDetails.getOriginalTitle());
+        movieOverview.setText(movieDetails.getOverview());
+        imageLoader.loadWebImageInto(Uri.parse(movieDetails.getPosterPath()), moviePoster);
     }
 
     @Override

@@ -23,7 +23,7 @@ public class PosterMatcher {
             protected boolean matchesSafely(RecyclerView item) {
                 MoviePosterAdapter adapter = (MoviePosterAdapter) item.getAdapter();
                 MoviePoster moviePoster = adapter.getItemAt(position);
-                return moviePoster.posterPath().contains(posterPath);
+                return moviePoster.getPosterPath().contains(posterPath);
             }
         };
     }
