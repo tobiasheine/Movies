@@ -34,17 +34,9 @@ public class PopularStreamApiDatasourceTest {
 
     @Test
     public void shouldReturnApiMoviePosters() throws Exception {
-        ApiMoviePoster firstPoster = new ApiMoviePoster();
-        firstPoster.movieId = 1L;
-        firstPoster.posterPath = "url1";
-
-        ApiMoviePoster secondPoster = new ApiMoviePoster();
-        secondPoster.movieId = 2L;
-        secondPoster.posterPath = "url2";
-
-        ApiMoviePoster thirdPoster = new ApiMoviePoster();
-        thirdPoster.movieId = 2L;
-        thirdPoster.posterPath = "url2";
+        ApiMoviePoster firstPoster = new ApiMoviePoster(1L, "url1");
+        ApiMoviePoster secondPoster = new ApiMoviePoster(2L, "url2");
+        ApiMoviePoster thirdPoster = new ApiMoviePoster(3L, "url3");
 
         List<ApiMoviePoster> expectedPosters = asList(firstPoster, secondPoster, thirdPoster);
         givenApiResponseWithMoviePoster(expectedPosters);

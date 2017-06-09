@@ -24,9 +24,6 @@ public class ApiMoviePosterConverterTest {
 
     @NonNull
     private ApiMoviePoster createApiMoviePoster(String imageUrl, long posterId) {
-        ApiMoviePoster apiMoviePoster = new ApiMoviePoster();
-        apiMoviePoster.posterPath = "/" + imageUrl;
-        apiMoviePoster.movieId = posterId;
-        return apiMoviePoster;
+        return new ApiMoviePoster(posterId, "/" + imageUrl);
     }
 }

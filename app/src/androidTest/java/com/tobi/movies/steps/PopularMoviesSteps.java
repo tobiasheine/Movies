@@ -42,10 +42,7 @@ public class PopularMoviesSteps {
     }
 
     private ApiMoviePoster createApiMoviePoster(long movieId, String posterPath) {
-        ApiMoviePoster poster = new ApiMoviePoster();
-        poster.movieId = movieId;
-        poster.posterPath = posterPath;
-        return poster;
+        return new ApiMoviePoster(movieId, posterPath);
     }
 
     @When("^I select the poster at position (\\d+)$")

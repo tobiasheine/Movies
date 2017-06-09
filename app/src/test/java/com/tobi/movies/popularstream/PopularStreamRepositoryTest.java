@@ -78,7 +78,7 @@ public class PopularStreamRepositoryTest {
 
     private void givenConverterConvertsPosters(ApiMoviePoster... posters) {
         for (ApiMoviePoster poster : posters) {
-            when(posterConverter.convert(poster)).thenReturn(new MoviePoster(poster.movieId, poster.posterPath));
+            when(posterConverter.convert(poster)).thenReturn(new MoviePoster(poster.getMovieId(), poster.getPosterPath()));
         }
     }
 
@@ -90,9 +90,6 @@ public class PopularStreamRepositoryTest {
 
     @NonNull
     private ApiMoviePoster createApiMoviePoster(long firstMovieId, String firstPosterPath) {
-        ApiMoviePoster firstPoster = new ApiMoviePoster();
-        firstPoster.movieId = firstMovieId;
-        firstPoster.posterPath = firstPosterPath;
-        return firstPoster;
+        return new ApiMoviePoster(firstMovieId, firstPosterPath);
     }
 }
