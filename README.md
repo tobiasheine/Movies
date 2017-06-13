@@ -1,5 +1,8 @@
 # Android BDD using Espresso + Cucumber
 
+## Movivation
+https://www.novoda.com/blog/tests-are-the-best-documentation/
+
 ## Setup
 1. Register and get an API-Token from https://api.themoviedb.org/
 2. Create `secrets.properties` and include your token like this:
