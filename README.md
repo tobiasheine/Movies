@@ -1,6 +1,6 @@
 # Android BDD using Espresso + Cucumber
 
-## Movivation
+## Motivation
 https://www.novoda.com/blog/tests-are-the-best-documentation/
 
 ## Setup
