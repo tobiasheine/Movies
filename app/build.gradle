@@ -1,5 +1,15 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'com.novoda.build-properties'
+
+buildProperties {
+    secrets {
+        file rootProject.file('secrets.properties'), '''
+           This file should contain the following properties:
+           - API_KEY: API key the movie db
+        '''
+    }
+}
 
 android {
     compileSdkVersion 25
@@ -45,19 +55,7 @@ android {
 }
 
 def getApiKey() {
-    Properties props = new Properties()
-
-    def secretsFile = new File('secrets.properties')
-    if (secretsFile.exists()) {
-        props.load(new FileInputStream(secretsFile))
-        return props['API_KEY']
-    }
-
-    if (project.hasProperty("API_KEY")) {
-        return project.getProperties().get('API_KEY')
-    }
-    
-    throw new GradleException("API_KEY not defined")
+    return buildProperties.secrets['API_KEY'].or(buildProperties.env['API_KEY']).string
 }
 
 def getTestTags() {
