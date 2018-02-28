@@ -45,9 +45,19 @@ android {
 }
 
 def getApiKey() {
-    def Properties props = new Properties()
-    props.load(new FileInputStream(new File('secrets.properties')))
-    return props['API_KEY']
+    Properties props = new Properties()
+
+    def secretsFile = new File('secrets.properties')
+    if (secretsFile.exists()) {
+        props.load(new FileInputStream(secretsFile))
+        return props['API_KEY']
+    }
+
+    if (project.hasProperty("API_KEY")) {
+        return project.getProperties().get('API_KEY')
+    }
+    
+    throw new GradleException("API_KEY not defined")
 }
 
 def getTestTags() {
