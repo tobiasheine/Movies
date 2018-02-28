@@ -18,7 +18,7 @@ android {
     defaultConfig {
         applicationId 'com.tobi.movies'
         minSdkVersion 19
-        targetSdkVersion 25
+        targetSdkVersion 27
         versionCode 1
         versionName '1.0'
         testApplicationId 'com.tobi.movies.steps'
