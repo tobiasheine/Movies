@@ -41,3 +41,5 @@ def teamPropsFile(propsFile) {
 repositories {
     mavenCentral()
 }
+
+apply from: teamPropsFile('scaffolding.gradle')

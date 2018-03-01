@@ -1,0 +1,2 @@
+apply from: teamPropsFile('android-code-quality.gradle')
+apply from: teamPropsFile('ci.gradle')
