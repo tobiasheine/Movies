@@ -21,7 +21,6 @@ buildscript {
         // in the individual module build.gradle files
     }
 }
-apply plugin: 'kotlin'
 
 allprojects {
     repositories {
@@ -41,7 +40,4 @@ def teamPropsFile(propsFile) {
 
 repositories {
     mavenCentral()
-}
-dependencies {
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
 }
