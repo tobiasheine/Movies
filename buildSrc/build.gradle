@@ -1,0 +1,9 @@
+repositories {
+    jcenter()
+}
+
+apply plugin: 'groovy'
+
+dependencies {
+    compile 'com.novoda:gradle-build-properties-plugin:0.3'
+}

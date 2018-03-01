@@ -4,10 +4,11 @@ apply plugin: 'com.novoda.build-properties'
 
 buildProperties {
     secrets {
-        file rootProject.file('secrets.properties'), '''
-           This file should contain the following properties:
-           - API_KEY: API key the movie db
-        '''
+        file rootProject.file('secrets.properties')
+    }
+
+    cli {
+        entries ProjectEntries.from(project)
     }
 }
 
@@ -55,23 +56,23 @@ android {
 }
 
 def getApiKey() {
-    return buildProperties.secrets['API_KEY'].or(buildProperties.env['API_KEY']).string
+    return (buildProperties.secrets['API_KEY'] | buildProperties.env['API_KEY']).string
 }
 
 def getTestTags() {
-    project.getProperties().get('tags') ?: ''
+    (buildProperties.cli['tags'] | '').string
 }
 
 def getTestFeature() {
-    project.getProperties().get('feature') ?: ''
+    (buildProperties.cli['feature'] | '').string
 }
 
 def getTestScenario() {
-    project.getProperties().get('scenario') ?: ''
+    (buildProperties.cli['scenario'] | '').string
 }
 
 def getInstrumentation() {
-    project.hasProperty('cucumber') ? 'com.tobi.movies.utils.CucumberInstrumentation' : 'com.tobi.movies.runner.DaggerOverridesTestRunner'
+    buildProperties.cli.keys.toList().contains('cucumber') ? 'com.tobi.movies.utils.CucumberInstrumentation' : 'com.tobi.movies.runner.DaggerOverridesTestRunner'
 }
 
 dependencies {
