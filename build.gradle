@@ -14,7 +14,7 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:2.3.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath 'com.novoda:gradle-build-properties-plugin:0.3'
+        classpath 'com.novoda:gradle-build-properties-plugin:0.3.9'
         classpath 'com.novoda:gradle-static-analysis-plugin:0.5.2'
 
         // NOTE: Do not place your application dependencies here; they belong

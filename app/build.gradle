@@ -32,9 +32,9 @@ android {
         }
 
         debug {
-            buildConfigField 'String', 'TEST_TAGS', '"' + getTestTags() + '"'
-            buildConfigField 'String', 'TEST_FEATURE', '"' + getTestFeature() + '"'
-            buildConfigField 'String', 'TEST_SCENARIO', '"' + getTestScenario() + '"'
+            buildConfigString 'TEST_TAGS', (buildProperties.cli['tags'] | { '' }).string
+            buildConfigString 'TEST_FEATURE', (buildProperties.cli['feature'] | '').string
+            buildConfigString 'TEST_SCENARIO', (buildProperties.cli['scenario'] | '').string
         }
 
         release {
@@ -57,18 +57,6 @@ android {
 
 def getApiKey() {
     return (buildProperties.secrets['API_KEY'] | buildProperties.env['API_KEY']).string
-}
-
-def getTestTags() {
-    (buildProperties.cli['tags'] | '').string
-}
-
-def getTestFeature() {
-    (buildProperties.cli['feature'] | '').string
-}
-
-def getTestScenario() {
-    (buildProperties.cli['scenario'] | '').string
 }
 
 def getInstrumentation() {
