@@ -1,10 +1,3 @@
-apply plugin: 'jacoco'
-
-jacoco {
-    toolVersion = "0.8.0"
-    reportsDir = file("$buildDir/reports")
-}
-
 sonarqube {
     properties {
         property "sonar.projectVersion", "${version}"
@@ -19,10 +12,11 @@ subprojects {
 }
 
 configureAndroidModule(':app', 'com.android.application', 'debug')
-configureJavaModule(':base')
+configureKotlinModule(':base')
 
 def configureAndroidModule(String projectName, String pluginId, String targetVariant) {
     project(projectName) { targetProject ->
+        apply plugin: 'jacoco'
         plugins.withId(pluginId) {
             android {
                 testOptions {
@@ -47,56 +41,13 @@ def configureAndroidModule(String projectName, String pluginId, String targetVar
     }
 }
 
-def configureJavaModule(String projectName) {
+def configureKotlinModule(String projectName) {
     project(projectName) {
+        apply plugin: 'jacoco'
         sonarqube {
             skipProject = false
         }
     }
-}
-
-
-task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'createDebugCoverageReport']) {
-    group = "Reporting"
-    description = "Generate Jacoco coverage reports for Debug build"
-
-    reports {
-        xml.enabled = true
-        html.enabled = true
-    }
-
-    // what to exclude from coverage report
-    // UI, "noise", generated classes, platform classes, etc.
-    def excludes = [
-            '**/R.class',
-            '**/R$*.class',
-            '**/*$ViewInjector*.*',
-            '**/BuildConfig.*',
-            '**/Manifest*.*',
-            '**/*Test*.*',
-            'android/**/*.*'
-    ]
-    // generated classes
-    classDirectories = fileTree(
-            dir: "$buildDir/intermediates/classes/debug",
-            excludes: excludes
-    ) + fileTree(
-            dir: "$buildDir/tmp/kotlin-classes/debug",
-            excludes: excludes
-    )
-
-    // sources
-    sourceDirectories = files([
-            android.sourceSets.main.java.srcDirs,
-            "src/main/kotlin"
-    ])
-
-    executionData = fileTree(dir: "$buildDir", includes: [
-            'jacoco/testDebugUnitTest.exec'
-            , 'outputs/code-coverage/connected/*coverage.ec'
-    ])
-
-
 }
 
 //task sonarqube dependsOn jacocoTestReport

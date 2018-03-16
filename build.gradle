@@ -49,3 +49,4 @@ repositories {
 }
 
 apply from: teamPropsFile('scaffolding.gradle')
+apply from: teamPropsFile('sonar.gradle')
