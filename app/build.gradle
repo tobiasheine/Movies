@@ -32,6 +32,7 @@ android {
         }
 
         debug {
+            testCoverageEnabled true
             buildConfigString 'TEST_TAGS', (buildProperties.cli['tags'] | { '' }).string
             buildConfigString 'TEST_FEATURE', (buildProperties.cli['feature'] | '').string
             buildConfigString 'TEST_SCENARIO', (buildProperties.cli['scenario'] | '').string

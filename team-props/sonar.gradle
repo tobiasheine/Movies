@@ -8,11 +8,11 @@ jacoco {
 sonarqube {
     properties {
         property "sonar.projectVersion", "${version}"
-        property "sonar.jacoco.reportPaths", "build/jacoco/testDebugUnitTest.exec"
+        property "sonar.jacoco.reportPaths", ["build/jacoco/testDebugUnitTest.exec", 'build/outputs/code-coverage/connected/ONEPLUS A3003 - 8.0.0-coverage.ec']
     }
 }
 
-task jacocoTestReport(type: JacocoReport, dependsOn: "testDebugUnitTest") {
+task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'createDebugCoverageReport']) {
     group = "Reporting"
     description = "Generate Jacoco coverage reports for Debug build"
 
@@ -30,9 +30,7 @@ task jacocoTestReport(type: JacocoReport, dependsOn: "testDebugUnitTest") {
             '**/BuildConfig.*',
             '**/Manifest*.*',
             '**/*Test*.*',
-            'android/**/*.*',
-            '**/*Fragment.*',
-            '**/*Activity.*'
+            'android/**/*.*'
     ]
     // generated classes
     classDirectories = fileTree(
@@ -48,9 +46,14 @@ task jacocoTestReport(type: JacocoReport, dependsOn: "testDebugUnitTest") {
             android.sourceSets.main.java.srcDirs,
             "src/main/kotlin"
     ])
-    executionData = files("$buildDir/jacoco/testDebugUnitTest.exec")
+
+    executionData = fileTree(dir: "$buildDir", includes: [
+            'jacoco/testDebugUnitTest.exec'
+            ,'outputs/code-coverage/connected/*coverage.ec'
+    ])
+
+
 }
 
 
-
-task sonarqube dependsOn jacocoTestReport
+//task sonarqube dependsOn jacocoTestReport
