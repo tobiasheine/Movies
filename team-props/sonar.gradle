@@ -50,3 +50,7 @@ task jacocoTestReport(type: JacocoReport, dependsOn: "testDebugUnitTest") {
     ])
     executionData = files("$buildDir/jacoco/testDebugUnitTest.exec")
 }
+
+
+
+task sonarqube dependsOn jacocoTestReport

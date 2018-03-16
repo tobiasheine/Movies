@@ -12,8 +12,6 @@ buildProperties {
     }
 }
 
-apply from: teamPropsFile('sonar.gradle')
-
 android {
     compileSdkVersion 25
     buildToolsVersion '25.0.3'
@@ -56,6 +54,8 @@ android {
 
     }
 }
+
+apply from: teamPropsFile('sonar.gradle')
 
 def getApiKey() {
     return (buildProperties.secrets['API_KEY'] | buildProperties.env['API_KEY']).string
