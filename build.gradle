@@ -1,11 +1,5 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
-ext {
-    checkstyleVersion = '8.8'
-    findbugsVersion = '3.0.1'
-    pmdVersion = '6.0.1'
-}
-
 buildscript {
     ext.kotlin_version = '1.1.2-4'
     repositories {
@@ -22,6 +16,15 @@ buildscript {
     }
 }
 
+plugins {
+    id "org.sonarqube" version "2.6.2"
+}
+
+ext {
+    checkstyleVersion = '8.8'
+    findbugsVersion = '3.0.1'
+    pmdVersion = '6.0.1'
+}
 allprojects {
     repositories {
         jcenter()
