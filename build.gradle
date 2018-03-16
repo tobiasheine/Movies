@@ -4,9 +4,11 @@ buildscript {
     ext.kotlin_version = '1.1.2-4'
     repositories {
         jcenter()
+        google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.2'
+        classpath 'com.android.tools.build:gradle:3.0.1'
+        classpath 'org.jacoco:org.jacoco.core:0.8.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'com.novoda:gradle-build-properties-plugin:0.3.9'
         classpath 'com.novoda:gradle-static-analysis-plugin:0.5.2'
@@ -43,6 +45,7 @@ def teamPropsFile(propsFile) {
 
 repositories {
     mavenCentral()
+    google()
 }
 
 apply from: teamPropsFile('scaffolding.gradle')

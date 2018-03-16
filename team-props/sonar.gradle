@@ -1,7 +1,7 @@
 apply plugin: 'jacoco'
 
 jacoco {
-    toolVersion = "0.7.9"
+    toolVersion = "0.8.0"
     reportsDir = file("$buildDir/reports")
 }
 
@@ -11,6 +11,50 @@ sonarqube {
         property "sonar.jacoco.reportPaths", ["build/jacoco/testDebugUnitTest.exec", 'build/outputs/code-coverage/connected/ONEPLUS A3003 - 8.0.0-coverage.ec']
     }
 }
+
+subprojects {
+    sonarqube {
+        skipProject = true
+    }
+}
+
+configureAndroidModule(':app', 'com.android.application', 'debug')
+configureJavaModule(':base')
+
+def configureAndroidModule(String projectName, String pluginId, String targetVariant) {
+    project(projectName) { targetProject ->
+        plugins.withId(pluginId) {
+            android {
+                testOptions {
+                    unitTests {
+                        includeAndroidResources true
+                    }
+                }
+                afterEvaluate {
+                    sonarqube {
+                        skipProject = false
+                        androidVariant targetVariant
+
+                        properties {
+                            property 'sonar.jacoco.reportPaths', [new File(targetProject.buildDir, "jacoco/test${targetVariant.capitalize()}UnitTest.exec").path,
+                                                                  'build/outputs/code-coverage/connected/ONEPLUS A3003 - 8.0.0-coverage.ec']
+                            property 'sonar.junit.reportsPath', new File(targetProject.buildDir, "test-results/test${targetVariant.capitalize()}UnitTest").path
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+def configureJavaModule(String projectName) {
+    project(projectName) {
+        sonarqube {
+            skipProject = false
+        }
+    }
+}
+
 
 task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'createDebugCoverageReport']) {
     group = "Reporting"
@@ -49,11 +93,10 @@ task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'crea
 
     executionData = fileTree(dir: "$buildDir", includes: [
             'jacoco/testDebugUnitTest.exec'
-            ,'outputs/code-coverage/connected/*coverage.ec'
+            , 'outputs/code-coverage/connected/*coverage.ec'
     ])
 
 
 }
-
 
 //task sonarqube dependsOn jacocoTestReport
