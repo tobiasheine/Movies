@@ -1,10 +1,3 @@
-sonarqube {
-    properties {
-        property "sonar.projectVersion", "${version}"
-        property "sonar.jacoco.reportPaths", ["build/jacoco/testDebugUnitTest.exec", 'build/outputs/code-coverage/connected/ONEPLUS A3003 - 8.0.0-coverage.ec']
-    }
-}
-
 subprojects {
     sonarqube {
         skipProject = true
@@ -31,7 +24,7 @@ def configureAndroidModule(String projectName, String pluginId, String targetVar
 
                         properties {
                             property 'sonar.jacoco.reportPaths', [new File(targetProject.buildDir, "jacoco/test${targetVariant.capitalize()}UnitTest.exec").path,
-                                                                  'build/outputs/code-coverage/connected/ONEPLUS A3003 - 8.0.0-coverage.ec']
+                                                                  'build/outputs/code-coverage/connected/Nexus_5X_API_27_x86(AVD) - 8.1.0-coverage.ec']
                             property 'sonar.junit.reportsPath', new File(targetProject.buildDir, "test-results/test${targetVariant.capitalize()}UnitTest").path
                         }
                     }
@@ -49,5 +42,3 @@ def configureKotlinModule(String projectName) {
         }
     }
 }
-
-//task sonarqube dependsOn jacocoTestReport
