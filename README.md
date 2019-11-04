@@ -1,4 +1,4 @@
-# Android BDD using Espresso + Cucumber
+# Android BDD using Espresso & Cucumber
 
 ## Motivation
 https://www.novoda.com/blog/tests-are-the-best-documentation/
